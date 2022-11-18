@@ -1,12 +1,13 @@
 import React from "react";
 import SinglePost from "../singlePost";
-import photoOne from "../../../assets/about-us.jpg";
-import photoTwo from "../../../assets/indesignSeven.jpg";
-import photoThree from "../../../assets/programmer-working-on-laptop-computer-technology.jpg";
-import photoFour from "../../../assets/indesignFive.jpg";
-import photoFive from "../../../assets/paris.jpg";
-import photoSix from "../../../assets/about-us.jpg";
+import photoOne from "../../../assets/Images/about-us.jpg";
+import photoTwo from "../../../assets/Images/indesignSeven.jpg";
+import photoThree from "../../../assets/Images/programmer-working-on-laptop-computer-technology.jpg";
+import photoFour from "../../../assets/Images/indesignFive.jpg";
+import photoFive from "../../../assets/Images/paris.jpg";
+import photoSix from "../../../assets/Images/about-us.jpg";
 import { AllPostStyle } from "./style";
+
 const PostsDisplay = () => {
   const posts = [
     {
