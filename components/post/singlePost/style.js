@@ -11,7 +11,7 @@ export const StyledPost = styled.div`
   border-bottom: 1px solid #7e807e4d;
   padding-bottom: 1rem;
   /* font-family: "Montserrat", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: "Nunito", sans-serif;
   .flex {
     display: flex;
     align-items: center;
@@ -58,7 +58,7 @@ export const StyledPost = styled.div`
     h1 {
       font-size: 20px;
       font-weight: 900;
-      font-family: "PT Serif", serif;
+      font-family: "Nunito", sans-serif;
     }
     h5 {
       margin: 0.1rem 0;
