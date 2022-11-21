@@ -11,12 +11,12 @@ export const PostStructureDiv = styled.div`
     margin-bottom: 40px;
 
     .userDetails {
-      width: 25%;
+      width: 30%;
       cursor: pointer;
 
       .photoContainer {
         width: 100%;
-        height: 130px;
+        height: 150px;
         border-radius: 8px;
 
         .photoContainerImage {
@@ -28,7 +28,7 @@ export const PostStructureDiv = styled.div`
     }
 
     .mainPostContainer {
-      width: 70%;
+      width: 65%;
 
       .mainPostContainerHeaderWrapper {
         width: 100%;

@@ -11,26 +11,42 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <FooterDiv>
-      <div>
+      <div className="socialMedia">
         {socialMediaHandles?.map((item, key) => (
           <Link key={key} href={item.link}>
-            <div>
-              <item.linkIcon />
+            <div className="socialMedia__item">
+              <item.linkIcon className="socialMedia__icon" />
             </div>
           </Link>
         ))}
       </div>
-      <div></div>
-      <div></div>
+      <div className="textLinks">
+        {LinksURL?.map((item, key) => (
+          <Link key={key} href={item.link}>
+            <div className="textLinksItem">
+              <p>{item.linkText}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="footerText">
+        <p>© 2022 ThemeSphere. Designed by ThemeSphere.</p>
+      </div>
     </FooterDiv>
   );
 };
 
 const socialMediaHandles = [
   { link: "", linkIcon: FaFacebook },
-  { link: "", linkIcon: FaFacebook },
-  { link: "", linkIcon: FaFacebook },
-  { link: "", linkIcon: FaFacebook },
+  { link: "", linkIcon: FaTwitter },
+  { link: "", linkIcon: FaInstagram },
+  { link: "", linkIcon: FaPinterestP },
+];
+
+const LinksURL = [
+  { link: "", linkText: "Home" },
+  { link: "", linkText: "Privacy" },
+  { link: "", linkText: "Get in Touch" },
 ];
 
 export default memo(Footer);

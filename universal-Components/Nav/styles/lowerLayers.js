@@ -30,7 +30,6 @@ export const LowerLayers = styled.div`
 
     .LowerNavLinksData {
       font-family: "Poppins", sans-serif;
-      /* font-family: "Roboto", sans-serif; */
       font-style: normal;
       font-size: 16px;
       line-height: 16px;
