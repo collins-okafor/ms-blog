@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import SinglePost from "../post/singlePost";
 import HeroSection from "./heroSection";
 import PostStructure from "./postStructure";
 import { LandingDiv } from "./styles/landing.style";
@@ -14,10 +13,18 @@ const LandingPage = () => {
         <div className="landingBodySectionPost">
           <PostStructure />
         </div>
-        <div className="landingBodySectionAds"></div>
+        <div className="landingBodySectionAds">
+          {ads?.map((item, key) => (
+            <div key={key} className="landingBodySectionAdsItem">
+              Ads
+            </div>
+          ))}
+        </div>
       </div>
     </LandingDiv>
   );
 };
+
+const ads = [{}, {}, {}];
 
 export default memo(LandingPage);
