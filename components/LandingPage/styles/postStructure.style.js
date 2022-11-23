@@ -54,9 +54,10 @@ export const PostStructureDiv = styled.div`
 
           .userName {
             h4 {
-              font-family: "Nunito", sans-serif;
+              font-family: "Public Sans", sans-serif;
+              /* font-family: "Nunito", sans-serif; */
               font-size: 14px;
-              font-weight: 700;
+              font-weight: 500;
               font-style: normal;
               color: ${({ theme }) => theme.textColor};
               line-height: 16px;
@@ -68,7 +69,8 @@ export const PostStructureDiv = styled.div`
         .mainPostContainerHeaderWrapperContent {
           margin: 6px 0px;
           h1 {
-            font-family: "Nunito", sans-serif;
+            font-family: "Inter", sans-serif;
+            /* font-family: "Nunito", sans-serif; */
             font-size: 22px;
             font-weight: 800;
             font-style: normal;
@@ -76,25 +78,26 @@ export const PostStructureDiv = styled.div`
             transition: all 1.5s;
 
             line-height: 28px;
-            max-height: 5rem;
+            /* max-height: 5rem;
             overflow: hidden !important;
             text-overflow: ellipsis;
             white-space: wrap;
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
-            line-clamp: 1;
+            line-clamp: 1; */
           }
 
           .textContent {
-            font-family: "Poppins", sans-serif;
-            font-size: 16px;
+            font-family: "Public Sans", sans-serif;
+            /* font-family: "Poppins", sans-serif; */
+            font-size: 14px;
             font-weight: 400;
             font-style: normal;
             color: ${({ theme }) => theme.textColor};
             transition: all 1.5s;
             opacity: 0.6;
-            margin: 3px 0px;
+            margin: 7px 0px;
 
             /* display: block; */
             line-height: 20px;
@@ -113,10 +116,12 @@ export const PostStructureDiv = styled.div`
       .postContainer {
         display: flex;
         align-items: center;
+        margin: 20px 0px;
 
         p {
-          font-family: "Nunito", sans-serif;
-          font-size: 14px;
+          font-family: "Public Sans", sans-serif;
+          /* font-family: "Nunito", sans-serif; */
+          font-size: 13px;
           font-weight: 400;
           font-style: normal;
           color: ${({ theme }) => theme.textColor};
@@ -127,8 +132,9 @@ export const PostStructureDiv = styled.div`
         }
 
         button {
-          font-family: "Nunito", sans-serif;
-          font-size: 14px;
+          font-family: "Public Sans", sans-serif;
+          /* font-family: "Nunito", sans-serif; */
+          font-size: 13px;
           font-weight: 400;
           font-style: normal;
           color: ${({ theme }) => theme.textColorReverse};

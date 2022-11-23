@@ -7,14 +7,22 @@ import { GlobalStyles } from "../lib/globalStyles";
 import { theme } from "../lib/theme";
 import Head from "next/head";
 import Nav from "../universal-Components/Nav";
-import { getSystemMode } from "../store.js/actions/authAction";
 import Footer from "../universal-Components/Footer";
+import ScrollingNav from "../universal-Components/ScrollingNav";
+import SideBar from "../universal-Components/sideBar";
+import { getSystemMode } from "../store.js/actions/landingPageAction";
 
 export const ThemeContext = createContext();
 
 function MyApp({ Component, pageProps }) {
   const dispatch = useDispatch();
-  const system_mode = useSelector((state) => state.authReducer.system_mode);
+  const system_mode = useSelector(
+    (state) => state.landingPageReducer.system_mode
+  );
+
+  const showHideSidebar = useSelector(
+    (state) => state.landingPageReducer.showHideSidebar
+  );
 
   const current = system_mode ? theme.DarkColor : theme.LightColor;
 
@@ -41,13 +49,17 @@ function MyApp({ Component, pageProps }) {
             />
 
             <link
-              href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+              href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet"
               crossOrigin="true"
             />
           </Head>
 
+          <ScrollingNav />
+
           <Nav />
+
+          {showHideSidebar && <SideBar />}
 
           <Component {...pageProps} />
 
