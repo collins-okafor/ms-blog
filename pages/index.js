@@ -1,10 +1,9 @@
-import PostsDisplay from "../components/post/allPosts";
-import SinglePost from "../components/post/singlePost";
+import LandingPage from "../components/LandingPage";
 
 export default function Home() {
   return (
     <div>
-      <PostsDisplay />
+      <LandingPage />
     </div>
   );
 }
