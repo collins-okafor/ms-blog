@@ -4,10 +4,19 @@ import { Container } from "./styles/signup.styles";
 import { FcGoogle } from "react-icons/fc";
 import { GoMail } from "react-icons/go";
 import { MailContainer } from "./styles/mailSignup";
-const MailSignUp = ({ click }) => {
+import { useDispatch } from "react-redux";
+import { getLoginPageCounter } from "../../store.js/actions/authAction";
+
+const MailSignUp = () => {
+  const dispatch = useDispatch();
+
+  const handleCancel = () => {
+    dispatch(getLoginPageCounter({}));
+  };
+
   return (
     <MailContainer>
-      <button className="cancelButton" onClick={click}>
+      <button className="cancelButton" onClick={handleCancel}>
         x
       </button>
       <h3>Sign up with email</h3>

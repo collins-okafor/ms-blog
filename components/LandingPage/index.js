@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import HeroSection from "./heroSection";
+import OpeningModalSwitcher from "./openingModalSwitcher";
 import PostStructure from "./postStructure";
 import { LandingDiv } from "./styles/landing.style";
 
@@ -21,6 +22,7 @@ const LandingPage = () => {
           ))}
         </div>
       </div>
+      <OpeningModalSwitcher />
     </LandingDiv>
   );
 };

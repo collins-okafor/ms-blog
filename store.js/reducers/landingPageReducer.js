@@ -2,7 +2,7 @@ import { SYSTEM_MODE, SHOW_HIDE_SIDEBAR } from "../type";
 
 const initialState = {
   system_mode: false,
-  showHideSidebar: true,
+  showHideSidebar: false,
 };
 
 const landingPageReducer = (state = initialState, action) => {
