@@ -1,5 +1,48 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
+const left = keyframes`
+  from{
+    left:-100px; 
+    opacity:0.5
+  } 
+  to{
+    left:0; 
+    opacity:1
+  }
+`;
+
+const leftRevers = keyframes`
+  from{
+    left:0; 
+    opacity:1
+  } 
+
+  to{
+    left:-100px; 
+    opacity:0.5
+  }
+`;
+
+const right = keyframes`
+  from{
+    right:-50px; 
+    opacity:0
+  } 
+  to{
+    right:0; 
+    opacity:1
+  }
+`;
+
+const fade = keyframes`
+  0%{
+    opacity:0
+  }
+  100%{
+    opacity:1
+  }
+`;
+// .w3-animate-left{position:relative;animation:animateleft 0.4s}@keyframes animateleft{ }
 export const SideBarDiv = styled.div`
   width: 60%;
   height: 100vh;
@@ -8,8 +51,9 @@ export const SideBarDiv = styled.div`
   left: 0;
   z-index: 8;
   background-color: ${({ theme }) => theme.BaseColor};
-  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.198);
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.698);
   display: none;
+  /* animation: ${fade} 0.4s; */
 
   .sidebar__UpperLayer {
     width: 100%;
@@ -122,6 +166,10 @@ export const SideBarDiv = styled.div`
   }
 
   @media screen and (max-width: 800px) {
-    display: block;
+    display: ${({ showHideSidebar }) => (showHideSidebar ? "block" : "none")};
+    transition: all 2s;
+    animation: ${({ showHideSidebar }) =>
+        showHideSidebar === true ? left : leftRevers}
+      0.4s ease-out;
   }
 `;
