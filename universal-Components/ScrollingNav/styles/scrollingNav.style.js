@@ -10,6 +10,7 @@ export const ScrollingNavDiv = styled.div`
   position: fixed;
   top: ${({ fix }) => (fix ? "0" : "-100px")};
   z-index: 5;
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.698);
   transition: top 0.3s;
 
   .LowerNavLinks {

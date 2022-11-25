@@ -2,20 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { memo } from "react";
 import { MdOutlineClose } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/Icons/Blogger-logo-01.webp";
 import { getShowHideSidebar } from "../../store.js/actions/landingPageAction";
 import { SideBarDiv } from "./styles/sidebar.style";
 
 const SideBar = () => {
   const dispatch = useDispatch();
+  const showHideSidebar = useSelector(
+    (state) => state.landingPageReducer.showHideSidebar
+  );
+
+  console.log(showHideSidebar, "our system");
 
   const handleSidebar = () => {
     dispatch(getShowHideSidebar(false));
   };
 
   return (
-    <SideBarDiv>
+    <SideBarDiv showHideSidebar={showHideSidebar}>
       <div className="sidebar__UpperLayer">
         <div
           className="sidebar__UpperLayerCancelIconBody"

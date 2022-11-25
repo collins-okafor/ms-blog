@@ -20,10 +20,6 @@ function MyApp({ Component, pageProps }) {
     (state) => state.landingPageReducer.system_mode
   );
 
-  const showHideSidebar = useSelector(
-    (state) => state.landingPageReducer.showHideSidebar
-  );
-
   const current = system_mode ? theme.DarkColor : theme.LightColor;
 
   const HandleThemeProvider = () => {
@@ -59,7 +55,7 @@ function MyApp({ Component, pageProps }) {
 
           <Nav />
 
-          {showHideSidebar && <SideBar />}
+          <SideBar />
 
           <Component {...pageProps} />
 
