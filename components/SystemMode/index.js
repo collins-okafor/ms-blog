@@ -7,7 +7,9 @@ import { useSelector } from "react-redux";
 
 const SystemMode = () => {
   const { HandleThemeProvider } = useContext(ThemeContext);
-  const system_mode = useSelector((state) => state.authReducer.system_mode);
+  const system_mode = useSelector(
+    (state) => state.landingPageReducer.system_mode
+  );
   return (
     <ModeDiv>
       {system_mode ? (

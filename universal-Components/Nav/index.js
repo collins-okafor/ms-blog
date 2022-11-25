@@ -4,24 +4,8 @@ import { NavDiv } from "./styles/navStyles";
 import UpLayerNav from "./upLayer";
 
 const Nav = () => {
-  const [fix, setFix] = useState(false);
-
-  useEffect(() => {
-    const HandleFix = () => {
-      if (window.scrollY >= 5) {
-        setFix(true);
-      } else {
-        setFix(false);
-      }
-    };
-
-    window.addEventListener("scroll", HandleFix);
-
-    return () => window.removeEventListener("scroll", HandleFix);
-  }, [fix]);
-
   return (
-    <NavDiv fix={fix}>
+    <NavDiv>
       <div className="UpperSection">
         <UpLayerNav />
       </div>

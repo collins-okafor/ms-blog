@@ -3,12 +3,9 @@ import styled from "styled-components";
 export const NavDiv = styled.div`
   position: relative;
   width: 100%;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
+  z-index: 3;
 
   .UpperSection {
-    display: ${({ fix }) => (fix === true ? "none" : "blockUpperSection")};
     transition: all 2s;
   }
 
@@ -17,5 +14,9 @@ export const NavDiv = styled.div`
     position: sticky;
     position: -webkit-sticky;
     top: 0;
+
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
   }
 `;
