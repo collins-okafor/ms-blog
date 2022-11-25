@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import { ModalOverlay } from "./styles/modal.style";
 
-const Modal = ({ display, content }) => {
+const Modal = ({ display, children }) => {
   return (
     <ModalOverlay show={display}>
-      <div className="modalContent">{content}</div>
+      <div className="modalContent">{children}</div>
     </ModalOverlay>
   );
 };

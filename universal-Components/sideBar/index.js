@@ -13,7 +13,9 @@ const SideBar = () => {
     (state) => state.landingPageReducer.showHideSidebar
   );
 
-  console.log(showHideSidebar, "our system");
+  const showSignUp = () => {
+    dispatch(getLoginPageCounter({ count: 0 }));
+  };
 
   const handleSidebar = () => {
     dispatch(getShowHideSidebar(false));
@@ -33,7 +35,9 @@ const SideBar = () => {
         </div>
         <div className="navUpLayerLogoAuthSystem">
           <button className="navUpLayerLogoAuthSignIn">Sign In</button>
-          <button className="navUpLayerLogoAuthGetStarted">Get Started</button>
+          <button className="navUpLayerLogoAuthGetStarted" onClick={showSignUp}>
+            Get Started
+          </button>
         </div>
       </div>
       <div className="LowerNavLinks">

@@ -4,15 +4,22 @@ import { Container } from "./styles/signup.styles";
 import { FcGoogle } from "react-icons/fc";
 import { GoMail } from "react-icons/go";
 import { useDispatch } from "react-redux";
-import { LOGINPAGECOUNTER } from "../../store.js/type";
-const SignUp = ({ click }) => {
+import { getLoginPageCounter } from "../../store.js/actions/authAction";
+
+const SignUp = () => {
   const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch({ type: LOGINPAGECOUNTER, payload: { count: 0 } });
+
+  const handleCancel = () => {
+    dispatch(getLoginPageCounter({}));
   };
+
+  const handleClick = () => {
+    dispatch(getLoginPageCounter({ counter: 1 }));
+  };
+
   return (
     <Container>
-      <button className="cancelButton" onClick={click}>
+      <button className="cancelButton" onClick={handleCancel}>
         x
       </button>
       <h3>Join Blogger</h3>

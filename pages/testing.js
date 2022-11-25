@@ -19,6 +19,7 @@ const Testing = () => {
       {Object.keys(loginPageCounter).length === 0 && (
         <Modal display={display} content={<SignUp click={handleDisplay} />} />
       )}
+
       {loginPageCounter.count === 0 && (
         <Modal
           display={display}

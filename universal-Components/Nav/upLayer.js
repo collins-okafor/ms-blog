@@ -8,12 +8,17 @@ import { FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { getShowHideSidebar } from "../../store.js/actions/landingPageAction";
+import { getLoginPageCounter } from "../../store.js/actions/authAction";
 
 const UpLayerNav = () => {
   const dispatch = useDispatch();
 
   const handleSidebar = () => {
     dispatch(getShowHideSidebar(true));
+  };
+
+  const showSignUp = () => {
+    dispatch(getLoginPageCounter({ counter: 0 }));
   };
 
   return (
@@ -36,7 +41,9 @@ const UpLayerNav = () => {
 
         <div className="navUpLayerLogoAuthSystem">
           <button className="navUpLayerLogoAuthSignIn">Sign In</button>
-          <button className="navUpLayerLogoAuthGetStarted">Get Started</button>
+          <button className="navUpLayerLogoAuthGetStarted" onClick={showSignUp}>
+            Get Started
+          </button>
         </div>
       </div>
     </NavUpLayer>
