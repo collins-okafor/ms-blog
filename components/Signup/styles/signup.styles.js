@@ -17,7 +17,12 @@ export const Container = styled.div`
     position: absolute;
     top: 1px;
     right: 1px;
-    padding: 5px 10px;
+    padding: 5px 15px;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+    color: ${({ theme }) => theme.secondaryColor};
   }
   h3 {
     margin-bottom: 5rem;
@@ -28,7 +33,7 @@ export const Container = styled.div`
     border-radius: 20px;
     color: ${({ theme }) => theme.textColor};
     padding: 10px;
-    width: 32%;
+    width: 40%;
     background-color: transparent;
     margin: 0.7rem 0;
     display: flex;
@@ -46,9 +51,12 @@ export const Container = styled.div`
     display: flex;
     margin-top: 2rem;
     margin-bottom: 5rem;
-    a {
+    button {
       color: ${({ theme }) => theme.majorColor};
       margin-left: 0.7rem;
+      background-color: transparent;
+      border: none;
+      font-size: 15px;
     }
   }
   .termsAndServices {

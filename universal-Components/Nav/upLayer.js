@@ -21,6 +21,9 @@ const UpLayerNav = () => {
     dispatch(getLoginPageCounter({ counter: 0 }));
   };
 
+  const showSignIn = () => {
+    dispatch(getLoginPageCounter({ counter: 2 }));
+  };
   return (
     <NavUpLayer>
       <div className="menu" onClick={handleSidebar}>
@@ -40,7 +43,9 @@ const UpLayerNav = () => {
         </div>
 
         <div className="navUpLayerLogoAuthSystem">
-          <button className="navUpLayerLogoAuthSignIn">Sign In</button>
+          <button className="navUpLayerLogoAuthSignIn" onClick={showSignIn}>
+            Sign In
+          </button>
           <button className="navUpLayerLogoAuthGetStarted" onClick={showSignUp}>
             Get Started
           </button>

@@ -13,11 +13,23 @@ export const MailContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   position: relative;
   color: ${({ theme }) => theme.textColor};
+  .signOptions {
+    background-color: transparent;
+    border: none;
+    color: ${({ theme }) => theme.majorColor};
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
   .cancelButton {
     position: absolute;
     top: 1px;
     right: 1px;
     padding: 5px 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+    color: ${({ theme }) => theme.secondaryColor};
   }
   .signUpButton {
     border: 1px solid gray;
