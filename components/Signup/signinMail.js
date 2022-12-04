@@ -7,16 +7,15 @@ import { MailContainer } from "./styles/mailSignup";
 import { useDispatch } from "react-redux";
 import { getLoginPageCounter } from "../../store.js/actions/authAction";
 
-const MailSignUp = () => {
+const MailSignIn = () => {
   const dispatch = useDispatch();
 
   const handleCancel = () => {
     dispatch(getLoginPageCounter({}));
   };
-  const handleSignUpOptions = () => {
-    dispatch(getLoginPageCounter({ counter: 0 }));
+  const handleSignInOptions = () => {
+    dispatch(getLoginPageCounter({ counter: 2 }));
   };
-
   return (
     <MailContainer>
       <button className="cancelButton" onClick={handleCancel}>
@@ -32,16 +31,12 @@ const MailSignUp = () => {
         <label>Password</label>
         <input type="mail" />
       </div>
-      <div className="inputContainer">
-        <label>Confirm Password</label>
-        <input type="mail" />
-      </div>
-      <button className="signUpButton">Sign up</button>
-      <button className="signOptions" onClick={handleSignUpOptions}>
-        Sign up options ?
+      <button className="signUpButton">Sign in</button>
+      <button className="signOptions" onClick={handleSignInOptions}>
+        Sign in options ?
       </button>
     </MailContainer>
   );
 };
 
-export default MailSignUp;
+export default MailSignIn;

@@ -21,6 +21,13 @@ const UpLayerNav = () => {
     dispatch(getLoginPageCounter({ counter: 0 }));
   };
 
+  const showSignIn = () => {
+    dispatch(getLoginPageCounter({ counter: 2 }));
+  };
+
+  const handleSearch = () => {
+    dispatch(getLoginPageCounter({ counter: 4 }));
+  };
   return (
     <NavUpLayer>
       <div className="menu" onClick={handleSidebar}>
@@ -35,12 +42,17 @@ const UpLayerNav = () => {
             <SystemMode />
           </div>
           <div className="LowerNavDetailsSearchIconBody">
-            <FaSearch className="LowerNavDetailsSearchIcon" />
+            <FaSearch
+              className="LowerNavDetailsSearchIcon"
+              onClick={handleSearch}
+            />
           </div>
         </div>
 
         <div className="navUpLayerLogoAuthSystem">
-          <button className="navUpLayerLogoAuthSignIn">Sign In</button>
+          <button className="navUpLayerLogoAuthSignIn" onClick={showSignIn}>
+            Sign In
+          </button>
           <button className="navUpLayerLogoAuthGetStarted" onClick={showSignUp}>
             Get Started
           </button>
