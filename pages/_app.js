@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store, { wrapper } from "../store.js";
 import { ThemeProvider } from "styled-components";
@@ -11,10 +11,20 @@ import Footer from "../universal-Components/Footer";
 import ScrollingNav from "../universal-Components/ScrollingNav";
 import SideBar from "../universal-Components/sideBar";
 import { getSystemMode } from "../store.js/actions/landingPageAction";
+import DashboardSideBar from "../universal-Components/DashboardSideBar";
+import { useRouter } from "next/router";
+import DashboardSideBarMin from "../universal-Components/DashboardSideBarMin";
+import DashboardNavBar from "../universal-Components/DashboardNavBar";
+import { REDUCE_SIDEBAR } from "../store.js/type";
 
 export const ThemeContext = createContext();
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  const reduceSideBar = useSelector(
+    (state) => state.DashboardConditionReducers.reduceSideBar
+  );
+
   const dispatch = useDispatch();
   const system_mode = useSelector(
     (state) => state.landingPageReducer.system_mode
@@ -25,6 +35,12 @@ function MyApp({ Component, pageProps }) {
   const HandleThemeProvider = () => {
     dispatch(getSystemMode(!system_mode));
   };
+
+  useEffect(() => {
+    if (window.screen.width <= 1024) {
+      dispatch({ type: REDUCE_SIDEBAR, payload: true });
+    }
+  }, []);
 
   return (
     <Provider store={store}>
@@ -51,15 +67,21 @@ function MyApp({ Component, pageProps }) {
             />
           </Head>
 
-          <ScrollingNav />
+          {!router.asPath.includes("dashboard") && <ScrollingNav />}
 
-          <Nav />
+          {!router.asPath.includes("dashboard") && <Nav />}
 
-          <SideBar />
+          {!router.asPath.includes("dashboard") && <SideBar />}
+
+          {router.asPath.includes("dashboard") && <DashboardSideBar />}
+
+          {router.asPath.includes("dashboard") && <DashboardSideBarMin />}
+
+          {router.asPath.includes("dashboard") && <DashboardNavBar />}
 
           <Component {...pageProps} />
 
-          <Footer />
+          {!router.asPath.includes("dashboard") && <Footer />}
         </ThemeProvider>
       </ThemeContext.Provider>
     </Provider>
