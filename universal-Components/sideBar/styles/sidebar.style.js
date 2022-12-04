@@ -42,7 +42,7 @@ const fade = keyframes`
     opacity:1
   }
 `;
-// .w3-animate-left{position:relative;animation:animateleft 0.4s}@keyframes animateleft{ }
+
 export const SideBarDiv = styled.div`
   width: 60%;
   height: 100vh;
