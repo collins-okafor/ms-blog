@@ -13,12 +13,36 @@ export const MailContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   position: relative;
   color: ${({ theme }) => theme.textColor};
+  @media (max-width: 1050px) {
+    width: 50%;
+  }
+  @media (max-width: 900px) {
+    width: 85%;
+  }
+  @media (max-width: 700px) {
+    width: 100%;
+    height: 100vh;
+  }
+  p {
+    /* font-family: "Public Sans", sans-serif; */
+    font-family: "Nunito", sans-serif;
+    /* font-family: "Poppins", sans-serif; */
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+  }
   .signOptions {
     background-color: transparent;
     border: none;
     color: ${({ theme }) => theme.majorColor};
     margin-top: 0.5rem;
     cursor: pointer;
+    text-transform: uppercase;
+    font-family: "Public Sans", sans-serif;
+    /* font-family: "Nunito", sans-serif; */
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
   }
   .cancelButton {
     position: absolute;
@@ -40,9 +64,26 @@ export const MailContainer = styled.div`
     width: 32%;
     /* background-color: transparent; */
     margin: 0.7rem 0;
+    font-family: "Public Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    @media (max-width: 900px) {
+      /* width: 60%;  */
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 700px) {
+      width: 60%;
+      margin-bottom: 2rem;
+    }
   }
   h3 {
     text-transform: uppercase;
+    font-family: "Public Sans", sans-serif;
+    /* font-family: "Nunito", sans-serif; */
+    font-size: 16px;
+    font-weight: 700;
+    font-style: normal;
   }
   p {
     margin-bottom: 3rem;
@@ -53,6 +94,14 @@ export const MailContainer = styled.div`
     width: 80%;
     text-align: center;
     margin: 1rem 0;
+    @media (max-width: 900px) {
+      width: 80%;
+      margin: 2rem 0;
+    }
+    @media (max-width: 700px) {
+      width: 90%;
+      margin: 2rem 0;
+    }
     label {
       margin-bottom: 0.2rem;
     }
@@ -66,6 +115,12 @@ export const MailContainer = styled.div`
       width: 60%;
       margin: 0 auto;
       padding: 10px;
+      @media (max-width: 900px) {
+        width: 85%;
+      }
+      @media (max-width: 700px) {
+        width: 100%;
+      }
     }
   }
 `;

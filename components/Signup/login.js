@@ -23,7 +23,7 @@ const Login = ({ click }) => {
       <button className="cancelButton" onClick={handleCancel}>
         x
       </button>
-      <h3>Join Blogger</h3>
+      <h3>Welcome Back Blogger</h3>
       <button className="signupButton">
         <FcGoogle className="icon" /> Sign In with google
       </button>
