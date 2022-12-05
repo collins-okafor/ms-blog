@@ -7,6 +7,8 @@ import photoFive from "../../assets/Images/paris.jpg";
 import photoSix from "../../assets/Images/about-us.jpg";
 import Image from "next/image";
 import { PostDiv } from "./styles/post.styles";
+import { MdOutlineBookmarkAdd } from "react-icons/md";
+import { FiMoreHorizontal } from "react-icons/fi";
 
 const Post = () => {
   const Truncate = (word, count = 60) => {
@@ -47,9 +49,19 @@ const Post = () => {
                 <p className="textContent">{item.content}</p>
               </div>
             </div>
-            <div className="postContainer">
-              <p>{`${item.date}11 min read`}</p>
-              <button>Java programming</button>
+            <div className="postWrapper">
+              <div className="postContainer">
+                <p>{`${item.date}11 min read`}</p>
+                <button>Java programming</button>
+              </div>
+              <div className="postWrapperContent">
+                <div className="postWrapperContentSaveIconBody">
+                  <MdOutlineBookmarkAdd className="postWrapperContentSaveIcon" />
+                </div>
+                <div className="postWrapperContentFollowers">
+                  <FiMoreHorizontal className="postWrapperContentFollowersIcon" />
+                </div>
+              </div>
             </div>
           </div>
         </div>

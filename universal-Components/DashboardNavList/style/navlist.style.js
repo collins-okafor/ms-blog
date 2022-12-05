@@ -10,6 +10,7 @@ export const NavListDiv = styled.div`
   top: 0;
   z-index: 5;
   transition: all 1.5s;
+  white-space: nowrap;
 
   .selected {
     border: 1px solid ${({ theme }) => theme.secondaryColor};

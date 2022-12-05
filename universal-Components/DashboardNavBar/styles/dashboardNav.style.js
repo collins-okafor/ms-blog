@@ -52,6 +52,7 @@ export const DashboardNavDiv = styled.div`
   background-color: ${({ theme }) => theme.BaseColor};
   padding: 10px 20px;
   transition: all 0.4s;
+  z-index: 8;
   /* animation: ${({ reduceSideBar }) => (reduceSideBar ? right : left)} 1s; */
 
   .firstSection {
