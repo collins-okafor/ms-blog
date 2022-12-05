@@ -113,40 +113,78 @@ export const PostDiv = styled.div`
         }
       }
 
-      .postContainer {
+      .postWrapper {
         display: flex;
         align-items: center;
-        margin: 20px 0px;
+        justify-content: space-between;
 
-        p {
-          font-family: "Public Sans", sans-serif;
-          /* font-family: "Nunito", sans-serif; */
-          font-size: 13px;
-          font-weight: 400;
-          font-style: normal;
-          color: ${({ theme }) => theme.textColor};
-          transition: all 1.5s;
-          line-height: 20px;
-          opacity: 0.7;
-          margin-right: 10px;
+        .postContainer {
+          display: flex;
+          align-items: center;
+          margin: 20px 0px;
+
+          p {
+            font-family: "Public Sans", sans-serif;
+            /* font-family: "Nunito", sans-serif; */
+            font-size: 13px;
+            font-weight: 400;
+            font-style: normal;
+            color: ${({ theme }) => theme.textColor};
+            transition: all 1.5s;
+            line-height: 20px;
+            opacity: 0.7;
+            margin-right: 10px;
+          }
+
+          button {
+            font-family: "Public Sans", sans-serif;
+            /* font-family: "Nunito", sans-serif; */
+            font-size: 13px;
+            font-weight: 400;
+            font-style: normal;
+            color: ${({ theme }) => theme.textColorReverse};
+            background-color: ${({ theme }) => theme.textColor};
+            transition: all 1.5s;
+            line-height: 20px;
+            opacity: 0.7;
+            margin-right: 10px;
+            border: none;
+            background-color: none;
+            border-radius: 10px;
+            padding: 3px 7px;
+          }
         }
 
-        button {
-          font-family: "Public Sans", sans-serif;
-          /* font-family: "Nunito", sans-serif; */
-          font-size: 13px;
-          font-weight: 400;
-          font-style: normal;
-          color: ${({ theme }) => theme.textColorReverse};
-          background-color: ${({ theme }) => theme.textColor};
-          transition: all 1.5s;
-          line-height: 20px;
-          opacity: 0.7;
-          margin-right: 10px;
-          border: none;
-          background-color: none;
-          border-radius: 10px;
-          padding: 3px 7px;
+        .postWrapperContent {
+          display: flex;
+          align-items: center;
+
+          .postWrapperContentSaveIconBody {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 30px;
+            cursor: pointer;
+
+            .postWrapperContentSaveIcon {
+              font-size: 20px;
+              color: ${({ theme }) => theme.textColor};
+              transition: all 1s;
+            }
+          }
+
+          .postWrapperContentFollowers {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .postWrapperContentFollowersIcon {
+              font-size: 20px;
+              color: ${({ theme }) => theme.textColor};
+              transition: all 1s;
+            }
+          }
         }
       }
     }
