@@ -33,4 +33,18 @@ export const NavListDiv = styled.div`
       transition: all 1.5s;
     }
   }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #e89b2d;
+  }
 `;

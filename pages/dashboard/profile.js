@@ -1,13 +1,13 @@
 import React from "react";
-import StoriesPage from "../../components/Stories";
+import ProfilePage from "../../components/Profile";
 import DashbaordPageWrapper from "../../universal-Components/DashobardPageWrapper";
 
-const Stories = () => {
+const Profile = () => {
   return (
     <DashbaordPageWrapper>
-      <StoriesPage />
+      <ProfilePage />
     </DashbaordPageWrapper>
   );
 };
 
-export default Stories;
+export default Profile;

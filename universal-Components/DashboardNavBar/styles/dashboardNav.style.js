@@ -110,6 +110,8 @@ export const DashboardNavDiv = styled.div`
     }
 
     .secondSection__Profile {
+      position: relative;
+
       .secondSection__ProfileWrapper {
         display: flex;
         align-items: center;

@@ -1,7 +1,7 @@
 import React from "react";
-import { REDUCE_SIDEBAR } from "../type";
+import { REDUCE_SIDEBAR, DASHBOARD_NAV_DROPDOWN } from "../type";
 
-const initialState = { reduceSideBar: false };
+const initialState = { reduceSideBar: false, dashbaordNavDropdown: false };
 
 const DashboardConditionReducers = (state = initialState, action) => {
   const { type, payload } = action;
@@ -11,6 +11,13 @@ const DashboardConditionReducers = (state = initialState, action) => {
       return {
         ...state,
         reduceSideBar: payload,
+      };
+    }
+
+    case DASHBOARD_NAV_DROPDOWN: {
+      return {
+        ...state,
+        dashbaordNavDropdown: payload,
       };
     }
 
