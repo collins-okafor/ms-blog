@@ -41,7 +41,10 @@ const DashboardSideBarMin = () => {
       </div>
       <div className="thirdSection">
         <div className="thirdSection__ImageDetails">
-          <div className="thirdSection__ImageDetailsWrapper">
+          <div
+            className="thirdSection__ImageDetailsWrapper"
+            onClick={() => router.push("/dashboard/profile")}
+          >
             <Image
               src={Profile}
               alt={"profile"}

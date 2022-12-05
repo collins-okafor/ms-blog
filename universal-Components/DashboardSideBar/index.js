@@ -58,7 +58,10 @@ const DashboardSidebar = () => {
           </div>
         ))}
       </div>
-      <div className="thirdSection">
+      <div
+        className="thirdSection"
+        onClick={() => router.push("/dashboard/profile")}
+      >
         <div className="thirdSection__ImageDetails">
           <div className="thirdSection__ImageDetailsWrapper">
             <Image
