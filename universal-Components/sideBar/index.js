@@ -4,6 +4,7 @@ import React, { memo } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/Icons/Blogger-logo-01.webp";
+import { getLoginPageCounter } from "../../store.js/actions/authAction";
 import { getShowHideSidebar } from "../../store.js/actions/landingPageAction";
 import { SideBarDiv } from "./styles/sidebar.style";
 
@@ -14,7 +15,10 @@ const SideBar = () => {
   );
 
   const showSignUp = () => {
-    dispatch(getLoginPageCounter({ count: 0 }));
+    dispatch(getLoginPageCounter({ counter: 0 }));
+  };
+  const showSignIn = () => {
+    dispatch(getLoginPageCounter({ counter: 2 }));
   };
 
   const handleSidebar = () => {
@@ -34,7 +38,9 @@ const SideBar = () => {
           <Image src={Logo} alt="" />
         </div>
         <div className="navUpLayerLogoAuthSystem">
-          <button className="navUpLayerLogoAuthSignIn">Sign In</button>
+          <button className="navUpLayerLogoAuthSignIn" onClick={showSignIn}>
+            Sign In
+          </button>
           <button className="navUpLayerLogoAuthGetStarted" onClick={showSignUp}>
             Get Started
           </button>

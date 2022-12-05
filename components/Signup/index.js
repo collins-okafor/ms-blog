@@ -17,6 +17,10 @@ const SignUp = () => {
     dispatch(getLoginPageCounter({ counter: 1 }));
   };
 
+  const showSignIn = () => {
+    dispatch(getLoginPageCounter({ counter: 2 }));
+  };
+
   return (
     <Container>
       <button className="cancelButton" onClick={handleCancel}>
@@ -31,7 +35,7 @@ const SignUp = () => {
       </button>
       <div className="account">
         <p>Already have an account?</p>
-        <a href={"#"}>Sign in</a>
+        <button onClick={showSignIn}>Sign in</button>
       </div>
       <div className="termsAndServices">
         <p>

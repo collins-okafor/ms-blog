@@ -3,8 +3,13 @@ import React, { memo } from "react";
 import SystemMode from "../../components/SystemMode";
 import { LowerLayers } from "./styles/lowerLayers";
 import { FaSearch } from "react-icons/fa";
-
+import { getLoginPageCounter } from "../../store.js/actions/authAction";
+import { useDispatch } from "react-redux";
 const LowerLayer = () => {
+  const dispatch = useDispatch();
+  const handleSearch = () => {
+    dispatch(getLoginPageCounter({ counter: 4 }));
+  };
   return (
     <LowerLayers>
       <div className="LowerNavLinks">
@@ -19,7 +24,10 @@ const LowerLayer = () => {
           <SystemMode />
         </div>
         <div className="LowerNavDetailsSearchIconBody">
-          <FaSearch className="LowerNavDetailsSearchIcon" />
+          <FaSearch
+            className="LowerNavDetailsSearchIcon"
+            onClick={handleSearch}
+          />
         </div>
       </div>
     </LowerLayers>
