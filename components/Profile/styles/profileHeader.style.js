@@ -25,7 +25,9 @@ export const ProfileHeaderDiv = styled.div`
     .profileHeadeWrapper_profileTextDetails {
       h3 {
         /* font-family: "Public Sans", sans-serif; */
-        font-family: "Nunito", sans-serif;
+        /* font-family: "Nunito", sans-serif; */
+        /* font-family: "Inter", sans-serif; */
+        font-family: "Poppins", sans-serif;
         font-style: normal;
         font-weight: 500;
         font-size: 30px;
