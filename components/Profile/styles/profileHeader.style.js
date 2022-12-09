@@ -9,6 +9,7 @@ export const ProfileHeaderDiv = styled.div`
   .profileHeadeWrapper {
     width: 170px;
     height: 170px;
+    box-shadow: ${({ theme }) => theme.boxShaw};
 
     .profileHeadeWrapper__profile {
       width: 100%;
@@ -20,7 +21,8 @@ export const ProfileHeaderDiv = styled.div`
 
   .profileHeadeWrapper_profileText {
     width: 75%;
-    border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
 
     .profileHeadeWrapper_profileTextDetails {
       h3 {
@@ -32,13 +34,39 @@ export const ProfileHeaderDiv = styled.div`
         font-weight: 500;
         font-size: 30px;
         line-height: 38px;
+        color: ${({ theme }) => theme.textColor};
+        transition: all 1.5s;
       }
 
       p {
+        font-family: "Public Sans", sans-serif;
         font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
+        font-weight: 500;
+        font-size: 18px;
         line-height: 24px;
+        color: ${({ theme }) => theme.textColor};
+        transition: all 1.5s;
+        opacity: 0.6;
+      }
+    }
+
+    .profileHeadeWrapper_profileTextEdit {
+      p {
+        font-family: "Public Sans", sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        color: ${({ theme }) => theme.primaryColor};
+        transition: all 1.5s;
+        background-color: ${({ theme }) => theme.secondaryColor};
+        padding: 5px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
   }

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const ListDiv = styled.div`
+export const FollowersDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 
-  .listHeader {
+  .followersHeader {
     p {
       font-family: "Public Sans", sans-serif;
       font-size: 16px;
@@ -17,14 +17,14 @@ export const ListDiv = styled.div`
     }
   }
 
-  .listBody {
+  .followersBody {
     width: 75%;
     border-radius: 6px;
     box-shadow: 0px 4px 8px 2px ${({ theme }) => theme.boxShaw};
     padding: 20px;
 
-    .listBodyOne {
-      .listBodyOneNum {
+    .followersBodyOne {
+      .followersBodynum {
         font-family: "Public Sans", sans-serif;
         font-size: 14px;
         font-weight: 400;
@@ -34,7 +34,7 @@ export const ListDiv = styled.div`
         line-height: 20px;
       }
 
-      .listBodyOneCount {
+      .followersBodycount {
         font-family: "Public Sans", sans-serif;
         font-size: 14px;
         font-weight: 400;
@@ -46,10 +46,9 @@ export const ListDiv = styled.div`
       }
     }
 
-    .listBodyTwo {
+    .followersBodyTwo {
       margin-top: 15px;
-
-      .listBodyTwoList {
+      .followersBodyTwoList {
         font-family: "Public Sans", sans-serif;
         font-size: 14px;
         font-weight: 400;
@@ -59,7 +58,7 @@ export const ListDiv = styled.div`
         line-height: 20px;
       }
 
-      .listBodyTwoView {
+      .followersBodyTwoView {
         font-family: "Public Sans", sans-serif;
         font-size: 14px;
         font-weight: 400;
