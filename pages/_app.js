@@ -16,10 +16,13 @@ import { useRouter } from "next/router";
 import DashboardSideBarMin from "../universal-Components/DashboardSideBarMin";
 import DashboardNavBar from "../universal-Components/DashboardNavBar";
 import { REDUCE_SIDEBAR } from "../store.js/type";
+import "../lib/globalStyles/global.css";
+// import connectDB from "../Server/db/connect";
 
 export const ThemeContext = createContext();
 
 function MyApp({ Component, pageProps }) {
+  // connectDB();
   const router = useRouter();
   const reduceSideBar = useSelector(
     (state) => state.DashboardConditionReducers.reduceSideBar
