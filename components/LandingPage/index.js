@@ -22,7 +22,7 @@ const LandingPage = () => {
           ))}
         </div>
       </div>
-      <OpeningModalSwitcher />
+      
     </LandingDiv>
   );
 };

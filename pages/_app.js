@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import DashboardSideBarMin from "../universal-Components/DashboardSideBarMin";
 import DashboardNavBar from "../universal-Components/DashboardNavBar";
 import { REDUCE_SIDEBAR } from "../store.js/type";
+import OpeningModalSwitcher from "../components/LandingPage/openingModalSwitcher";
 
 export const ThemeContext = createContext();
 
@@ -80,7 +81,7 @@ function MyApp({ Component, pageProps }) {
           {router.asPath.includes("dashboard") && <DashboardNavBar />}
 
           <Component {...pageProps} />
-
+          <OpeningModalSwitcher />
           {!router.asPath.includes("dashboard") && <Footer />}
         </ThemeProvider>
       </ThemeContext.Provider>
