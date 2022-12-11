@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledModal = styled.div`
   width: 100%;
-  /* background-color: rgba(255, 255, 255, 0.548); */
+  background-color: rgba(255, 255, 255, 0.548);
   height: 100vh;
   position: fixed;
   top: 0;
@@ -11,6 +11,7 @@ export const StyledModal = styled.div`
   justify-content: center;
   align-items: center;
   overflow: auto;
+  z-index: 9;
   .formDiv {
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -44,7 +45,7 @@ export const StyledModal = styled.div`
       align-items: center;
       flex-wrap: wrap;
       .image {
-        width: 100px;
+        width: 80px;
         @media (max-width: 700px) {
           width: 40%;
           margin: 0 auto;
@@ -74,6 +75,7 @@ export const StyledModal = styled.div`
       .update {
         padding: 0 20px;
         margin-left: 1rem;
+        width: 70%;
         @media (max-width: 700px) {
           width: 100%;
           margin-left: 0;
@@ -97,6 +99,7 @@ export const StyledModal = styled.div`
         }
         p {
           font-size: 15px;
+          font-family: "Public Sans", sans-serif;
         }
       }
     }
@@ -116,6 +119,7 @@ export const StyledModal = styled.div`
           justify-content: space-between;
           p {
             font-size: 14px;
+            font-family: "Public Sans", sans-serif;
           }
         }
       }

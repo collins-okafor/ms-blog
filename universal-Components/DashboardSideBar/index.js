@@ -10,8 +10,10 @@ import Profile from "../../assets/Icons/avatar-profile-photo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineClose } from "react-icons/md";
 import { REDUCE_SIDEBAR } from "../../store.js/type";
+import useWindowDimensions from "../../hooks/useWindowDimension";
 
 const DashboardSidebar = () => {
+  // const { width } = useWindowDimensions();
   const router = useRouter();
   const dispatch = useDispatch();
   const reduceSideBar = useSelector(
@@ -42,7 +44,12 @@ const DashboardSidebar = () => {
             className={`secondSection_dashboard ${
               router.asPath === item.link && "selected"
             }`}
-            onClick={() => RouteToPage(item.link)}
+            onClick={() => {
+              // if (width <= 1024) {
+              // dispatch({ type: REDUCE_SIDEBAR, payload: true });
+              // }
+              RouteToPage(item.link);
+            }}
           >
             <div className="secondSection_dashboardIconBody">
               <item.logo className="secondSection_dashboardIcon" />
@@ -51,7 +58,10 @@ const DashboardSidebar = () => {
           </div>
         ))}
       </div>
-      <div className="thirdSection">
+      <div
+        className="thirdSection"
+        onClick={() => router.push("/dashboard/profile")}
+      >
         <div className="thirdSection__ImageDetails">
           <div className="thirdSection__ImageDetailsWrapper">
             <Image

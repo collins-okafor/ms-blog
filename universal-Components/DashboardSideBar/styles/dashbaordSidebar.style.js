@@ -50,6 +50,7 @@ export const DashbardSideBarDiv = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 8;
   display: ${({ reduceSideBar }) => (reduceSideBar ? "none" : "block")};
   animation: ${({ reduceSideBar }) => (reduceSideBar ? right : left)} 0.4s;
 

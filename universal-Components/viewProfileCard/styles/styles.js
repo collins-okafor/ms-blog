@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ViewProfileStyle= styled.div`
+export const ViewProfileStyle = styled.div`
   width: 100%;
 
   .cardListSearchBody {
@@ -44,7 +44,14 @@ export const ViewProfileStyle= styled.div`
       transition: all 1.5s;
     }
   }
-
+  .cardListLink {
+    a {
+      background-color: transparent;
+      color: black;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
   .cardListSearchBodyNotificationList {
     .cardListSearchBodyNotificationListSystem {
       width: 30px;

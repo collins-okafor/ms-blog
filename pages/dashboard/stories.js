@@ -1,10 +1,12 @@
 import React from "react";
+import StoriesPage from "../../components/Stories";
+import DashbaordPageWrapper from "../../universal-Components/DashobardPageWrapper";
 
 const Stories = () => {
   return (
-    <div>
-      <div></div>
-    </div>
+    <DashbaordPageWrapper>
+      <StoriesPage />
+    </DashbaordPageWrapper>
   );
 };
 

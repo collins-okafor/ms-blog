@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { StyledModal } from "./styles/modal.styles";
 import userDefaultImage from "../../assets/Images/Avatar.png";
+import { useDispatch } from "react-redux";
+import { getLoginPageCounter } from "../../store.js/actions/authAction";
 const EditProfile = () => {
   const [displayImage, setDisplayImage] = useState(userDefaultImage.src);
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     let image = e.target.files[0];
     console.log(image);
     setDisplayImage(URL.createObjectURL(image));
+  };
+  const handleCancel = () => {
+    dispatch(getLoginPageCounter({}));
   };
   console.log(displayImage, "display");
   return (
@@ -14,7 +20,7 @@ const EditProfile = () => {
       <div className="formDiv">
         <div className="header">
           <h2>Profile information</h2>
-          <button>X</button>
+          <button onClick={handleCancel}>X</button>
         </div>
         <div className="profilePhoto">
           <div className="image">

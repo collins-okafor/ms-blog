@@ -6,8 +6,8 @@ import DashbaordPageWrapper from "../../universal-Components/DashobardPageWrappe
 const Followings = () => {
   return (
     <DashbaordPageWrapper>
-      {/* <Following /> */}
-      <EditProfile />
+      <Following />
+      {/* <EditProfile /> */}
     </DashbaordPageWrapper>
   );
 };

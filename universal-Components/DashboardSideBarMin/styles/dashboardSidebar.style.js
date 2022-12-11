@@ -50,6 +50,7 @@ export const DashboardMinDiv = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 8;
   transition: all 2s;
   animation: ${right} 1s;
   display: ${({ reduceSideBar }) => (reduceSideBar ? "block" : "none")};

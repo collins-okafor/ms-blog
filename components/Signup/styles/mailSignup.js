@@ -115,6 +115,7 @@ export const MailContainer = styled.div`
       width: 60%;
       margin: 0 auto;
       padding: 10px;
+      text-align: center;
       @media (max-width: 900px) {
         width: 85%;
       }

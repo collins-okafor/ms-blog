@@ -6,48 +6,45 @@ import { BsThreeDots } from "react-icons/bs";
 const ViewProfileCard = () => {
   return (
     <ViewProfileStyle>
-      <div className="cardListSearchBody">
-        <div className="cardListSearchBodyImageWrapper">
-          <div className="cardListSearchBodyImageBody">
-            <Image src={Profile} alt="" className="cardListSearchBodyImage" />
+      {followers.map((user, id) => (
+        <div className="cardListSearchBody" key={id}>
+          <div className="cardListSearchBodyImageWrapper">
+            <div className="cardListSearchBodyImageBody">
+              <Image src={Profile} alt="" className="cardListSearchBodyImage" />
+            </div>
+          </div>
+          <div className="cardListSearchBodyUsername">
+            <p>{user.userName}</p>
+          </div>
+          <div className="cardListLink">
+            <a href={user.link}>view profile</a>
           </div>
         </div>
-        <div className="cardListSearchBodyUsername">
-          <p>Ejke Joshua</p>
-        </div>
-        <div className="cardListSearchBodyNotificationList">
-          <BsThreeDots />
-        </div>
-      </div>
-      <div className="cardListSearchBody">
-        <div className="cardListSearchBodyImageWrapper">
-          <div className="cardListSearchBodyImageBody">
-            <Image src={Profile} alt="" className="cardListSearchBodyImage" />
-          </div>
-        </div>
-        <div className="cardListSearchBodyUsername">
-          <p>Ejke Joshua</p>
-        </div>
-        <div className="cardListSearchBodyNotificationList">
-          <BsThreeDots />
-        </div>
-      </div>
-      <div className="cardListSearchBody">
-        <div className="cardListSearchBodyImageWrapper">
-          <div className="cardListSearchBodyImageBody">
-            <Image src={Profile} alt="" className="cardListSearchBodyImage" />
-          </div>
-        </div>
-        <div className="cardListSearchBodyUsername">
-          <p>Ejke Joshua</p>
-        </div>
-        <div className="cardListSearchBodyNotificationList">
-          <BsThreeDots />
-          {/* <div className="cardListSearchBodyNotificationListSystem">10</div> */}
-        </div>
-      </div>
+      ))}
     </ViewProfileStyle>
   );
 };
 
+const followers = [
+  {
+    profileImage: "",
+    userName: "John Wick",
+    link: "#",
+  },
+  {
+    profileImage: "",
+    userName: "Joshua Ejike",
+    link: "#",
+  },
+  {
+    profileImage: "",
+    userName: "Emeka Praise",
+    link: "#",
+  },
+  {
+    profileImage: "",
+    userName: "ZealsDev",
+    link: "#",
+  },
+];
 export default ViewProfileCard;
