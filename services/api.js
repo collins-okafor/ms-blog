@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../store";
 
 if (typeof window !== "undefined") {
 }
@@ -31,8 +32,23 @@ APIs.interceptors.response.use(
   },
   (err) => {
     if (err.response.status === 401) {
+      if (
+        err?.response?.data?.message === "user not exiting" ||
+        err?.response?.data?.message === "wrong passwrod"
+      ) {
+        store.dispatch({
+          type: LOGINERROR,
+          payload: err?.response?.data?.message,
+        });
+      }
     }
+
     if (err.response?.status === 501) {
+    }
+
+    console.log(err, "let see");
+    if (err.response?.status === 400) {
+      console.log(err?.response, "let see");
     }
   }
 );

@@ -6,7 +6,7 @@ import { GoMail } from "react-icons/go";
 import { MailContainer } from "./styles/mailSignup";
 import { useDispatch } from "react-redux";
 import { getLoginPageCounter } from "../../store/actions/authAction";
-import AuthService from "../../services.js/auth";
+import AuthService from "../../services/auth";
 
 const MailSignIn = () => {
   const dispatch = useDispatch();

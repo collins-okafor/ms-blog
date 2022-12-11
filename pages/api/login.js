@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     if (!user) {
       return res
-        .status(StatusCodes.NOT_FOUND)
+        .status(StatusCodes.UNAUTHORIZED)
         .json({ msg: "user not exiting" });
     }
 
@@ -42,15 +42,13 @@ export default async function handler(req, res) {
 
     delete user.password;
 
-    return res
-      .status(StatusCodes.OK)
-      .json({
-        data: {
-          _id: user._id,
-          email: user.email,
-          token: token,
-          message: "success",
-        },
-      });
+    return res.status(StatusCodes.OK).json({
+      data: {
+        _id: user._id,
+        email: user.email,
+        token: token,
+        message: "success",
+      },
+    });
   }
 }

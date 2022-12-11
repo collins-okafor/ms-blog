@@ -8,6 +8,8 @@ import DashbaordPageWrapper from "../../universal-Components/DashobardPageWrappe
 // import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials";
 // import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzkzNWUxOTZmYjgxMGIxODcxYjMwNWMiLCJlbWFpbCI6ImdvZGZpcnN0ZWppa2U0MjIxQGdtYWlsLmNvbSIsImlhdCI6MTY3MDcwMTM3NH0.fImaLxJjsGOF7Xoc6W2iyEPyKAw1P9lQ2d97-z_ilUU
+
 const Write = () => {
   const [data, setData] = useState("");
   console.log(data);

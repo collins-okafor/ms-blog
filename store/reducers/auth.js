@@ -1,4 +1,11 @@
-import { ALLOWED_ACCESS, LOGIN, lOGINPAGECOUNTER, LOGOUT } from "../type";
+import {
+  ALLOWED_ACCESS,
+  LOGIN,
+  lOGINPAGECOUNTER,
+  LOGOUT,
+  BASEURL,
+  LOGINERROR,
+} from "../type";
 
 const initialState = {
   token: (typeof window !== "undefined" && localStorage.getItem("token")) || "",
@@ -7,6 +14,8 @@ const initialState = {
     (typeof window !== "undefined" && localStorage.getItem("isLoggedIn")),
   loginPageCounter: {},
   user: {},
+  baseURL: "",
+  LoginError: "",
 };
 
 const authReducer = (state = initialState, action) => {
@@ -42,6 +51,20 @@ const authReducer = (state = initialState, action) => {
         token: "",
         isLoggedIn: payload,
       };
+    }
+
+    case BASEURL: {
+      return {
+        ...state,
+        baseURL: payload,
+      };
+    }
+
+    case LOGINERROR: {
+      return{
+        ...state,
+        LoginError: payload,
+      }
     }
 
     default: {
