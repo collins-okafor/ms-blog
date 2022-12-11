@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getLoginPageCounter } from "../../store.js/actions/authAction";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 // import { SearchStyle } from "./styles/search.style";
 import photoTwo from "../../assets/Images/indesignSeven.jpg";
 import { SearchStyle } from "./styles/style";

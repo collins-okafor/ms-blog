@@ -7,8 +7,8 @@ const connectDB = () => {
       `${process.env.MONGO_URI}`,
       {
         useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
+        // useCreateIndex: true,
+        // useFindAndModify: false,
         useUnifiedTopology: true,
       }
       // ,

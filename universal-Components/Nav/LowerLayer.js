@@ -3,8 +3,9 @@ import React, { memo } from "react";
 import SystemMode from "../../components/SystemMode";
 import { LowerLayers } from "./styles/lowerLayers";
 import { FaSearch } from "react-icons/fa";
-import { getLoginPageCounter } from "../../store.js/actions/authAction";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 import { useDispatch } from "react-redux";
+
 const LowerLayer = () => {
   const dispatch = useDispatch();
   const handleSearch = () => {

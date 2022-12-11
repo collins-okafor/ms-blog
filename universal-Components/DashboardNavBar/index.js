@@ -7,7 +7,7 @@ import { BsBell } from "react-icons/bs";
 import Image from "next/image";
 import Profile from "../../assets/Icons/avatar-profile-photo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { DASHBOARD_NAV_DROPDOWN, REDUCE_SIDEBAR } from "../../store.js/type";
+import { DASHBOARD_NAV_DROPDOWN, REDUCE_SIDEBAR } from "../../store/type";
 import DashboarNavDropDown from "./dashboarNavDropDown";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 

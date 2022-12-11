@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { GoMail } from "react-icons/go";
 import { MailContainer } from "./styles/mailSignup";
 import { useDispatch } from "react-redux";
-import { getLoginPageCounter } from "../../store.js/actions/authAction";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 import AuthService from "../../services.js/auth";
 
 const MailSignIn = () => {

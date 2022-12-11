@@ -10,6 +10,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { email, password } = req.body;
 
+    console.log(req.body, "resent");
     if (!email || !password) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -24,7 +25,9 @@ export default async function handler(req, res) {
         .json({ msg: "user not exiting" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+
+    console.log(user, "resent");
 
     if (!isMatch) {
       return res
@@ -39,6 +42,15 @@ export default async function handler(req, res) {
 
     delete user.password;
 
-    return res.status(StatusCodes.OK).json({ data: { ...user, token: token } });
+    return res
+      .status(StatusCodes.OK)
+      .json({
+        data: {
+          _id: user._id,
+          email: user.email,
+          token: token,
+          message: "success",
+        },
+      });
   }
 }

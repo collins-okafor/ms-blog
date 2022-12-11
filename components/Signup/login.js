@@ -4,7 +4,7 @@ import { Container } from "./styles/signup.styles";
 import { FcGoogle } from "react-icons/fc";
 import { GoMail } from "react-icons/go";
 import MailSignIn from "./signinMail";
-import { getLoginPageCounter } from "../../store.js/actions/authAction";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 import { useDispatch } from "react-redux";
 const Login = ({ click }) => {
   const dispatch = useDispatch();
