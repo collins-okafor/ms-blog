@@ -20,15 +20,17 @@ export default async function handler(req, res) {
 
     if (!user) {
       return res
-        .status(StatusCodes.NOT_FOUND)
+        .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "user not exiting" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+
+    console.log(user, "resent");
 
     if (!isMatch) {
       return res
-        .status(StatusCodes.UNAUTHORIZED)
+        .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "wrong passwrod" });
     }
 
@@ -39,6 +41,13 @@ export default async function handler(req, res) {
 
     delete user.password;
 
-    return res.status(StatusCodes.OK).json({ data: { ...user, token: token } });
+    return res.status(StatusCodes.OK).json({
+      data: {
+        _id: user._id,
+        email: user.email,
+        token: token,
+        message: "success",
+      },
+    });
   }
 }

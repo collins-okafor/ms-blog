@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useDispatch } from "react-redux";
 import Profile from "../../assets/Icons/avatar-profile-photo.png";
-import { getLoginPageCounter } from "../../store.js/actions/authAction";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 import { ProfileHeaderDiv } from "./styles/profileHeader.style";
 const ProfileHeader = () => {
   const dispatch = useDispatch();

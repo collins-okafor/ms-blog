@@ -9,7 +9,7 @@ import Logo from "../../assets/Icons/Blogger-logo-01.webp";
 import Profile from "../../assets/Icons/avatar-profile-photo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineClose } from "react-icons/md";
-import { REDUCE_SIDEBAR } from "../../store.js/type";
+import { REDUCE_SIDEBAR } from "../../store/type";
 import useWindowDimensions from "../../hooks/useWindowDimension";
 
 const DashboardSidebar = () => {

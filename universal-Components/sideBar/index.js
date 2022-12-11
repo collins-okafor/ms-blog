@@ -4,8 +4,8 @@ import React, { memo } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/Icons/Blogger-logo-01.webp";
-import { getLoginPageCounter } from "../../store.js/actions/authAction";
-import { getShowHideSidebar } from "../../store.js/actions/landingPageAction";
+import { getLoginPageCounter } from "../../store/actions/authAction";
+import { getShowHideSidebar } from "../../store/actions/landingPageAction";
 import { SideBarDiv } from "./styles/sidebar.style";
 
 const SideBar = () => {

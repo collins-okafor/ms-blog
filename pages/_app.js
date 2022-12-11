@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import React, { createContext, useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import store, { wrapper } from "../store.js";
+import store, { wrapper } from "../store";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "../lib/globalStyles";
 import { theme } from "../lib/theme";
@@ -10,20 +10,19 @@ import Nav from "../universal-Components/Nav";
 import Footer from "../universal-Components/Footer";
 import ScrollingNav from "../universal-Components/ScrollingNav";
 import SideBar from "../universal-Components/sideBar";
-import { getSystemMode } from "../store.js/actions/landingPageAction";
+import { getSystemMode } from "../store/actions/landingPageAction";
 import DashboardSideBar from "../universal-Components/DashboardSideBar";
 import { useRouter } from "next/router";
 import DashboardSideBarMin from "../universal-Components/DashboardSideBarMin";
 import DashboardNavBar from "../universal-Components/DashboardNavBar";
-import { REDUCE_SIDEBAR } from "../store.js/type";
 import OpeningModalSwitcher from "../universal-Components/openingModalSwitcher";
+import { REDUCE_SIDEBAR } from "../store/type";
 import "../lib/globalStyles/global.css";
 // import connectDB from "../Server/db/connect";
 
 export const ThemeContext = createContext();
 
 function MyApp({ Component, pageProps }) {
-  // connectDB();
   const router = useRouter();
   const reduceSideBar = useSelector(
     (state) => state.DashboardConditionReducers.reduceSideBar

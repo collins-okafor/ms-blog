@@ -5,6 +5,7 @@ import SearchComp from "../../universal-Components/search";
 const HomeSearch = () => {
   return <SearchComp searchArry={posts} />;
 };
+
 const posts = [
   {
     image: photoTwo.src,

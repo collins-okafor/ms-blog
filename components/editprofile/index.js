@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyledModal } from "./styles/modal.styles";
 import userDefaultImage from "../../assets/Images/Avatar.png";
 import { useDispatch } from "react-redux";
-import { getLoginPageCounter } from "../../store.js/actions/authAction";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 const EditProfile = () => {
   const [displayImage, setDisplayImage] = useState(userDefaultImage.src);
   const dispatch = useDispatch();
