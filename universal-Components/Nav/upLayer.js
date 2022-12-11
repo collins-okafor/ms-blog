@@ -7,8 +7,8 @@ import SystemMode from "../../components/SystemMode";
 import { FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { getShowHideSidebar } from "../../store.js/actions/landingPageAction";
-import { getLoginPageCounter } from "../../store.js/actions/authAction";
+import { getShowHideSidebar } from "../../store/actions/landingPageAction";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 
 const UpLayerNav = () => {
   const dispatch = useDispatch();

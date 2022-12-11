@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DASHBOARD_NAV_DROPDOWN } from "../../store.js/type";
+import { DASHBOARD_NAV_DROPDOWN } from "../../store/type";
 import { DashboardNavDropdownDiv } from "./styles/dashboardNavDropdown.style";
 
 // eslint-disable-next-line react/display-name
