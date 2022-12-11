@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../store";
 
 if (typeof window !== "undefined") {
 }
@@ -33,6 +34,10 @@ APIs.interceptors.response.use(
     if (err.response.status === 401) {
     }
     if (err.response?.status === 501) {
+    }
+
+    if (err.response?.status === 400) {
+      // store.dispatch({type: BAD_REQUEST, payload: "bad request"})
     }
   }
 );

@@ -15,6 +15,7 @@ import DashboardSideBar from "../universal-Components/DashboardSideBar";
 import { useRouter } from "next/router";
 import DashboardSideBarMin from "../universal-Components/DashboardSideBarMin";
 import DashboardNavBar from "../universal-Components/DashboardNavBar";
+import OpeningModalSwitcher from "../universal-Components/openingModalSwitcher";
 import { REDUCE_SIDEBAR } from "../store/type";
 import "../lib/globalStyles/global.css";
 // import connectDB from "../Server/db/connect";
@@ -82,7 +83,7 @@ function MyApp({ Component, pageProps }) {
           {router.asPath.includes("dashboard") && <DashboardNavBar />}
 
           <Component {...pageProps} />
-
+          <OpeningModalSwitcher />
           {!router.asPath.includes("dashboard") && <Footer />}
         </ThemeProvider>
       </ThemeContext.Provider>

@@ -6,8 +6,9 @@ import { GoMail } from "react-icons/go";
 import { MailContainer } from "./styles/mailSignup";
 import { useDispatch } from "react-redux";
 import { getLoginPageCounter } from "../../store/actions/authAction";
-import AuthService from "../../services.js/auth";
-
+import AuthService from "../../services/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const MailSignIn = () => {
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState({});
@@ -30,10 +31,14 @@ const MailSignIn = () => {
     AuthService.login(formValue).then((data) => {
       console.log(data);
     });
+    toast.error("Incorrect Username or Password !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
 
   return (
     <MailContainer>
+      <ToastContainer />
       <button className="cancelButton" onClick={handleCancel}>
         x
       </button>

@@ -1,15 +1,14 @@
-import Link from "next/link";
 import styled from "styled-components";
 
-export const CardListDiv = styled.div`
+export const ViewProfileStyle = styled.div`
   width: 100%;
+
   .cardListSearchBody {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    background-color: ${({ theme }) => theme.primaryColor};
     box-shadow: 0px 2px 8px 0px ${({ theme }) => theme.boxShaw};
     border-radius: 8px;
     cursor: pointer;
@@ -45,7 +44,14 @@ export const CardListDiv = styled.div`
       transition: all 1.5s;
     }
   }
-
+  .cardListLink {
+    a {
+      background-color: transparent;
+      color: black;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
   .cardListSearchBodyNotificationList {
     .cardListSearchBodyNotificationListSystem {
       width: 30px;

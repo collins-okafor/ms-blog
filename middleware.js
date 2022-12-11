@@ -33,71 +33,71 @@ const middleware = (req) => {
 
   // const url = req.url;
 
-  if (
-    !url.includes("/dashboard") &&
-    !url.includes("/_next/static/development/_ssgManifest.js") &&
-    !url.includes("/_next/static/development/_buildManifest.js") &&
-    !url.includes("/_next/static/chunks/pages/_app.js") &&
-    !url.includes("/_ /static/chunks/react-refresh.js") &&
-    !url.includes("/_next/static/chunks/main.js") &&
-    !url.includes("/_next/static/chunks/webpack.js") &&
-    !url.includes("/_next/static/chunks/pages/login.js") &&
-    !url.includes("/manifest.json")
-  ) {
-    console.log(url, "not login");
-    if (tokens.value) {
-      try {
-        // verify(jwt, secret);
-        // return NextResponse.redirect(
-        //   new URL(`${makeUrl.origin}/dashboard`, req.url)
-        // );
+  // if (
+  //   !url.includes("/dashboard") &&
+  //   !url.includes("/_next/static/development/_ssgManifest.js") &&
+  //   !url.includes("/_next/static/development/_buildManifest.js") &&
+  //   !url.includes("/_next/static/chunks/pages/_app.js") &&
+  //   !url.includes("/_ /static/chunks/react-refresh.js") &&
+  //   !url.includes("/_next/static/chunks/main.js") &&
+  //   !url.includes("/_next/static/chunks/webpack.js") &&
+  //   !url.includes("/_next/static/chunks/pages/login.js") &&
+  //   !url.includes("/manifest.json")
+  // ) {
+  //   console.log(url, "not login");
+  //   if (tokens.value) {
+  //     try {
+  //       // verify(jwt, secret);
+  //       // return NextResponse.redirect(
+  //       //   new URL(`${makeUrl.origin}/dashboard`, req.url)
+  //       // );
 
-        return NextResponse.redirect(`${makeUrl.origin}/dashboard`);
-      } catch (err) {
-        return NextResponse.next();
-      }
-    }
-  }
+  //       return NextResponse.redirect(`${makeUrl.origin}/dashboard`);
+  //     } catch (err) {
+  //       return NextResponse.next();
+  //     }
+  //   }
+  // }
 
-  if (
-    url.includes("/dashboard") &&
-    !url.includes("/_next/static/development/_ssgManifest.js") &&
-    !url.includes("/_next/static/development/_buildManifest.js") &&
-    !url.includes("/_next/static/chunks/pages/_app.js") &&
-    !url.includes("/_next/static/chunks/react-refresh.js") &&
-    !url.includes("/_next/static/chunks/main.js") &&
-    !url.includes("/_next/static/chunks/webpack.js") &&
-    !url.includes("/_next/static/chunks/pages/login.js") &&
-    !url.includes("/manifest.json")
-  ) {
-    console.log(url, "login joshua");
-    if (
-      tokens.value === undefined ||
-      tokens.value === null ||
-      tokens.value === ""
-    ) {
-      //   !url.includes("/_next/static/development/_ssgManifest.js") &&
-      // !url.includes("/_next/static/development/_buildManifest.js") &&
-      // !url.includes("/_next/static/chunks/pages/_app.js") &&
-      // !url.includes("/_next/static/chunks/react-refresh.js") &&
-      // !url.includes("/_next/static/chunks/main.js") &&
-      // !url.includes("/_next/static/chunks/webpack.js") &&
-      // !url.includes("/_next/static/chunks/pages/login.js") &&
-      // !url.includes("/manifest.json")
+  // if (
+  //   url.includes("/dashboard") &&
+  //   !url.includes("/_next/static/development/_ssgManifest.js") &&
+  //   !url.includes("/_next/static/development/_buildManifest.js") &&
+  //   !url.includes("/_next/static/chunks/pages/_app.js") &&
+  //   !url.includes("/_next/static/chunks/react-refresh.js") &&
+  //   !url.includes("/_next/static/chunks/main.js") &&
+  //   !url.includes("/_next/static/chunks/webpack.js") &&
+  //   !url.includes("/_next/static/chunks/pages/login.js") &&
+  //   !url.includes("/manifest.json")
+  // ) {
+  //   console.log(url, "login joshua");
+  //   if (
+  //     tokens.value === undefined ||
+  //     tokens.value === null ||
+  //     tokens.value === ""
+  //   ) {
+  //     //   !url.includes("/_next/static/development/_ssgManifest.js") &&
+  //     // !url.includes("/_next/static/development/_buildManifest.js") &&
+  //     // !url.includes("/_next/static/chunks/pages/_app.js") &&
+  //     // !url.includes("/_next/static/chunks/react-refresh.js") &&
+  //     // !url.includes("/_next/static/chunks/main.js") &&
+  //     // !url.includes("/_next/static/chunks/webpack.js") &&
+  //     // !url.includes("/_next/static/chunks/pages/login.js") &&
+  //     // !url.includes("/manifest.json")
 
-      // if()
+  //     // if()
 
-      return NextResponse.redirect(`${makeUrl.origin}`);
-    }
+  //     return NextResponse.redirect(`${makeUrl.origin}`);
+  //   }
 
-    try {
-      // verify(jwt, secret);
+  //   try {
+  //     // verify(jwt, secret);
 
-      return NextResponse.next();
-    } catch (err) {
-      return NextResponse.redirect(`${makeUrl.origin}`);
-    }
-  }
+  //     return NextResponse.next();
+  //   } catch (err) {
+  //     return NextResponse.redirect(`${makeUrl.origin}`);
+  //   }
+  // }
   return NextResponse.next();
 };
 

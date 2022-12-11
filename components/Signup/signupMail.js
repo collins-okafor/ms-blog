@@ -6,7 +6,9 @@ import { GoMail } from "react-icons/go";
 import { MailContainer } from "./styles/mailSignup";
 import { useDispatch } from "react-redux";
 import { getLoginPageCounter } from "../../store/actions/authAction";
-import AuthService from "../../services.js/auth";
+import AuthService from "../../services/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Axios from "axios";
 
 const MailSignUp = () => {
@@ -29,20 +31,32 @@ const MailSignUp = () => {
     e.preventDefault();
 
     console.log(formValue, "our state");
-    if (formValue.password === formValue.confirmPassword) {
+    if (
+      formValue.password === formValue.confirmPassword &&
+      formValue.password &&
+      formValue.confirmPassword &&
+      formValue.email
+    ) {
       AuthService.register({
         email: formValue.email,
         password: formValue.password,
       }).then((data) => {
         console.log(data, "main value");
       });
+      toast.success(" Account created successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } else {
       console.log("wrong value");
+      toast.error("All inputs are required !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
   return (
     <MailContainer>
+      <ToastContainer />
       <button className="cancelButton" onClick={handleCancel}>
         x
       </button>

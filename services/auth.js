@@ -12,9 +12,9 @@ const AuthService = {
 
   login: async (param) => {
     return APIs.post(`/api/login`, param).then((data) => {
-      if (data.data.data.message === "success") {
-        setHeaders(data.data.data);
-        return data.data.data;
+      if (data?.data?.data?.message === "success") {
+        setHeaders(data?.data?.data);
+        return data?.data?.data;
       }
     });
   },

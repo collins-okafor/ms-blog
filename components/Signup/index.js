@@ -27,9 +27,9 @@ const SignUp = () => {
         x
       </button>
       <h3>Join Blogger</h3>
-      <button className="signupButton">
+      {/* <button className="signupButton">
         <FcGoogle className="icon" /> Sign up with google
-      </button>
+      </button> */}
       <button className="signupButton" onClick={handleClick}>
         <GoMail className="icon" /> Sign up with email
       </button>
