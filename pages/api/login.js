@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     if (!email || !password) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ message: "please provide email and password" });
+        .send({ message: "please provide email and password" });
     }
 
     const user = await UserSchemaState.findOne({ email: req.body.email });
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     if (!user) {
       return res
         .status(StatusCodes.UNAUTHORIZED)
-        .json({ message: "user not exiting" });
+        .send({ message: "user not exiting" });
     }
 
     const isMatch = await bcrypt.compare(req.body.password, user.password);
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     if (!isMatch) {
       return res
         .status(StatusCodes.UNAUTHORIZED)
-        .json({ message: "wrong passwrod" });
+        .send({ message: "wrong passwrod" });
     }
 
     const token = jwt.sign(

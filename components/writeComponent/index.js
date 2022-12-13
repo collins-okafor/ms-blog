@@ -6,17 +6,20 @@ import { HiPhotograph } from "react-icons/hi";
 import { WriteDiv } from "./styles/write.style";
 // import MyEditor from "../../universal-Components/myEditor";
 
+const MyEditor = dynamic(() => import("../../universal-Components/myEditor"), {
+  ssr: false,
+});
+
 const WriteComponent = () => {
-  const MyEditor = dynamic(
-    () => import("../../universal-Components/myEditor"),
-    { ssr: false }
-  );
+  const [data, setData] = useState("");
 
   const [dropItem, setDropItem] = useState("Select Details");
 
   const HandleClickDropDown = (item) => {
     setDropItem(item.title);
   };
+
+  const handleEditor = (e) => {};
 
   return (
     <WriteDiv>
