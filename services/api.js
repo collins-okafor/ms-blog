@@ -5,11 +5,11 @@ import { AUTHLOADER, LOGINERROR } from "../store/type";
 if (typeof window !== "undefined") {
 }
 const APIs = axios.create({
-  // mode: "no-cors",
+  mode: "no-cors",
   headers: {
     Accept: "application/json",
 
-    // "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "*",
 
     "content-Type": "application/json",
 

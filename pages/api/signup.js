@@ -3,18 +3,18 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import UserSchemaState from "../../Server/model/user";
 import connectDB from "../../Server/db/connect";
+import NextCors from "nextjs-cors";
 
 export default async function handler(req, res) {
   await connectDB();
 
-  await NextCors(req, res, {
-    // Options
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "*",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  });
-
   if (req.method === "POST") {
+    await NextCors(req, res, {
+      // Options
+      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+      origin: "*",
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    });
     const resentUser = req.body;
 
     if (!req.body.email || !req.body.password || !req.body.username) {
