@@ -9,7 +9,7 @@ const APIs = axios.create({
   headers: {
     Accept: "application/json",
 
-    "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Origin": "*",
 
     "content-Type": "application/json",
 
