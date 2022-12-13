@@ -2,6 +2,7 @@ import fs from "fs";
 import multer from "multer";
 import path from "path";
 import { config } from "process";
+import NextCors from "nextjs-cors";
 
 // export const config = {
 //   api: {
