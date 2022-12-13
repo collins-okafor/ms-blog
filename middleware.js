@@ -1,6 +1,8 @@
-import { NextResponse } from "next/server";
-// import { NextResponse } from "next/dist/server/web/spec-extension/response";
+// import { NextResponse } from "next/server";
+import { NextResponse } from "next/dist/server/web/spec-extension/response";
 import React from "react";
+import store from "./store";
+import { BASEURL } from "./store/type";
 // import { NextResponse, NextRequest } from "next/server";
 // import customUseRouter from "./universal-Components/customUseRouter";
 
@@ -9,6 +11,7 @@ const middleware = (req) => {
   const { url } = req;
   const tokens = req.cookies.get("token");
   const makeUrl = req.nextUrl.clone();
+  store.dispatch({ type: BASEURL, payload: makeUrl.origin });
 
   // const requestHeaders = new Headers(req.Headers);
   // requestHeaders.set({ "content-type": "text/html" });
@@ -40,9 +43,11 @@ const middleware = (req) => {
   //   !url.includes("/_next/static/chunks/pages/_app.js") &&
   //   !url.includes("/_ /static/chunks/react-refresh.js") &&
   //   !url.includes("/_next/static/chunks/main.js") &&
+  //   !url.includes("_error.js") &&
   //   !url.includes("/_next/static/chunks/webpack.js") &&
   //   !url.includes("/_next/static/chunks/pages/login.js") &&
-  //   !url.includes("/manifest.json")
+  //   !url.includes("/manifest.json") &&
+  //   !url.includes("react-refresh.js")
   // ) {
   //   console.log(url, "not login");
   //   if (tokens.value) {
@@ -67,8 +72,10 @@ const middleware = (req) => {
   //   !url.includes("/_next/static/chunks/react-refresh.js") &&
   //   !url.includes("/_next/static/chunks/main.js") &&
   //   !url.includes("/_next/static/chunks/webpack.js") &&
+  //   !url.includes("_error.js") &&
   //   !url.includes("/_next/static/chunks/pages/login.js") &&
-  //   !url.includes("/manifest.json")
+  //   !url.includes("/manifest.json") &&
+  //   !url.includes("react-refresh.js")
   // ) {
   //   console.log(url, "login joshua");
   //   if (

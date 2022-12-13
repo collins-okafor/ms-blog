@@ -4,19 +4,28 @@ import { Container } from "./styles/signup.styles";
 import { FcGoogle } from "react-icons/fc";
 import { GoMail } from "react-icons/go";
 import { MailContainer } from "./styles/mailSignup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getLoginPageCounter } from "../../store/actions/authAction";
 import AuthService from "../../services/auth";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Axios from "axios";
+import { useRouter } from "next/router";
+import { AUTHLOADER, LOGINERROR } from "../../store/type";
+import LoaderBob from "../../universal-Components/Loaders/loaderBob";
 
 const MailSignUp = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
+  const [loginState, setLoginState] = useState(false);
   const [formValue, setFormValue] = useState({});
+
+  const loginError = useSelector((state) => state.authReducer.LoginError);
+  const AuthLoader = useSelector((state) => state.authReducer.AuthLoader);
 
   const handleCancel = () => {
     dispatch(getLoginPageCounter({}));
+    dispatch({ type: LOGINERROR, payload: "" });
+    dispatch({ type: AUTHLOADER, payload: false });
   };
   const handleSignUpOptions = () => {
     dispatch(getLoginPageCounter({ counter: 0 }));
@@ -30,38 +39,67 @@ const MailSignUp = () => {
   const HandleSubmit = (e) => {
     e.preventDefault();
 
+    dispatch({ type: AUTHLOADER, payload: true });
     console.log(formValue, "our state");
     if (
       formValue.password === formValue.confirmPassword &&
       formValue.password &&
       formValue.confirmPassword &&
-      formValue.email
+      formValue.email &&
+      formValue.username
     ) {
-      AuthService.register({
-        email: formValue.email,
-        password: formValue.password,
-      }).then((data) => {
-        console.log(data, "main value");
-      });
-      toast.success(" Account created successfully!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      if (formValue?.password?.length >= 6) {
+        AuthService.register({
+          email: formValue.email,
+          password: formValue.password,
+        }).then((data) => {
+          if (data?.message === "success") {
+            dispatch(getLoginPageCounter({}));
+
+            toast.success(" Account created successfully!", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+
+            console.log(data, "main value");
+            dispatch({ type: LOGINERROR, payload: "" });
+            dispatch({ type: AUTHLOADER, payload: false });
+            dispatch(getLoginPageCounter({ counter: 3 }));
+          }
+        });
+      } else {
+        toast.error("password length must be greater than or equal 6 !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        dispatch({ type: AUTHLOADER, payload: false });
+      }
     } else {
       console.log("wrong value");
       toast.error("All inputs are required !", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      dispatch({ type: AUTHLOADER, payload: false });
     }
   };
 
   return (
     <MailContainer>
-      <ToastContainer />
       <button className="cancelButton" onClick={handleCancel}>
         x
       </button>
+      <div className="errors">{loginError && <p>{loginError}</p>}</div>
       <h3>Sign up with email</h3>
       <p>Enter your email address to create an account.</p>
+
+      <div className="inputContainer">
+        <label>Username</label>
+        <input
+          value={formValue.email}
+          type="text"
+          name="username"
+          onChange={handleChange}
+        />
+      </div>
+
       <div className="inputContainer">
         <label>Your email</label>
         <input
@@ -90,7 +128,7 @@ const MailSignUp = () => {
         />
       </div>
       <button className="signUpButton" onClick={HandleSubmit}>
-        Sign up
+        {AuthLoader ? <LoaderBob /> : <>Sign up </>}
       </button>
       <button className="signOptions" onClick={handleSignUpOptions}>
         Sign up options ?

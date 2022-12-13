@@ -23,6 +23,19 @@ export const MailContainer = styled.div`
     width: 100%;
     height: 100vh;
   }
+
+  .errors {
+    p {
+      text-transform: capitalize;
+      /* font-family: "Public Sans", sans-serif; */
+      font-family: "Nunito", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      color: red;
+    }
+  }
+
   p {
     /* font-family: "Public Sans", sans-serif; */
     font-family: "Nunito", sans-serif;

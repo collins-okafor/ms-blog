@@ -13,15 +13,15 @@ export default async function handler(req, res) {
     if (!email || !password) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "please provide email and password" });
+        .json({ message: "please provide email and password" });
     }
 
     const user = await UserSchemaState.findOne({ email: req.body.email });
 
     if (!user) {
       return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "user not exiting" });
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ message: "user not exiting" });
     }
 
     const isMatch = await bcrypt.compare(req.body.password, user.password);
@@ -30,12 +30,12 @@ export default async function handler(req, res) {
 
     if (!isMatch) {
       return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "wrong passwrod" });
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ message: "wrong passwrod" });
     }
 
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, email: user.email, username: user.username },
       process.env.JWT_SECRET
     );
 
@@ -45,6 +45,7 @@ export default async function handler(req, res) {
       data: {
         _id: user._id,
         email: user.email,
+        username: user.username,
         token: token,
         message: "success",
       },

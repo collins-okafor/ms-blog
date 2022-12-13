@@ -12,8 +12,6 @@ const OpeningModalSwitcher = () => {
     (state) => state.authReducer.loginPageCounter
   );
 
-  console.log(loginPageCounte.counter, "our state");
-
   switch (loginPageCounte.counter) {
     case 0:
       return (

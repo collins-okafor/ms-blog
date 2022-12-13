@@ -6,7 +6,7 @@ import { loginAction, allowAccess } from "../store/actions/authAction";
 const AuthService = {
   register: async (param) => {
     return APIs.post(`/api/signup`, param).then((data) => {
-      return data;
+      return data?.data?.data;
     });
   },
 
@@ -20,14 +20,13 @@ const AuthService = {
   },
 };
 
-const setHeaders = (param) => {
-  console.log(param, "our params");
+const setHeaders = async (param) => {
+  console.log(param, "stimdnsdjsk");
   APIs.defaults.headers["Authorization"] = `Bearer ${param.token}`;
-  store.dispatch(loginAction(param.token));
-  Cookies.set("token", param.token);
-  localStorage.setItem("token", param.token);
-  localStorage.setItem("isLoggedIn", true);
-  store.dispatch(allowAccess(true));
+  await store.dispatch(loginAction(param.token));
+  await localStorage.setItem("token", param.token);
+  await localStorage.setItem("isLoggedIn", true);
+  await store.dispatch(allowAccess(true));
 };
 
 export default AuthService;

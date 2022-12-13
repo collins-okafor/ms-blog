@@ -6,3 +6,6 @@ export const DASHBOARD_NAV_DROPDOWN = "DASHBOARD_NAV_DROPDOWN";
 export const LOGIN = "LOGIN";
 export const ALLOWED_ACCESS = "ALLOWED_ACCESS";
 export const LOGOUT = "LOGOUT";
+export const BASEURL = "BASEURL";
+export const LOGINERROR = "LOGINERROR";
+export const AUTHLOADER = "AUTHLOADER";

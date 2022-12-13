@@ -18,6 +18,8 @@ import DashboardNavBar from "../universal-Components/DashboardNavBar";
 import OpeningModalSwitcher from "../universal-Components/openingModalSwitcher";
 import { REDUCE_SIDEBAR } from "../store/type";
 import "../lib/globalStyles/global.css";
+import ProtectedRoute from "../Authentication/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
 // import connectDB from "../Server/db/connect";
 
 export const ThemeContext = createContext();
@@ -82,7 +84,11 @@ function MyApp({ Component, pageProps }) {
 
           {router.asPath.includes("dashboard") && <DashboardNavBar />}
 
-          <Component {...pageProps} />
+          <ProtectedRoute>
+            <Component {...pageProps} />
+          </ProtectedRoute>
+
+          <ToastContainer />
           <OpeningModalSwitcher />
           {!router.asPath.includes("dashboard") && <Footer />}
         </ThemeProvider>
