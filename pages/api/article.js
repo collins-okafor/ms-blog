@@ -17,13 +17,13 @@ export default async function handler(req, res) {
     ) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ message: "all field must be filled" });
+        .send({ message: "all field must be filled" });
     }
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res
         .status(StatusCodes.UNAUTHORIZED)
-        .json({ message: "Authentication invalid" });
+        .send({ message: "Authentication invalid" });
     }
 
     const token = authHeader.split(" ")[1];
@@ -40,6 +40,6 @@ export default async function handler(req, res) {
 
     res
       .status(StatusCodes.CREATED)
-      .json({ data: { article: article, message: "success" } });
+      .send({ data: { article: article, message: "success" } });
   }
 }

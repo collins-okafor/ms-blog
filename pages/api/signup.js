@@ -13,13 +13,13 @@ export default async function handler(req, res) {
     if (!req.body.email || !req.body.password || !req.body.username) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ message: "please provide email and password" });
+        .send({ message: "please provide email and password" });
     }
 
     if (await UserSchemaState.findOne({ email: req.body.email })) {
       return res
         .status(StatusCodes.UNAUTHORIZED)
-        .json({ message: "user already exits" });
+        .send({ message: "user already exits" });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -33,6 +33,6 @@ export default async function handler(req, res) {
 
     return res
       .status(StatusCodes.CREATED)
-      .json({ data: { message: "success", email: user?.email } });
+      .send({ data: { message: "success", email: user?.email } });
   }
 }
