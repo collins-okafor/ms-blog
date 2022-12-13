@@ -10,9 +10,9 @@ import Axios from "axios";
 // import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials";
 // import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 
-const MyEditor = () => {
+const MyEditor = ({ handleEditor }) => {
   const [data, setData] = useState("");
-  const baseURL = useSelector((state) => state.authReducer.baseURL);
+  // const baseURL = useSelector((state) => state.authReducer.baseURL);
 
   function getbase64(file) {
     return new Promise((resolve, reject) => {

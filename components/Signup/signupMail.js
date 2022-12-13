@@ -94,7 +94,7 @@ const MailSignUp = () => {
       <div className="inputContainer">
         <label>Username</label>
         <input
-          value={formValue.email}
+          value={formValue.username}
           type="text"
           name="username"
           onChange={handleChange}
