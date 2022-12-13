@@ -5,6 +5,7 @@ import {
   LOGOUT,
   BASEURL,
   LOGINERROR,
+  AUTHLOADER,
 } from "../type";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   user: {},
   baseURL: "",
   LoginError: "",
+  AuthLoader: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -61,10 +63,17 @@ const authReducer = (state = initialState, action) => {
     }
 
     case LOGINERROR: {
-      return{
+      return {
         ...state,
         LoginError: payload,
-      }
+      };
+    }
+
+    case AUTHLOADER: {
+      return {
+        ...state,
+        AuthLoader: payload,
+      };
     }
 
     default: {

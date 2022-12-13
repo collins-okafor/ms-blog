@@ -14,10 +14,10 @@ const ProtectedRoute = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(false);
 
-  useEffect(() => {
-    let auth =
-      typeof window !== "undefined" && window.localStorage.getItem("token");
+  let auth =
+    typeof window !== "undefined" && window.localStorage.getItem("token");
 
+  useEffect(() => {
     console.log(auth, "stated");
     if (auth) {
       setUser(true);
@@ -28,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
     return () => {
       console.log("finished");
     };
-  }, []);
+  }, [auth]);
 
   return !user && router.pathname.includes("dashboard") ? (
     <Redirect to={"/"} />

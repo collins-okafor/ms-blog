@@ -24,9 +24,9 @@ const Login = ({ click }) => {
         x
       </button>
       <h3>Welcome Back Blogger</h3>
-      <button className="signupButton">
+      {/* <button className="signupButton">
         <FcGoogle className="icon" /> Sign In with google
-      </button>
+      </button> */}
       <button className="signupButton" onClick={handleShowMail}>
         <GoMail className="icon" /> Sign In with email
       </button>

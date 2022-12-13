@@ -9,6 +9,7 @@ export const DashboardNavDropdownDiv = styled.div`
   border-radius: 8px;
   transition: all 1.5s;
   padding: 5px 0px;
+  z-index: 9;
   display: ${({ dashbaordNavDropdown }) =>
     !dashbaordNavDropdown ? "none" : "block"};
 

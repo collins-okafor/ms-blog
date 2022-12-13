@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import Ads from "../../universal-Components/postAdsStructure/ads";
 import Followers from "./followers";
 import List from "./list";

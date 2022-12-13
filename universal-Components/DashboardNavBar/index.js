@@ -7,6 +7,8 @@ import { BsBell } from "react-icons/bs";
 import Image from "next/image";
 import Profile from "../../assets/Icons/avatar-profile-photo.png";
 import { useDispatch, useSelector } from "react-redux";
+// import { REDUCE_SIDEBAR } from "../../store.js/type";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 import { DASHBOARD_NAV_DROPDOWN, REDUCE_SIDEBAR } from "../../store/type";
 import DashboarNavDropDown from "./dashboarNavDropDown";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
@@ -25,6 +27,9 @@ const DashboardNavBar = () => {
   const HandleReduceSideBar = () => {
     dispatch({ type: REDUCE_SIDEBAR, payload: !reduceSideBar });
   };
+  const handleSearch = () => {
+    dispatch(getLoginPageCounter({ counter: 4 }));
+  };
 
   useOnClickOutside(ref, () =>
     dispatch({
@@ -40,7 +45,10 @@ const DashboardNavBar = () => {
           <HiOutlineMenuAlt2 className="firstSection__SwitchIcon" />
         </div>
         <div className="firstSection__Search">
-          <BiSearch className="firstSection__SearchIcon" />
+          <BiSearch
+            className="firstSection__SearchIcon"
+            onClick={handleSearch}
+          />
         </div>
       </div>
       <div className="secondSection">

@@ -15,9 +15,11 @@ import DashboardSideBar from "../universal-Components/DashboardSideBar";
 import { useRouter } from "next/router";
 import DashboardSideBarMin from "../universal-Components/DashboardSideBarMin";
 import DashboardNavBar from "../universal-Components/DashboardNavBar";
+import OpeningModalSwitcher from "../universal-Components/openingModalSwitcher";
 import { REDUCE_SIDEBAR } from "../store/type";
 import "../lib/globalStyles/global.css";
 import ProtectedRoute from "../Authentication/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
 // import connectDB from "../Server/db/connect";
 
 export const ThemeContext = createContext();
@@ -86,6 +88,8 @@ function MyApp({ Component, pageProps }) {
             <Component {...pageProps} />
           </ProtectedRoute>
 
+          <ToastContainer />
+          <OpeningModalSwitcher />
           {!router.asPath.includes("dashboard") && <Footer />}
         </ThemeProvider>
       </ThemeContext.Provider>

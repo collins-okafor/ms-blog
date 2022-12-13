@@ -1,17 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Modal from "../../universal-Components/modal";
-import SignUp from "../Signup";
-import Login from "../Signup/login";
-import MailSignIn from "../Signup/signinMail";
-import MailSignUp from "../Signup/signupMail";
-import Search from "./search";
+import Modal from "./modal";
+import SignUp from "../components/Signup";
+import Login from "../components/Signup/login";
+import MailSignIn from "../components/Signup/signinMail";
+import MailSignUp from "../components/Signup/signupMail";
+import Search from "../components/LandingPage/search";
+import EditProfile from "../components/editprofile";
 const OpeningModalSwitcher = () => {
   const loginPageCounte = useSelector(
     (state) => state.authReducer.loginPageCounter
   );
-
-  console.log(loginPageCounte.counter, "our state");
 
   switch (loginPageCounte.counter) {
     case 0:
@@ -45,6 +44,8 @@ const OpeningModalSwitcher = () => {
           <Search />
         </Modal>
       );
+    case 5:
+      return <EditProfile />;
     default:
       return "";
   }
