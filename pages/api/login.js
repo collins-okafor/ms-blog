@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import UserSchemaState from "../../Server/model/user";
 import connectDB from "../../Server/db/connect";
+import NextCors from "nextjs-cors";
 
 export default async function handler(req, res) {
   connectDB();

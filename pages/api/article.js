@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import connectDB from "../../Server/db/connect";
 import ArticleSchemaState from "../../Server/model/publishArticleModel";
 import jwt from "jsonwebtoken";
+import NextCors from "nextjs-cors";
 
 export default async function handler(req, res) {
   await connectDB();
