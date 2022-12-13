@@ -50,6 +50,7 @@ const MailSignUp = () => {
     ) {
       if (formValue?.password?.length >= 6) {
         AuthService.register({
+          username: formValue.username,
           email: formValue.email,
           password: formValue.password,
         }).then((data) => {
@@ -127,7 +128,19 @@ const MailSignUp = () => {
           onChange={handleChange}
         />
       </div>
-      <button className="signUpButton" onClick={HandleSubmit}>
+      <button
+        disabled={
+          AuthLoader ||
+          !formValue.username ||
+          !formValue.email ||
+          !formValue.password ||
+          !formValue.confirmPassword
+            ? true
+            : false
+        }
+        className="signUpButton"
+        onClick={HandleSubmit}
+      >
         {AuthLoader ? <LoaderBob /> : <>Sign up </>}
       </button>
       <button className="signOptions" onClick={handleSignUpOptions}>

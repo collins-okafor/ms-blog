@@ -81,6 +81,15 @@ export const MailContainer = styled.div`
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    &:hover {
+      opacity: 0.9;
+    }
+
     @media (max-width: 900px) {
       /* width: 60%;  */
       margin-bottom: 2rem;

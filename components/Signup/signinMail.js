@@ -85,7 +85,13 @@ const MailSignIn = () => {
         <label>Password</label>
         <input type="password" name="password" onChange={handleChange} />
       </div>
-      <button className="signUpButton" onClick={HandleSubmit}>
+      <button
+        disabled={
+          AuthLoader || !formValue.email || !formValue.password ? true : false
+        }
+        className="signUpButton"
+        onClick={HandleSubmit}
+      >
         {AuthLoader ? <LoaderBob /> : <>Sign in</>}
       </button>
       <button className="signOptions" onClick={handleSignInOptions}>
