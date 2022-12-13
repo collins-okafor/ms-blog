@@ -99,6 +99,7 @@ export const MailContainer = styled.div`
       margin-bottom: 2rem;
     }
   }
+
   h3 {
     text-transform: uppercase;
     font-family: "Public Sans", sans-serif;

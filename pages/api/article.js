@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
 
-    console.log(payload, "resent payload");
+    req.body.createdBy = payload.userId;
 
     const article = await ArticleSchemaState.create({
       ...req.body,
@@ -38,6 +38,8 @@ export default async function handler(req, res) {
       email: payload.email,
     });
 
-    res.status(200).json({ data: article });
+    res
+      .status(StatusCodes.CREATED)
+      .json({ data: { article: article, message: "success" } });
   }
 }
