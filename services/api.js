@@ -62,6 +62,15 @@ APIs.interceptors.response.use(
     }
 
     if (err.response?.status === 400) {
+      if (
+        err?.response?.data?.message === "please provide email and password"
+      ) {
+        store.dispatch({
+          type: LOGINERROR,
+          payload: err?.response?.data?.message,
+        });
+        store.dispatch({ type: AUTHLOADER, payload: false });
+      }
       console.log(err?.response, "let see");
     }
   }
