@@ -7,6 +7,13 @@ import connectDB from "../../Server/db/connect";
 export default async function handler(req, res) {
   connectDB();
 
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
+
   if (req.method === "POST") {
     const { email, password } = req.body;
 
