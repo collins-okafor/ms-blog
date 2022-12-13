@@ -1,6 +1,6 @@
 import APIs from "./api";
 
-const AuthService = {
+const WriteService = {
   postArticle: async (params) => {
     return APIs.post(`/api/article`, params).then((data) => {
       console.log(data, "resent work");
@@ -9,4 +9,4 @@ const AuthService = {
   },
 };
 
-export default AuthService;
+export default WriteService;
