@@ -5,13 +5,13 @@ import { loginAction, allowAccess } from "../store/actions/authAction";
 
 const AuthService = {
   register: async (param) => {
-    return APIs.post(`/api/signup`, param).then((data) => {
+    return APIs.post(`/api/auth/register`, param).then((data) => {
       return data?.data?.data;
     });
   },
 
   login: async (param) => {
-    return APIs.post(`/api/login`, param).then((data) => {
+    return APIs.post(`/api/auth/login`, param).then((data) => {
       if (data?.data?.data?.message === "success") {
         setHeaders(data?.data?.data);
         return data?.data?.data;
