@@ -48,6 +48,7 @@ const MailSignUp = () => {
       formValue.email &&
       formValue.username
     ) {
+      console.log(formValue, "formvalue");
       if (formValue?.password?.length >= 6) {
         AuthService.register({
           username: formValue.username,
