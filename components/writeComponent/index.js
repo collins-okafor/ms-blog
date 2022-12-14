@@ -74,7 +74,7 @@ const WriteComponent = () => {
       const payload = {
         tag: dropItem,
         title: form?.title,
-        cover_pic: form.cover_pic,
+        cover_pic: "form.cover_pic",
         article: data,
       };
 
