@@ -5,11 +5,9 @@ import { AUTHLOADER, LOGINERROR } from "../store/type";
 if (typeof window !== "undefined") {
 }
 const APIs = axios.create({
-  mode: "no-cor   s",
+  baseURL: "https://ms-blog-backend.onrender.com",
   headers: {
     Accept: "application/json",
-
-    "Access-Control-Allow-Origin": "*",
 
     "content-Type": "application/json",
 
