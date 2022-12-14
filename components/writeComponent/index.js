@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 import Dropdown from "../../universal-Components/Dropdown";
 import { HiPhotograph } from "react-icons/hi";
 import { WriteDiv } from "./styles/write.style";
+import LoaderBob from "../../universal-Components/Loaders/loaderBob";
+import { AUTHLOADER } from "../../store/type";
+import WriteService from "../../services/writeService";
 // import MyEditor from "../../universal-Components/myEditor";
 
 const MyEditor = dynamic(() => import("../../universal-Components/myEditor"), {
@@ -11,7 +14,12 @@ const MyEditor = dynamic(() => import("../../universal-Components/myEditor"), {
 });
 
 const WriteComponent = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState("");
+  const [form, setForm] = useState({});
+  const [imageFile, setImageFile] = useState();
+
+  const AuthLoader = useSelector((state) => state.authReducer.AuthLoader);
 
   const [dropItem, setDropItem] = useState("Select Details");
 
@@ -19,7 +27,70 @@ const WriteComponent = () => {
     setDropItem(item.title);
   };
 
-  const handleEditor = (e) => {};
+  function getbase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const handleTextChange = (e) => {
+    const { name } = e.target;
+
+    if (name === "cover_pic") {
+      const file = e.target.files[0];
+      setImageFile(e.target.files[0]);
+
+      let promise = getbase64(file);
+
+      promise.then((data) => {
+        setForm({ ...form, [name]: data });
+        return data;
+      });
+    }
+
+    if (name === "title") {
+      setForm({ ...form, [name]: e.target.value });
+    }
+  };
+
+  const handleEditor = (data) => {
+    setData(data);
+  };
+
+  const HandleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch({ type: AUTHLOADER, payload: true });
+
+    if (data && form.title && form.cover_pic && dropItem) {
+      const payload = {
+        tag: dropItem,
+        title: form?.title,
+        cover_pic: form.cover_pic,
+        article: data,
+      };
+
+      console.log(payload, "user payload");
+
+      WriteService.postArticle(payload).then((data) => {
+        dispatch({ type: AUTHLOADER, payload: false });
+        console.log(data);
+      });
+    } else {
+      toast.error("all filed my be filled !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      dispatch({ type: AUTHLOADER, payload: false });
+    }
+  };
 
   return (
     <WriteDiv>
@@ -30,7 +101,7 @@ const WriteComponent = () => {
         <div className="wirteWrappperBodyFirstLine">
           <div className="wirteWrappperBodyFirstLineTitle">
             <p>Title</p>
-            <textarea></textarea>
+            <textarea onChange={handleTextChange} name="title"></textarea>
           </div>
           <div className="wirteWrappperBodyFirstLineTag">
             <div className="wirteWrappperBodyFirstLineTagText">
@@ -56,23 +127,34 @@ const WriteComponent = () => {
               </div>
 
               <div className="wirteWrappperBodySecondLineFileViewText">
-                <p>photo</p>
+                <p>{imageFile?.name ? imageFile?.name : "photo"}</p>
               </div>
             </div>
             <input
               type={"file"}
+              name="cover_pic"
               className="wirteWrappperBodySecondLineFileInput"
+              onChange={handleTextChange}
             />
           </div>
         </div>
       </div>
       <div className="wirteWrappperBodyEditor">
         <p className="wirteWrappperBodyEditorTitle">Article Body</p>
-        <MyEditor />
+        <MyEditor handleEditor={handleEditor} data={data} />
       </div>
 
       <div className="wirteWrappperBodyButton">
-        <button>Publish</button>
+        <button
+          disabled={
+            AuthLoader || !data || !form.title || !form.cover_pic || !dropItem
+              ? true
+              : false
+          }
+          onClick={HandleSubmit}
+        >
+          {AuthLoader ? <LoaderBob /> : <>Publish</>}
+        </button>
       </div>
     </WriteDiv>
   );
