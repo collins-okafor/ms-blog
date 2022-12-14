@@ -39,6 +39,7 @@ const MailSignIn = () => {
     e.preventDefault();
     dispatch({ type: AUTHLOADER, payload: true });
 
+    console.log(formValue, "formValue");
     if (formValue?.email || formValue?.passwrod) {
       if (formValue?.password.length >= 6) {
         AuthService.login(formValue).then((data) => {

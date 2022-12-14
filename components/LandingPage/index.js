@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import OpeningModalSwitcher from "../../universal-Components/openingModalSwitcher";
 import HeroSection from "./heroSection";
 import PostStructure from "./postStructure";
 import { LandingDiv } from "./styles/landing.style";

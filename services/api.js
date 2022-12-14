@@ -33,7 +33,7 @@ APIs.interceptors.response.use(
     return res;
   },
   (err) => {
-    if (err.response.status === 401) {
+    if (err?.response?.status === 401) {
       if (err?.response?.data?.message === "user not exiting") {
         store.dispatch({
           type: LOGINERROR,
@@ -59,10 +59,10 @@ APIs.interceptors.response.use(
       }
     }
 
-    if (err.response?.status === 501) {
+    if (err?.response?.status === 501) {
     }
 
-    if (err.response?.status === 400) {
+    if (err?.response?.status === 400) {
       if (
         err?.response?.data?.message === "please provide email and password"
       ) {
