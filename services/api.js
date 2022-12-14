@@ -6,8 +6,15 @@ if (typeof window !== "undefined") {
 }
 const APIs = axios.create({
   baseURL: "https://ms-blog-backend.onrender.com",
+
   headers: {
     Accept: "application/json",
+
+    "Access-Control-Allow-Origin": "*",
+
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+
+    "Access-Control-Allow-Credentials": "true",
 
     "content-Type": "application/json",
 

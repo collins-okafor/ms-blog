@@ -10,8 +10,8 @@ import Axios from "axios";
 // import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials";
 // import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 
-const MyEditor = ({ handleEditor }) => {
-  const [data, setData] = useState("");
+const MyEditor = ({ handleEditor, data }) => {
+  // const [data, setData] = useState("");
   // const baseURL = useSelector((state) => state.authReducer.baseURL);
 
   function getbase64(file) {
@@ -117,7 +117,8 @@ const MyEditor = ({ handleEditor }) => {
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          setData(data);
+          // setData(data);
+          handleEditor(data);
           // console.log({ event, editor, data });
         }}
         onBlur={(event, editor) => {
