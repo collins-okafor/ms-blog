@@ -21,7 +21,6 @@ const AuthService = {
 };
 
 const setHeaders = async (param) => {
-  console.log(param, "stimdnsdjsk");
   APIs.defaults.headers["Authorization"] = `Bearer ${param.token}`;
   await store.dispatch(loginAction(param.token));
   await localStorage.setItem("token", param.token);
