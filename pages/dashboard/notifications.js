@@ -10,4 +10,6 @@ const Notifications = () => {
   );
 };
 
+Notifications.auth = true;
+
 export default Notifications;

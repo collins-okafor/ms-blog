@@ -10,15 +10,9 @@ export function Redirect({ to }) {
   return null;
 }
 
-const ProtectedRoute = ({ children }) => {
+const IsLoggin = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(false);
-
-  let isLoggedin =
-    typeof window !== "undefined" && window.localStorage.getItem("isLoggedIn");
-
-  // let auth =
-  //   typeof window !== "undefined" && window.localStorage.getItem("token");
 
   useEffect(() => {
     let auth =
@@ -37,13 +31,9 @@ const ProtectedRoute = ({ children }) => {
 
   return (
     <>
-      {!user ? (
-        <>
-          <div>Loading...</div>
-        </>
-      ) : !isLoggedin ? (
+      {!user && router.pathname.includes("dashboard") ? (
         <Redirect to={"/"} />
-      ) : isLoggedin && !router.pathname.includes("dashboard") ? (
+      ) : user ? (
         <Redirect to={"/dashboard"} />
       ) : (
         children
@@ -52,5 +42,4 @@ const ProtectedRoute = ({ children }) => {
   );
 };
 
-export default ProtectedRoute;
-// && router.pathname.includes("dashboard")
+export default IsLoggin;

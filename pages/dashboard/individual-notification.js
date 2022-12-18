@@ -11,4 +11,6 @@ const IndividualNotification = () => {
   );
 };
 
+IndividualNotification.auth = true;
+
 export default IndividualNotification;

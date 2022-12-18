@@ -12,4 +12,6 @@ const Followings = () => {
   );
 };
 
+Followings.auth = true;
+
 export default Followings;

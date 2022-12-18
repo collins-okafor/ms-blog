@@ -10,4 +10,6 @@ const Write = () => {
   );
 };
 
+Write.auth = true;
+
 export default Write;

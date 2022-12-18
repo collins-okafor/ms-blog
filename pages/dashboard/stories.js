@@ -10,4 +10,6 @@ const Stories = () => {
   );
 };
 
+Stories.auth = true;
+
 export default Stories;
