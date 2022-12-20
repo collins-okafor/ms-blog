@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store, { wrapper } from "../store";
 import { ThemeProvider } from "styled-components";
@@ -20,7 +20,7 @@ import { REDUCE_SIDEBAR } from "../store/type";
 import "../lib/globalStyles/global.css";
 import ProtectedRoute from "../Authentication/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
-// import connectDB from "../Server/db/connect";
+import IsLoggin from "../Authentication/isLoggin";
 
 export const ThemeContext = createContext();
 

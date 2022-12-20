@@ -1,15 +1,15 @@
 import React from "react";
-import ProfilePage from "../../components/Profile";
+import ArticleDisplay from "../../universal-Components/ArticleDisplay";
 import DashbaordPageWrapper from "../../universal-Components/DashobardPageWrapper";
 
-const Profile = () => {
+const ArticleDetails = () => {
   return (
     <DashbaordPageWrapper>
-      <ProfilePage />
+      <ArticleDisplay />
     </DashbaordPageWrapper>
   );
 };
 
-Profile.auth = true;
+ArticleDetails.auth = true;
 
-export default Profile;
+export default ArticleDetails;

@@ -9,3 +9,6 @@ export const LOGOUT = "LOGOUT";
 export const BASEURL = "BASEURL";
 export const LOGINERROR = "LOGINERROR";
 export const AUTHLOADER = "AUTHLOADER";
+export const DYNAMIC_POST = "DYNAMIC_POST";
+export const GET_ALL_ARTICLE = "GET_ALL_ARTICLE";
+export const GET_SINGLE_ARTICLE = "GET_SINGLE_ARTICLE";

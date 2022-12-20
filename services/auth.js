@@ -5,19 +5,27 @@ import { loginAction, allowAccess } from "../store/actions/authAction";
 
 const AuthService = {
   register: async (param) => {
-    return APIs.post(`/api/auth/register`, param).then((data) => {
-      return data?.data?.data;
-    });
+    return APIs.post(`/api/auth/register`, param)
+      .then((data) => {
+        return data?.data?.data;
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
   },
 
   login: async (param) => {
-    return APIs.post(`/api/auth/login`, param).then((data) => {
-      console.log(data, "to see this");
-      if (data?.data?.data?.message === "success") {
-        setHeaders(data?.data?.data);
-        return data?.data?.data;
-      }
-    });
+    return APIs.post(`/api/auth/login`, param)
+      .then((data) => {
+        console.log(data, "to see this");
+        if (data?.data?.data?.message === "success") {
+          setHeaders(data?.data?.data);
+          return data?.data?.data;
+        }
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
   },
 };
 

@@ -7,10 +7,14 @@ import photoFive from "../../assets/Images/paris.jpg";
 import photoSix from "../../assets/Images/about-us.jpg";
 import Image from "next/image";
 import { PostDiv } from "./styles/post.styles";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
+import { MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import HTMLReactParser from "html-react-parser";
 
 const Post = () => {
+  const dynamicPost = useSelector((state) => state.generalReducer.dynamicPost);
+
   const Truncate = (word, count = 60) => {
     const Word_length = count;
     if (word.length > Word_length) {
@@ -20,13 +24,15 @@ const Post = () => {
     }
   };
 
+  console.log(dynamicPost, "use data");
+
   return (
     <PostDiv>
-      {posts.map((item, key) => (
+      {dynamicPost.map((item, key) => (
         <div key={key} className={"flex"}>
           <div className="userDetails">
             <div className="photoContainer">
-              <Image src={item.photo} alt="" className="photoContainerImage" />
+              <Image src={photoOne} alt="" className="photoContainerImage" />
             </div>
           </div>
 
@@ -34,11 +40,7 @@ const Post = () => {
             <div className="mainPostContainerHeaderWrapper">
               <div className="mainPostContainerHeaderWrapperSystem">
                 <div className="profileImage">
-                  <Image
-                    src={item.profilePics}
-                    alt=""
-                    className="profileImageState"
-                  />
+                  <Image src={photoOne} alt="" className="profileImageState" />
                 </div>
                 <div className="userName">
                   <h4>{item.author}</h4>
@@ -46,13 +48,13 @@ const Post = () => {
               </div>
               <div className="mainPostContainerHeaderWrapperContent">
                 <h1>{item.title}</h1>
-                <p className="textContent">{item.content}</p>
+                <p className="textContent">{HTMLReactParser(item.article)}</p>
               </div>
             </div>
             <div className="postWrapper">
               <div className="postContainer">
                 <p>{`${item.date}11 min read`}</p>
-                <button>Java programming</button>
+                <button>{item?.tag}</button>
               </div>
               <div className="postWrapperContent">
                 <div className="postWrapperContentSaveIconBody">
