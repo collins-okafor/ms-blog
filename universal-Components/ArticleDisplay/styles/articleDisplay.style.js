@@ -41,7 +41,7 @@ export const ArticleDisplayDiv = styled.div`
             font-weight: 500;
             font-style: normal;
             color: ${({ theme }) => theme.textColor};
-            line-height: 16px;
+            line-height: 30px;
             transition: all 1.5s;
           }
 

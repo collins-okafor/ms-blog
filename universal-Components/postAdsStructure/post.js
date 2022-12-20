@@ -48,7 +48,7 @@ const Post = () => {
               </div>
               <div className="mainPostContainerHeaderWrapperContent">
                 <h1>{item.title}</h1>
-                {/* <p className="textContent">{HTMLReactParser(item.article)}</p> */}
+                <p className="textContent">{HTMLReactParser(item.article)}</p>
               </div>
             </div>
             <div className="postWrapper">
