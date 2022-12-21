@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import landingpageService from "../../services/landingpageServices";
-import { getAllArticle } from "../../store/actions/landingpageAction";
+import { getAllArticle } from "../../store/actions/landingPageAction";
 import Loader1 from "../../universal-Components/Loaders/loader1";
 import HeroSection from "./heroSection";
 import PostStructure from "./postStructure";

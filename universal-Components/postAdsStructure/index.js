@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Ads from "./ads";
 import Post from "./post";
 import { PostAdsStructureDiv } from "./styles/PostStructure.style";

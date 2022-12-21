@@ -17,7 +17,7 @@ import HTMLReactParser from "html-react-parser";
 import { useRouter } from "next/router";
 import { getLoginPageCounter } from "../../store/actions/authAction";
 
-const ArticleDisplay = () => {
+const DashboardArticleDisplay = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [showComment, setShowComment] = useState(false);
@@ -255,4 +255,4 @@ const ArrayList = [
   },
 ];
 
-export default ArticleDisplay;
+export default DashboardArticleDisplay;
