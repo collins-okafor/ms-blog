@@ -11,8 +11,10 @@ import { MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import HTMLReactParser from "html-react-parser";
+import { useRouter } from "next/router";
 
 const Post = () => {
+  const router = useRouter();
   const dynamicPost = useSelector((state) => state.generalReducer.dynamicPost);
 
   const Truncate = (word, count = 60) => {
@@ -22,6 +24,13 @@ const Post = () => {
     } else {
       return word;
     }
+  };
+
+  const HandleSinglePost = (item) => {
+    router.push({
+      pathname: "/dashboard/[articleDetails]",
+      query: { articleDetails: item._id },
+    });
   };
 
   console.log(dynamicPost, "use data");
@@ -37,7 +46,10 @@ const Post = () => {
           </div>
 
           <div className="mainPostContainer">
-            <div className="mainPostContainerHeaderWrapper">
+            <div
+              className="mainPostContainerHeaderWrapper"
+              onClick={() => HandleSinglePost(item)}
+            >
               <div className="mainPostContainerHeaderWrapperSystem">
                 <div className="profileImage">
                   <Image src={photoOne} alt="" className="profileImageState" />
