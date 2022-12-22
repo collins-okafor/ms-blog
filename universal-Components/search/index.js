@@ -5,7 +5,7 @@ import { getLoginPageCounter } from "../../store/actions/authAction";
 import photoTwo from "../../assets/Images/indesignSeven.jpg";
 import { SearchStyle } from "./styles/style";
 
-const SearchComp = ({ searchArry }) => {
+const SearchComp = ({ searchArry, handleOpenSearch }) => {
   const dispatch = useDispatch();
   const [searchItem, setSearchItem] = useState([]);
   const [searchNotFound, setsearchNotFound] = useState("");
@@ -37,9 +37,9 @@ const SearchComp = ({ searchArry }) => {
       <input type="text" onChange={handleSearch} placeholder="Search..." />
       <div className="searchContainer">
         {searchItem.map((item, i) => (
-          <div key={i} className="searchDisplay">
+          <div key={i} className="searchDisplay" onClick={() => handleOpenSearch(item)}>
             <div className="imageContainer">
-              <img src={item.image} alt="" />
+              <img src={photoTwo.src} alt="" />
             </div>
             <div className="searchWord">
               <h3>{item.title}</h3>
