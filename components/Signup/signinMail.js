@@ -16,11 +16,17 @@ import LoaderBob from "../../universal-Components/Loaders/loaderBob";
 const MailSignIn = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [counter, setCounter] = useState(0);
   const [formValue, setFormValue] = useState({});
 
   const loginError = useSelector((state) => state.authReducer.LoginError);
   const AuthLoader = useSelector((state) => state.authReducer.AuthLoader);
-
+  const handleCounter = () => {
+    setCounter((prev) => prev + 1);
+  };
+  const handleCounterBack = () => {
+    counter < 1 ? setCounter(0) : setCounter((prev) => prev - 1);
+  };
   const handleCancel = () => {
     dispatch(getLoginPageCounter({}));
     dispatch({ type: LOGINERROR, payload: "" });
@@ -76,25 +82,49 @@ const MailSignIn = () => {
         x
       </button>
       <div className="errors">{loginError && <p>{loginError}</p>}</div>
-      <h3>Sign up with email</h3>
-      <p>Enter your email address to create an account.</p>
-      <div className="inputContainer">
-        <label>Your email</label>
-        <input type="email" name="email" onChange={handleChange} />
-      </div>
-      <div className="inputContainer">
-        <label>Password</label>
-        <input type="password" name="password" onChange={handleChange} />
-      </div>
+      <h3>Sign in with email</h3>
+      <p>Enter your email address and password to login.</p>
+      {counter === 0 && (
+        <div className="inputContainer">
+          <label>Your email</label>
+          <input type="email" name="email" onChange={handleChange} />
+        </div>
+      )}
+      {counter === 1 && (
+        <div className="inputContainer">
+          <label>Password</label>
+          <input type="password" name="password" onChange={handleChange} />
+        </div>
+      )}
+
       <button
         disabled={
-          AuthLoader || !formValue.email || !formValue.password ? true : false
+          counter < 1
+            ? false
+            : AuthLoader || !formValue.email || !formValue.password
+            ? true
+            : false
         }
         className="signUpButton"
-        onClick={HandleSubmit}
+        onClick={() => {
+          if (counter < 1) {
+            handleCounter();
+          } else {
+            HandleSubmit();
+          }
+        }}
       >
-        {AuthLoader ? <LoaderBob /> : <>Sign in</>}
+        {AuthLoader ? (
+          <LoaderBob />
+        ) : (
+          <>{counter === 1 ? "Sign in" : "continue"}</>
+        )}
       </button>
+      {counter > 0 && (
+        <button className="signUpButton" onClick={handleCounterBack}>
+          back
+        </button>
+      )}
       <button className="signOptions" onClick={handleSignInOptions}>
         Sign in options ?
       </button>

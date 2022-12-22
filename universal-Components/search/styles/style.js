@@ -6,6 +6,7 @@ export const SearchStyle = styled.div`
   background-color: ${({ theme }) => theme.BaseColor};
   /* color: white; */
   text-align: center;
+  overflow: auto;
   button {
     position: absolute;
     font-size: 30px;

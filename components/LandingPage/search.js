@@ -1,9 +1,26 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import photoTwo from "../../assets/Images/indesignSeven.jpg";
 import SearchComp from "../../universal-Components/search";
+import { useRouter } from "next/router";
 
 const HomeSearch = () => {
-  return <SearchComp searchArry={posts} />;
+  const router = useRouter();
+  const getAllarticle = useSelector(
+    (state) => state?.landingPageReducer?.getAllarticle
+  );
+  const HandleClick = (item) => {
+    router.push({
+      pathname: "/[articleDetails]",
+      query: { articleDetails: item._id },
+    });
+  };
+  return (
+    <SearchComp
+      searchArry={getAllarticle?.allArticle}
+      handleOpenSearch={HandleClick}
+    />
+  );
 };
 
 const posts = [

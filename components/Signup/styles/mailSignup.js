@@ -23,7 +23,17 @@ export const MailContainer = styled.div`
     width: 100%;
     height: 100vh;
   }
-
+  .backButton {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    padding: 5px 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+    color: ${({ theme }) => theme.secondaryColor};
+  }
   .errors {
     p {
       text-transform: capitalize;
