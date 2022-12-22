@@ -16,8 +16,16 @@ import LoaderBob from "../../universal-Components/Loaders/loaderBob";
 const MailSignUp = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [counter, setCounter] = useState(0);
   const [loginState, setLoginState] = useState(false);
   const [formValue, setFormValue] = useState({});
+  const handleCounter = () => {
+    setCounter((prev) => prev + 1);
+  };
+  const handleCounterBack = () => {
+    counter < 1 ? setCounter(0) : setCounter((prev) => prev - 1);
+  };
+  console.log(counter, "counter");
 
   const loginError = useSelector((state) => state.authReducer.LoginError);
   const AuthLoader = useSelector((state) => state.authReducer.AuthLoader);
@@ -91,59 +99,94 @@ const MailSignUp = () => {
       <div className="errors">{loginError && <p>{loginError}</p>}</div>
       <h3>Sign up with email</h3>
       <p>Enter your email address to create an account.</p>
+      {/* {formFields.map((fields, id) => (
+        <div className="inputContainer" key={id}>
+          <label>{fields.label}</label>
+          <input
+            value={fields.value}
+            type={fields.inputType}
+            name={fields.name}
+            onChange={handleChange}
+          />
+        </div>
+      ))} */}
+      {counter === 0 && (
+        <div className="inputContainer">
+          <label>Username</label>
+          <input
+            value={formValue.username}
+            type="text"
+            name="username"
+            onChange={handleChange}
+          />
+        </div>
+      )}
 
-      <div className="inputContainer">
-        <label>Username</label>
-        <input
-          value={formValue.username}
-          type="text"
-          name="username"
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="inputContainer">
-        <label>Your email</label>
-        <input
-          value={formValue.email}
-          type="email"
-          name="email"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="inputContainer">
-        <label>Password</label>
-        <input
-          value={formValue.password}
-          type="password"
-          name="password"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="inputContainer">
-        <label>Confirm Password</label>
-        <input
-          value={formValue.confirmPassword}
-          type="password"
-          name="confirmPassword"
-          onChange={handleChange}
-        />
-      </div>
+      {counter === 1 && (
+        <div className="inputContainer">
+          <label>Your email</label>
+          <input
+            value={formValue.email}
+            type="email"
+            name="email"
+            onChange={handleChange}
+          />
+        </div>
+      )}
+      {counter === 2 && (
+        <div className="inputContainer">
+          <label>Password</label>
+          <input
+            value={formValue.password}
+            type="password"
+            name="password"
+            onChange={handleChange}
+          />
+        </div>
+      )}
+      {counter === 3 && (
+        <div className="inputContainer">
+          <label>Confirm Password</label>
+          <input
+            value={formValue.confirmPassword}
+            type="password"
+            name="confirmPassword"
+            onChange={handleChange}
+          />
+        </div>
+      )}
       <button
         disabled={
-          AuthLoader ||
-          !formValue.username ||
-          !formValue.email ||
-          !formValue.password ||
-          !formValue.confirmPassword
+          counter < 3
+            ? false
+            : AuthLoader ||
+              !formValue.username ||
+              !formValue.email ||
+              !formValue.password ||
+              !formValue.confirmPassword
             ? true
             : false
         }
         className="signUpButton"
-        onClick={HandleSubmit}
+        onClick={() => {
+          if (counter < 3) {
+            handleCounter();
+          } else {
+            HandleSubmit();
+          }
+        }}
       >
-        {AuthLoader ? <LoaderBob /> : <>Sign up </>}
+        {AuthLoader ? (
+          <LoaderBob />
+        ) : (
+          <>{counter === 3 ? "Sign up" : "continue"} </>
+        )}
       </button>
+      {counter > 0 && (
+        <button className="signUpButton" onClick={handleCounterBack}>
+          back
+        </button>
+      )}
       <button className="signOptions" onClick={handleSignUpOptions}>
         Sign up options ?
       </button>
@@ -152,3 +195,30 @@ const MailSignUp = () => {
 };
 
 export default MailSignUp;
+
+// const formFields = [
+//   {
+//     label: "user name",
+//     inputType: "text",
+//     value: "username",
+//     name: "username",
+//   },
+//   {
+//     label: "your email",
+//     inputType: "email",
+//     value: formValue.email,
+//     name: "email",
+//   },
+//   {
+//     label: "password",
+//     inputType: "password",
+//     value: formValue.password,
+//     name: "password",
+//   },
+//   {
+//     label: "confirm password",
+//     inputType: "password",
+//     value: formValue.confirmPassword,
+//     name: "confirmPassword",
+//   },
+// ];
