@@ -22,12 +22,12 @@ const DashboardArticleDisplay = () => {
   const dispatch = useDispatch();
   const [showComment, setShowComment] = useState(false);
 
+  const getSingleArticle = useSelector(
+    (state) => state.DashboardReducers.dashboardSinglePost
+  );
+
   let auth =
     typeof window !== "undefined" && window.localStorage.getItem("token");
-
-  const getSingleArticle = useSelector(
-    (state) => state.generalReducer.getSingleArticle
-  );
 
   console.log(getSingleArticle, "make");
 

@@ -37,7 +37,7 @@ const Post = () => {
 
   return (
     <PostDiv>
-      {dynamicPost.map((item, key) => (
+      {dynamicPost?.map((item, key) => (
         <div key={key} className={"flex"}>
           <div className="userDetails">
             <div className="photoContainer">
