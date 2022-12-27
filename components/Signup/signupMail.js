@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { AUTHLOADER, LOGINERROR } from "../../store/type";
 import LoaderBob from "../../universal-Components/Loaders/loaderBob";
-
+import { IoIosArrowBack } from "react-icons/io";
 const MailSignUp = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -20,7 +20,15 @@ const MailSignUp = () => {
   const [loginState, setLoginState] = useState(false);
   const [formValue, setFormValue] = useState({});
   const handleCounter = () => {
-    setCounter((prev) => prev + 1);
+    if (counter === 0 && formValue.username >= 5) {
+      setCounter((prev) => prev + 1);
+    } else if (counter === 1 && formValue.email >= 6) {
+      setCounter((prev) => prev + 1);
+    } else if (counter === 2 && formValue.password >= 6) {
+      setCounter((prev) => prev + 1);
+    } else {
+      setCounter((prev) => prev + 1);
+    }
   };
   const handleCounterBack = () => {
     counter < 1 ? setCounter(0) : setCounter((prev) => prev - 1);
@@ -93,6 +101,11 @@ const MailSignUp = () => {
 
   return (
     <MailContainer>
+      {counter > 0 && (
+        <button className="backButton" onClick={handleCounterBack}>
+          <IoIosArrowBack />
+        </button>
+      )}
       <button className="cancelButton" onClick={handleCancel}>
         x
       </button>
@@ -182,11 +195,6 @@ const MailSignUp = () => {
           <>{counter === 3 ? "Sign up" : "continue"} </>
         )}
       </button>
-      {counter > 0 && (
-        <button className="signUpButton" onClick={handleCounterBack}>
-          back
-        </button>
-      )}
       <button className="signOptions" onClick={handleSignUpOptions}>
         Sign up options ?
       </button>

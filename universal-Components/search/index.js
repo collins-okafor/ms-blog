@@ -37,7 +37,7 @@ const SearchComp = ({ searchArry, handleOpenSearch }) => {
       <input type="text" onChange={handleSearch} placeholder="Search..." />
       <div className="searchContainer">
         {searchItem.map((item, i) => (
-          <div key={i} className="searchDisplay" onClick={() => handleOpenSearch(item)}>
+          <div key={i} className="searchDisplay" onClick={handleOpenSearch}>
             <div className="imageContainer">
               <img src={photoTwo.src} alt="" />
             </div>
