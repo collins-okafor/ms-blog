@@ -17,11 +17,32 @@ const Dashboard = () => {
 
   const fetchAllArticle = async () => {
     dispatch(getDashboardLoader(true));
-    await DashBoardServices.GetAllDashArticle().then((data) => {
-      dispatch(getDynamicPost(data?.data));
-      dispatch(getDashboardAllArticle(data));
-      dispatch(getDashboardLoader(false));
+    const constants = await Promise.all([
+      DashBoardServices.GetAllDashArticle(),
+      DashBoardServices.getAllYourSavedPost(),
+    ])
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        throw err;
+      });
+
+    constants[0]?.data?.map((item) => {
+      const findArticle =
+        constants[1]?.data.length > 0 &&
+        constants[1]?.data?.find((save) => save?.postId === item._id);
+
+      console.log(findArticle, "please");
+      if (findArticle) {
+        return item["save"] === true;
+      }
     });
+
+    console.log(constants[0], "united");
+
+    dispatch(getDynamicPost(constants[0]?.data));
+    dispatch(getDashboardAllArticle(constants[0]));
     dispatch(getDashboardLoader(false));
   };
 

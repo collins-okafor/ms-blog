@@ -4,7 +4,6 @@ const Stories = {
   getMyStories: async () => {
     return APIs.get(`/api/write/my_article`)
       .then((data) => {
-        console.log(data, "state");
         if (data?.data?.message === "success") {
           return data?.data?.data;
         }

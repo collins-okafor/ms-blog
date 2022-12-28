@@ -12,6 +12,8 @@ import { FiMoreHorizontal } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import HTMLReactParser from "html-react-parser";
 import { useRouter } from "next/router";
+import DashBoardServices from "../../services/dashboardServices";
+import { toast } from "react-toastify";
 
 const Post = () => {
   const router = useRouter();
@@ -33,11 +35,26 @@ const Post = () => {
     });
   };
 
-  console.log(dynamicPost, "use data");
+  const HandleSavePost = (item) => {
+    const payload = { ...item };
+    console.log(payload, "latest");
+
+    delete payload._id;
+
+    DashBoardServices.SavePost(item._id, payload)
+      .then((data) => {
+        console.log(data, "system");
+        toast("saved successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
+  };
 
   return (
     <PostDiv>
-      {dynamicPost.map((item, key) => (
+      {dynamicPost?.map((item, key) => (
         <div key={key} className={"flex"}>
           <div className="userDetails">
             <div className="photoContainer">
@@ -69,7 +86,10 @@ const Post = () => {
                 <button>{item?.tag}</button>
               </div>
               <div className="postWrapperContent">
-                <div className="postWrapperContentSaveIconBody">
+                <div
+                  className="postWrapperContentSaveIconBody"
+                  onClick={() => HandleSavePost(item)}
+                >
                   <MdOutlineBookmarkAdd className="postWrapperContentSaveIcon" />
                 </div>
                 <div className="postWrapperContentFollowers">
