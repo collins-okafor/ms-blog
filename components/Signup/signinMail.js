@@ -42,7 +42,8 @@ const MailSignIn = () => {
   };
 
   const HandleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+
     dispatch({ type: AUTHLOADER, payload: true });
 
     console.log(formValue, "formValue");

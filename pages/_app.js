@@ -30,6 +30,9 @@ function MyApp({ Component, pageProps }) {
     (state) => state.DashboardConditionReducers.reduceSideBar
   );
 
+  let auth =
+    typeof window !== "undefined" && window.localStorage.getItem("token");
+
   const dispatch = useDispatch();
   const system_mode = useSelector(
     (state) => state.landingPageReducer.system_mode
@@ -44,6 +47,9 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     if (window.screen.width <= 1024) {
       dispatch({ type: REDUCE_SIDEBAR, payload: true });
+    }
+
+    if (auth) {
     }
   }, []);
 
