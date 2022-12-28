@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { AUTHLOADER, LOGINERROR } from "../../store/type";
 import LoaderBob from "../../universal-Components/Loaders/loaderBob";
-
+import{IoIosArrowBack} from 'react-icons/io'
 const MailSignIn = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -79,6 +79,11 @@ const MailSignIn = () => {
 
   return (
     <MailContainer>
+      {counter > 0 && (
+        <button className="backButton" onClick={handleCounterBack}>
+          <IoIosArrowBack />
+        </button>
+      )}
       <button className="cancelButton" onClick={handleCancel}>
         x
       </button>
@@ -121,11 +126,6 @@ const MailSignIn = () => {
           <>{counter === 1 ? "Sign in" : "continue"}</>
         )}
       </button>
-      {counter > 0 && (
-        <button className="signUpButton" onClick={handleCounterBack}>
-          back
-        </button>
-      )}
       <button className="signOptions" onClick={handleSignInOptions}>
         Sign in options ?
       </button>

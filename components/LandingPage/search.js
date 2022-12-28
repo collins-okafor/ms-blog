@@ -14,6 +14,7 @@ const HomeSearch = () => {
       pathname: "/[articleDetails]",
       query: { articleDetails: item._id },
     });
+    console.log("router pushing");
   };
   return (
     <SearchComp
