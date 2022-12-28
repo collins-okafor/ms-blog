@@ -9,13 +9,15 @@ import Image from "next/image";
 import { PostDiv } from "./styles/post.styles";
 import { MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HTMLReactParser from "html-react-parser";
 import { useRouter } from "next/router";
 import DashBoardServices from "../../services/dashboardServices";
 import { toast } from "react-toastify";
+import { getDynamicPost } from "../../store/actions/generalAction";
 
 const Post = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const dynamicPost = useSelector((state) => state.generalReducer.dynamicPost);
 
@@ -36,6 +38,14 @@ const Post = () => {
   };
 
   const HandleSavePost = (item) => {
+    dynamicPost?.map((data) => {
+      if (data._id === item._id) {
+        data["save"] = true;
+      }
+    });
+
+    dispatch(getDynamicPost(dynamicPost));
+
     const payload = { ...item };
     console.log(payload, "latest");
 
@@ -48,6 +58,27 @@ const Post = () => {
       })
       .catch((err) => {
         console.log(err);
+        throw err;
+      });
+  };
+
+  const HandleDeleteFromSave = (item) => {
+    console.log("joshua");
+    dynamicPost?.map((data) => {
+      if (data._id === item._id) {
+        delete data.save;
+        console.log(item);
+      }
+    });
+
+    dispatch(getDynamicPost(dynamicPost));
+
+    DashBoardServices.deleteSavedPost(item._id)
+      .then((data) => {
+        console.log(data, "delete");
+        toast("savedpost successfully deleted");
+      })
+      .catch((err) => {
         throw err;
       });
   };
@@ -86,12 +117,21 @@ const Post = () => {
                 <button>{item?.tag}</button>
               </div>
               <div className="postWrapperContent">
-                <div
-                  className="postWrapperContentSaveIconBody"
-                  onClick={() => HandleSavePost(item)}
-                >
-                  <MdOutlineBookmarkAdd className="postWrapperContentSaveIcon" />
-                </div>
+                {!item?.save ? (
+                  <div
+                    className="postWrapperContentSaveIconBody"
+                    onClick={() => HandleSavePost(item)}
+                  >
+                    <MdOutlineBookmarkAdd className="postWrapperContentSaveIcon" />
+                  </div>
+                ) : (
+                  <div
+                    className="postWrapperContentSaveIconBody"
+                    onClick={() => HandleDeleteFromSave(item)}
+                  >
+                    <MdOutlineBookmarkRemove className="postWrapperContentSaveIcon" />
+                  </div>
+                )}
                 <div className="postWrapperContentFollowers">
                   <FiMoreHorizontal className="postWrapperContentFollowersIcon" />
                 </div>

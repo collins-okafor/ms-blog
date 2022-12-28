@@ -33,13 +33,10 @@ const Dashboard = () => {
         constants[1]?.data.length > 0 &&
         constants[1]?.data?.find((save) => save?.postId === item._id);
 
-      console.log(findArticle, "please");
       if (findArticle) {
-        return item["save"] === true;
+        return (item["save"] = true);
       }
     });
-
-    console.log(constants[0], "united");
 
     dispatch(getDynamicPost(constants[0]?.data));
     dispatch(getDashboardAllArticle(constants[0]));

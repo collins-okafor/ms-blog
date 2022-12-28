@@ -128,6 +128,18 @@ const DashBoardServices = {
         throw err;
       });
   },
+
+  deleteSavedPost: (postId) => {
+    return APIs.delete(`/api/savedpost/${postId}`)
+      .then((data) => {
+        if (data?.data?.message === "success") {
+          return data?.data;
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
 };
 
 export default DashBoardServices;
