@@ -32,6 +32,7 @@ export const FollowersDiv = styled.div`
         color: ${({ theme }) => theme.textColor};
         transition: all 1.5s;
         line-height: 20px;
+        opacity: 0.6;
       }
 
       .followersBodycount {
@@ -56,14 +57,15 @@ export const FollowersDiv = styled.div`
         color: ${({ theme }) => theme.textColor};
         transition: all 1.5s;
         line-height: 20px;
+        opacity: 0.6;
       }
 
       .followersBodyTwoView {
         font-family: "Public Sans", sans-serif;
         font-size: 14px;
-        font-weight: 400;
+        font-weight: 500;
         font-style: normal;
-        color: ${({ theme }) => theme.textColor};
+        color: ${({ theme }) => theme.secondaryColor};
         transition: all 1.5s;
         line-height: 20px;
         margin: 5px 0px;

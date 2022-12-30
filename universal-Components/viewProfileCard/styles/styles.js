@@ -45,11 +45,16 @@ export const ViewProfileStyle = styled.div`
     }
   }
   .cardListLink {
-    a {
-      background-color: transparent;
-      color: black;
+    cursor: pointer;
+
+    p {
+      /* font-family: "Public Sans", sans-serif; */
+      font-family: "Poppins", sans-serif;
       font-size: 14px;
       font-weight: 500;
+      font-style: normal;
+      color: ${({ theme }) => theme.secondaryColor};
+      transition: all 1.5s;
     }
   }
   .cardListSearchBodyNotificationList {

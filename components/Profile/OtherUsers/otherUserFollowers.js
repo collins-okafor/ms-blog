@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
-import { FollowersDiv } from "./styles/follower.style";
+import { FollowersDiv } from "../styles/follower.style";
 
-const Followers = () => {
+const OtherUserFollowers = () => {
   const router = useRouter();
 
-  const myUserDetails = useSelector(
-    (state) => state.DashboardReducers.myUserDetails
+  const otherUserDetails = useSelector(
+    (state) => state.DashboardReducers.otherUserDetails
   );
 
   const HandleShowFollowers = () => {
@@ -22,17 +22,19 @@ const Followers = () => {
       <div className="followersBody">
         <div className="followersBodyOne">
           <p className="followersBodynum">numbers of followers</p>
-          <p className="followersBodycount">{myUserDetails?.follower_count}</p>
+          <p className="followersBodycount">
+            {otherUserDetails?.follower_count}
+          </p>
         </div>
-        <div className="followersBodyTwo">
+        {/* <div className="followersBodyTwo">
           <p className="followersBodyTwoList">link to view followers</p>
           <p className="followersBodyTwoView" onClick={HandleShowFollowers}>
             view followers
           </p>
-        </div>
+        </div> */}
       </div>
     </FollowersDiv>
   );
 };
 
-export default Followers;
+export default OtherUserFollowers;

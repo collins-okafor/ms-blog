@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
-import { ListDiv } from "./styles/list.style";
+import { ListDiv } from "../styles/list.style";
 
-const List = () => {
+const OtherUserList = () => {
   const router = useRouter();
 
-  const myUserDetails = useSelector(
-    (state) => state.DashboardReducers.myUserDetails
+  const otherUserDetails = useSelector(
+    (state) => state.DashboardReducers.otherUserDetails
   );
 
   const HandleShowSaveList = () => {
@@ -22,17 +22,17 @@ const List = () => {
       <div className="listBody">
         <div className="listBodyOne">
           <p className="listBodyOneNum">Number of Saved article</p>
-          <p className="listBodyOneCount">{myUserDetails?.save_count}</p>
+          <p className="listBodyOneCount">{otherUserDetails?.save_count}</p>
         </div>
-        <div className="listBodyTwo">
+        {/* <div className="listBodyTwo">
           <p className="listBodyTwoList">link to view Saved view</p>
           <p className="listBodyTwoView" onClick={HandleShowSaveList}>
             view saved list
           </p>
-        </div>
+        </div> */}
       </div>
     </ListDiv>
   );
 };
 
-export default List;
+export default OtherUserList;

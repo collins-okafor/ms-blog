@@ -6,6 +6,13 @@ import {
   SINGLE_POST_COMMENT,
   SINGLE_POST_LIKE,
   SINGLE_POST_DISLIKE,
+  SAVED_POST,
+  NOTIFICATION_STATE,
+  ALL_FOLLOWERS_DETAILS,
+  MY_USER_DETAILS,
+  REFRESH_USER_DETAILS,
+  OTHER_USER_DETAILS,
+  USER_STORE,
 } from "../type";
 
 const initialState = {
@@ -16,6 +23,13 @@ const initialState = {
   singlePostComment: {},
   singlePostLike: {},
   singlePostDisLike: {},
+  savedPost: [],
+  notificationState: [],
+  allFollowerDetails: [],
+  myUserDetails: {},
+  RefreshUserDetails: {},
+  otherUserDetails: {},
+  userStore: {},
 };
 
 const DashboardReducers = (state = initialState, action) => {
@@ -68,6 +82,55 @@ const DashboardReducers = (state = initialState, action) => {
       return {
         ...state,
         singlePostDisLike: payload,
+      };
+    }
+
+    case SAVED_POST: {
+      return {
+        ...state,
+        savedPost: payload,
+      };
+    }
+
+    case NOTIFICATION_STATE: {
+      return {
+        ...state,
+        notificationState: payload,
+      };
+    }
+
+    case ALL_FOLLOWERS_DETAILS: {
+      return {
+        ...state,
+        allFollowerDetails: payload,
+      };
+    }
+
+    case MY_USER_DETAILS: {
+      return {
+        ...state,
+        myUserDetails: payload,
+      };
+    }
+
+    case REFRESH_USER_DETAILS: {
+      return {
+        ...state,
+        RefreshUserDetails: payload,
+      };
+    }
+
+    case OTHER_USER_DETAILS: {
+      return {
+        ...state,
+        otherUserDetails: payload,
+      };
+    }
+
+    case USER_STORE: {
+      return {
+        ...state,
+        userStore: payload,
       };
     }
 

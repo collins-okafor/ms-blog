@@ -3,24 +3,45 @@ import React from "react";
 import Profile from "../../assets/Icons/avatar-profile-photo.png";
 import { ViewProfileStyle } from "./styles/styles";
 import { BsThreeDots } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import NotFound from "../Notfound";
 const ViewProfileCard = () => {
+  const allFollowerDetails = useSelector(
+    (state) => state.DashboardReducers.allFollowerDetails
+  );
+
+  console.log(allFollowerDetails, "stated");
+
+  const handleViewProfile = () => {};
+
   return (
     <ViewProfileStyle>
-      {followers.map((user, id) => (
-        <div className="cardListSearchBody" key={id}>
-          <div className="cardListSearchBodyImageWrapper">
-            <div className="cardListSearchBodyImageBody">
-              <Image src={Profile} alt="" className="cardListSearchBodyImage" />
+      {allFollowerDetails === undefined ||
+        allFollowerDetails === null ||
+        (allFollowerDetails?.length === 0 && (
+          <NotFound text={"not following anyone"} />
+        ))}
+
+      {allFollowerDetails.length > 0 &&
+        allFollowerDetails.map((user, id) => (
+          <div className="cardListSearchBody" key={id}>
+            <div className="cardListSearchBodyImageWrapper">
+              <div className="cardListSearchBodyImageBody">
+                <Image
+                  src={Profile}
+                  alt=""
+                  className="cardListSearchBodyImage"
+                />
+              </div>
+            </div>
+            <div className="cardListSearchBodyUsername">
+              <p>{user.username}</p>
+            </div>
+            <div className="cardListLink" onClick={handleViewProfile}>
+              <p>view profile</p>
             </div>
           </div>
-          <div className="cardListSearchBodyUsername">
-            <p>{user.userName}</p>
-          </div>
-          <div className="cardListLink">
-            <a href={user.link}>view profile</a>
-          </div>
-        </div>
-      ))}
+        ))}
     </ViewProfileStyle>
   );
 };

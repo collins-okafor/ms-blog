@@ -173,16 +173,20 @@ export const PostDiv = styled.div`
             }
           }
 
-          .postWrapperContentFollowers {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+          .postWrapperContentFollowersState {
+            position: relative;
 
-            .postWrapperContentFollowersIcon {
-              font-size: 20px;
-              color: ${({ theme }) => theme.textColor};
-              transition: all 1s;
+            .postWrapperContentFollowers {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+
+              .postWrapperContentFollowersIcon {
+                font-size: 20px;
+                color: ${({ theme }) => theme.textColor};
+                transition: all 1s;
+              }
             }
           }
         }
