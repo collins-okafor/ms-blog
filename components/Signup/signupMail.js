@@ -33,7 +33,6 @@ const MailSignUp = () => {
   const handleCounterBack = () => {
     counter < 1 ? setCounter(0) : setCounter((prev) => prev - 1);
   };
-  console.log(counter, "counter");
 
   const loginError = useSelector((state) => state.authReducer.LoginError);
   const AuthLoader = useSelector((state) => state.authReducer.AuthLoader);
@@ -53,8 +52,6 @@ const MailSignUp = () => {
   };
 
   const HandleSubmit = (e) => {
-    e.preventDefault();
-
     dispatch({ type: AUTHLOADER, payload: true });
     console.log(formValue, "our state");
     if (
