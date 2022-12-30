@@ -33,7 +33,6 @@ export const FollowersDiv = styled.div`
         transition: all 1.5s;
         line-height: 20px;
       }
-
       .followersBodycount {
         font-family: "Public Sans", sans-serif;
         font-size: 14px;

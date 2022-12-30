@@ -12,18 +12,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { AUTHLOADER, LOGINERROR } from "../../store/type";
 import LoaderBob from "../../universal-Components/Loaders/loaderBob";
-import{IoIosArrowBack} from 'react-icons/io'
+import { IoIosArrowBack } from "react-icons/io";
 const MailSignIn = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [counter, setCounter] = useState(0);
-  const [formValue, setFormValue] = useState({});
-
+  const [formValue, setFormValue] = useState({ email: "", password: "" });
   const loginError = useSelector((state) => state.authReducer.LoginError);
   const AuthLoader = useSelector((state) => state.authReducer.AuthLoader);
-  const handleCounter = () => {
-    setCounter((prev) => prev + 1);
-  };
+
   const handleCounterBack = () => {
     counter < 1 ? setCounter(0) : setCounter((prev) => prev - 1);
   };
@@ -40,9 +37,16 @@ const MailSignIn = () => {
     const { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
   };
-
+  const handleCounter = () => {
+    let targetValue = formValue?.email;
+    counter === 0 && targetValue === ""
+      ? setCounter(0)
+      : setCounter((prev) => prev + 1);
+    // : setCounter((prev) => prev + 1);
+    console.log(targetValue, "target value");
+  };
   const HandleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch({ type: AUTHLOADER, payload: true });
 
     console.log(formValue, "formValue");
@@ -52,7 +56,7 @@ const MailSignIn = () => {
           if (data?.message === "success") {
             console.log(data);
 
-            toast.success(" Account created successfully!", {
+            toast.success(" Login successfully!", {
               position: toast.POSITION.TOP_RIGHT,
             });
 
@@ -92,7 +96,12 @@ const MailSignIn = () => {
       {counter === 0 && (
         <div className="inputContainer">
           <label>Your email</label>
-          <input type="email" name="email" onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            value={formValue.email}
+            onChange={handleChange}
+          />
         </div>
       )}
       {counter === 1 && (
