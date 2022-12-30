@@ -1,10 +1,5 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import photoOne from "../../assets/Images/about-us.jpg";
-import photoTwo from "../../assets/Images/indesignSeven.jpg";
-import photoThree from "../../assets/Images/programmer-working-on-laptop-computer-technology.jpg";
-import photoFour from "../../assets/Images/indesignFive.jpg";
-import photoFive from "../../assets/Images/paris.jpg";
-import photoSix from "../../assets/Images/about-us.jpg";
 import Image from "next/image";
 import { PostDiv } from "./styles/post.styles";
 import { MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
@@ -15,11 +10,24 @@ import { useRouter } from "next/router";
 import DashBoardServices from "../../services/dashboardServices";
 import { toast } from "react-toastify";
 import { getDynamicPost } from "../../store/actions/generalAction";
+import moment from "moment";
+import NotFound from "../Notfound";
+import PostDropdown from "../postDropdown";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 const Post = () => {
+  const ref = useRef();
+  const [change, setChange] = useState(false);
+  const [post, setPost] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
   const dynamicPost = useSelector((state) => state.generalReducer.dynamicPost);
+  const [dropdown, setDropdown] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  // useEffect(() => {
+  //   setPost(dynamicPost);
+  // }, [dynamicPost]);
 
   const Truncate = (word, count = 60) => {
     const Word_length = count;
@@ -31,13 +39,10 @@ const Post = () => {
   };
 
   const HandleSinglePost = (item) => {
-    router.push({
-      pathname: "/dashboard/[articleDetails]",
-      query: { articleDetails: item._id },
-    });
+    router.push(`/dashboard/${item._id}`);
   };
 
-  const HandleSavePost = (item) => {
+  const HandleSavePost = async (item) => {
     dynamicPost?.map((data) => {
       if (data._id === item._id) {
         data["save"] = true;
@@ -51,7 +56,7 @@ const Post = () => {
 
     delete payload._id;
 
-    DashBoardServices.SavePost(item._id, payload)
+    await DashBoardServices.SavePost(item._id, payload)
       .then((data) => {
         console.log(data, "system");
         toast("saved successfully");
@@ -60,20 +65,32 @@ const Post = () => {
         console.log(err);
         throw err;
       });
+
+    setChange(!change);
   };
 
-  const HandleDeleteFromSave = (item) => {
-    console.log("joshua");
+  const HandleDeleteFromSave = async (item) => {
     dynamicPost?.map((data) => {
       if (data._id === item._id) {
         delete data.save;
-        console.log(item);
+        console.log(data);
       }
     });
+    // console.log(item, dynamicPost);
+    // delete item.save;
 
+    // const postIndex = post.findIndex((data) => data?._id === item._id);
+
+    // console.log(postIndex);
+
+    // post.splice(postIndex, postIndex + 1, item);
+
+    // console.log(item, dynamicPost);
+
+    setPost(dynamicPost);
     dispatch(getDynamicPost(dynamicPost));
 
-    DashBoardServices.deleteSavedPost(item._id)
+    await DashBoardServices.deleteSavedPost(item._id)
       .then((data) => {
         console.log(data, "delete");
         toast("savedpost successfully deleted");
@@ -81,116 +98,106 @@ const Post = () => {
       .catch((err) => {
         throw err;
       });
+
+    setChange(!change);
   };
+
+  const HandleDropdown = (item) => {
+    if (!showDropdown) {
+      setDropdown(item._id);
+      setShowDropdown(true);
+    } else {
+      setDropdown("");
+      setShowDropdown(false);
+    }
+  };
+
+  useOnClickOutside(ref, () => setDropdown(""));
 
   return (
     <PostDiv>
-      {dynamicPost?.map((item, key) => (
-        <div key={key} className={"flex"}>
-          <div className="userDetails">
-            <div className="photoContainer">
-              <Image src={photoOne} alt="" className="photoContainerImage" />
-            </div>
-          </div>
+      {dynamicPost === undefined ||
+        dynamicPost === null ||
+        (dynamicPost?.length === 0 && <NotFound text={"no post found"} />)}
 
-          <div className="mainPostContainer">
-            <div
-              className="mainPostContainerHeaderWrapper"
-              onClick={() => HandleSinglePost(item)}
-            >
-              <div className="mainPostContainerHeaderWrapperSystem">
-                <div className="profileImage">
-                  <Image src={photoOne} alt="" className="profileImageState" />
-                </div>
-                <div className="userName">
-                  <h4>{item.author}</h4>
-                </div>
-              </div>
-              <div className="mainPostContainerHeaderWrapperContent">
-                <h1>{item.title}</h1>
-                <p className="textContent">{HTMLReactParser(item.article)}</p>
+      {dynamicPost?.length > 0 &&
+        dynamicPost?.map((item, key) => (
+          <div key={key} className={"flex"}>
+            <div className="userDetails">
+              <div className="photoContainer">
+                <Image src={photoOne} alt="" className="photoContainerImage" />
               </div>
             </div>
-            <div className="postWrapper">
-              <div className="postContainer">
-                <p>{`${item.date}11 min read`}</p>
-                <button>{item?.tag}</button>
+
+            <div className="mainPostContainer">
+              <div
+                className="mainPostContainerHeaderWrapper"
+                onClick={() => HandleSinglePost(item)}
+              >
+                <div className="mainPostContainerHeaderWrapperSystem">
+                  <div className="profileImage">
+                    <Image
+                      src={photoOne}
+                      alt=""
+                      className="profileImageState"
+                    />
+                  </div>
+                  <div className="userName">
+                    <h4>{item.username}</h4>
+                  </div>
+                </div>
+                <div className="mainPostContainerHeaderWrapperContent">
+                  <h1>{item.title}</h1>
+                  <p className="textContent">{HTMLReactParser(item.article)}</p>
+                </div>
               </div>
-              <div className="postWrapperContent">
-                {!item?.save ? (
-                  <div
-                    className="postWrapperContentSaveIconBody"
-                    onClick={() => HandleSavePost(item)}
-                  >
-                    <MdOutlineBookmarkAdd className="postWrapperContentSaveIcon" />
+
+              <div className="postWrapper">
+                <div className="postContainer">
+                  <p>{`${moment(item.date).format("MMM DD, YYYY hh:mm")}`}</p>
+                  <button>{item?.tag}</button>
+                </div>
+                <div className="postWrapperContent">
+                  {!item?.save ||
+                  item?.save === null ||
+                  item?.save === undefined ? (
+                    <div
+                      className="postWrapperContentSaveIconBody"
+                      onClick={() => HandleSavePost(item)}
+                    >
+                      <MdOutlineBookmarkAdd className="postWrapperContentSaveIcon" />
+                    </div>
+                  ) : (
+                    <div
+                      className="postWrapperContentSaveIconBody"
+                      onClick={() => HandleDeleteFromSave(item)}
+                    >
+                      <MdOutlineBookmarkRemove className="postWrapperContentSaveIcon" />
+                    </div>
+                  )}
+                  <div className="postWrapperContentFollowersState">
+                    <div
+                      className="postWrapperContentFollowers"
+                      onClick={() => HandleDropdown(item)}
+                    >
+                      <FiMoreHorizontal className="postWrapperContentFollowersIcon" />
+                    </div>
+
+                    {dropdown === item._id && (
+                      <PostDropdown
+                        ref={ref}
+                        details={item}
+                        fullDetails={dynamicPost}
+                      />
+                    )}
                   </div>
-                ) : (
-                  <div
-                    className="postWrapperContentSaveIconBody"
-                    onClick={() => HandleDeleteFromSave(item)}
-                  >
-                    <MdOutlineBookmarkRemove className="postWrapperContentSaveIcon" />
-                  </div>
-                )}
-                <div className="postWrapperContentFollowers">
-                  <FiMoreHorizontal className="postWrapperContentFollowersIcon" />
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </PostDiv>
   );
 };
-
-const posts = [
-  {
-    profilePics: photoOne,
-    photo: photoOne,
-    title:
-      "How to build a blog Sungkyunkwan University (SKKU) is a world-class institution ",
-    author: "Emeka",
-    date: "Jan 20",
-    content:
-      "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-  },
-  {
-    profilePics: photoOne,
-    photo: photoTwo,
-    title: "My First Electricity Connection",
-    author: "Joshua Ejike",
-    date: "August 19",
-    content:
-      "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-  },
-  {
-    profilePics: photoOne,
-    photo: photoThree,
-    title: "How to become a better Programmer",
-    author: "Emeka",
-    date: "1 day ago",
-    content:
-      "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-  },
-  {
-    profilePics: photoOne,
-    photo: photoFour,
-    title: "Step by step guide in Making good interior design",
-    author: "Emeka",
-    date: "May 24",
-    content:
-      "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-  },
-  {
-    profilePics: photoOne,
-    photo: photoFive,
-    title: "A visit to paris",
-    author: "Emeka",
-    date: "June 23",
-    content:
-      "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-  },
-];
 
 export default Post;

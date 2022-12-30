@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Ads from "../postAdsStructure/ads";
 import { ArticleDisplayDiv } from "./styles/articleDisplay.style";
 import image1 from "../../assets/Images/Avatar.png";
 import Image from "next/image";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
+import { MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
 import {
   BsFillHandThumbsUpFill,
@@ -25,13 +25,19 @@ import {
 import DashBoardServices from "../../services/dashboardServices";
 import LoaderBob from "../Loaders/loaderBob";
 import { toast } from "react-toastify";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+import PDropdown from "../postDropdown/dropdown";
 
 const DashboardArticleDisplay = () => {
+  const ref = useRef();
   const router = useRouter();
   const dispatch = useDispatch();
+  const [change, setChange] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [commentState, setCommentState] = useState({});
   const [submitComment, setSubmitComment] = useState(false);
+  const [showAndClose, setShowAndClose] = useState(false);
+  const [closeDropdown, setCloseDropdown] = useState(false);
 
   const HandleChangeComment = (e) => {
     const { name, value } = e.target;
@@ -127,8 +133,6 @@ const DashboardArticleDisplay = () => {
 
       singlePostComment?.data?.unshift(commentState);
 
-      console.log(singlePostComment, "our post");
-
       dispatch(
         getSinglePostComment({
           ...singlePostComment,
@@ -150,22 +154,54 @@ const DashboardArticleDisplay = () => {
     }
   };
 
-  const HandleSavePost = () => {
+  const HandleSavePost = async () => {
     const payload = { ...getSingleArticle };
-    console.log(payload, "latest");
+
+    getSingleArticle["save"] = true;
+
+    dispatch(getDashboardSinglePost(getSingleArticle));
 
     delete payload._id;
 
-    DashBoardServices.SavePost(getSingleArticle._id, payload)
+    await DashBoardServices.SavePost(getSingleArticle._id, payload)
       .then((data) => {
-        console.log(data, "system");
         toast("saved successfully");
       })
       .catch((err) => {
         console.log(err);
         throw err;
       });
+
+    setChange(!change);
   };
+
+  const HandleDeleteFromSave = async () => {
+    delete getSingleArticle.save;
+
+    dispatch(getDashboardSinglePost(getSingleArticle));
+
+    await DashBoardServices.deleteSavedPost(getSingleArticle._id)
+      .then((data) => {
+        toast("savedpost successfully deleted");
+      })
+      .catch((err) => {
+        throw err;
+      });
+
+    setChange(!change);
+  };
+
+  const HandleDropdown = () => {
+    if (!closeDropdown) {
+      setShowAndClose(true);
+      setCloseDropdown(true);
+    } else {
+      setShowAndClose(false);
+      setCloseDropdown(false);
+    }
+  };
+
+  useOnClickOutside(ref, () => setShowAndClose(false));
 
   return (
     <ArticleDisplayDiv>
@@ -191,20 +227,48 @@ const DashboardArticleDisplay = () => {
             </div>
           </div>
           <div className={"articleWrapper__headerProfileSectionState"}>
+            {!getSingleArticle?.save ||
+            getSingleArticle?.save === null ||
+            getSingleArticle?.save === undefined ? (
+              <div
+                className={"articleWrapper__headerProfileSectionStateSave"}
+                onClick={HandleSavePost}
+              >
+                <MdOutlineBookmarkAdd
+                  className={
+                    "articleWrapper__headerProfileSectionStateSaveItem"
+                  }
+                />
+              </div>
+            ) : (
+              <div
+                className={"articleWrapper__headerProfileSectionStateSave"}
+                onClick={HandleDeleteFromSave}
+              >
+                <MdOutlineBookmarkRemove
+                  className={
+                    "articleWrapper__headerProfileSectionStateSaveItem"
+                  }
+                />
+              </div>
+            )}
             <div
-              className={"articleWrapper__headerProfileSectionStateSave"}
-              onClick={HandleSavePost}
+              className={"articleWrapper__headerProfileSectionStateFollowState"}
             >
-              <MdOutlineBookmarkAdd
-                className={"articleWrapper__headerProfileSectionStateSaveItem"}
-              />
-            </div>
-            <div className={"articleWrapper__headerProfileSectionStateFollow"}>
-              <FiMoreHorizontal
-                className={
-                  "articleWrapper__headerProfileSectionStateFollowItem"
-                }
-              />
+              <div
+                onClick={HandleDropdown}
+                className={"articleWrapper__headerProfileSectionStateFollow"}
+              >
+                <FiMoreHorizontal
+                  className={
+                    "articleWrapper__headerProfileSectionStateFollowItem"
+                  }
+                />
+              </div>
+
+              {showAndClose && (
+                <PDropdown ref={ref} details={getSingleArticle} />
+              )}
             </div>
           </div>
         </div>
@@ -281,14 +345,27 @@ const DashboardArticleDisplay = () => {
             </div>
           </div>
           <div className={"articleWrapper__SocialMedaiStatus"}>
-            <div
-              className={"articleWrapper__SocialMedaiStatusSaveIconBody"}
-              onClick={HandleSavePost}
-            >
-              <MdOutlineBookmarkAdd
-                className={"articleWrapper__SocialMedaiStatusSaveIcon"}
-              />
-            </div>
+            {!getSingleArticle?.save ||
+            getSingleArticle?.save === null ||
+            getSingleArticle?.save === undefined ? (
+              <div
+                className={"articleWrapper__SocialMedaiStatusSaveIconBody"}
+                onClick={HandleSavePost}
+              >
+                <MdOutlineBookmarkAdd
+                  className={"articleWrapper__SocialMedaiStatusSaveIcon"}
+                />
+              </div>
+            ) : (
+              <div
+                className={"articleWrapper__SocialMedaiStatusSaveIconBody"}
+                onClick={HandleDeleteFromSave}
+              >
+                <MdOutlineBookmarkRemove
+                  className={"articleWrapper__SocialMedaiStatusSaveIcon"}
+                />
+              </div>
+            )}
             <div className={"articleWrapper__SocialMedaiStatusFollowIconBody"}>
               <FiMoreHorizontal
                 className={"articleWrapper__SocialMedaiStatusFollowIcon"}

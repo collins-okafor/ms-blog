@@ -76,16 +76,20 @@ export const ArticleDisplayDiv = styled.div`
           }
         }
 
-        .articleWrapper__headerProfileSectionStateFollow {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
+        .articleWrapper__headerProfileSectionStateFollowState {
+          position: relative;
 
-          .articleWrapper__headerProfileSectionStateFollowItem {
-            color: ${({ theme }) => theme.textColor};
-            transition: all 1.5s;
-            font-size: 25px;
+          .articleWrapper__headerProfileSectionStateFollow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .articleWrapper__headerProfileSectionStateFollowItem {
+              color: ${({ theme }) => theme.textColor};
+              transition: all 1.5s;
+              font-size: 25px;
+            }
           }
         }
       }

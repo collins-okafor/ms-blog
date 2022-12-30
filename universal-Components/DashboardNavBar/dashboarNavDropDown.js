@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DASHBOARD_NAV_DROPDOWN } from "../../store/type";
 import { DashboardNavDropdownDiv } from "./styles/dashboardNavDropdown.style";
@@ -8,6 +8,7 @@ import { DashboardNavDropdownDiv } from "./styles/dashboardNavDropdown.style";
 const DashboarNavDropDown = forwardRef(({}, ref) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [showDropdown, setShowDropdown] = useState(false);
   const dashbaordNavDropdown = useSelector(
     (state) => state.DashboardConditionReducers.dashbaordNavDropdown
   );
@@ -40,7 +41,7 @@ const DashboarNavDropDown = forwardRef(({}, ref) => {
 
 const dropdownList = [
   { text: "Profile", link: "/dashboard/profile" },
-  { text: "Settings", link: "/dashboard/settings" },
+  // { text: "Settings", link: "/dashboard/settings" },
   { text: "Logout" },
 ];
 

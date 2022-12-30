@@ -22,40 +22,58 @@ const ArticleDetails = () => {
     (state) => state.DashboardReducers.dashboardSinglePost
   );
 
-  const { articleDetails } = router.query;
+  const articleDetails = router.query.articleDetails;
 
-  const fetchSingleArticle = async () => {
+  const fetchSingleArticle = async (articleDetails) => {
     setLoading(true);
 
-    const constants = await Promise.all([
-      DashBoardServices.getUserDetails(),
-      DashBoardServices.getDashSingleArticle(articleDetails),
-      DashBoardServices.getAllPostComment(articleDetails),
-      DashBoardServices.getAllPostLike(articleDetails),
-      DashBoardServices.getAllPostDisLike(articleDetails),
-    ])
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-        throw err;
+    if (articleDetails) {
+      const constants = await Promise.all([
+        DashBoardServices.getUserDetails(),
+        DashBoardServices.getDashSingleArticle(articleDetails),
+        DashBoardServices.getAllPostComment(articleDetails),
+        DashBoardServices.getAllPostLike(articleDetails),
+        DashBoardServices.getAllPostDisLike(articleDetails),
+        DashBoardServices.getAllYourSavedPost(),
+        DashBoardServices.getAllFollowing(),
+      ])
+        .then((data) => {
+          return data;
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+          throw err;
+        });
+
+      constants[5]?.data?.forEach((item) => {
+        if (item?.postId === constants[1]?._id) {
+          constants[1]["save"] = true;
+        }
       });
 
-    console.log(constants, "main details");
+      constants[6]?.data?.forEach((item) => {
+        if (item?.followedUserId === constants[1]?.createdBy) {
+          constants[1]["followed"] = true;
+        }
+      });
 
-    dispatch(getUserDetails(constants[0]));
-    dispatch(getDashboardSinglePost(constants[1]));
-    dispatch(getSinglePostComment(constants[2]));
-    dispatch(getSinglePostLike(constants[3]));
-    dispatch(getSinglePostDisLike(constants[4]));
-    setLoading(false);
+      if (constants[0]._id === constants[1]?.createdBy) {
+        constants[1]["followed"] = "my";
+      }
+
+      dispatch(getUserDetails(constants[0]));
+      dispatch(getDashboardSinglePost(constants[1]));
+      dispatch(getSinglePostComment(constants[2]));
+      dispatch(getSinglePostLike(constants[3]));
+      dispatch(getSinglePostDisLike(constants[4]));
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchSingleArticle();
-  }, []);
+    fetchSingleArticle(articleDetails);
+  }, [articleDetails]);
 
   return (
     <DashbaordPageWrapper>

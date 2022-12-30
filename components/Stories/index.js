@@ -13,6 +13,10 @@ const StoriesPage = () => {
   const readMyStories = () => {
     setStories(true);
     Stories.getMyStories().then((data) => {
+      data.map((item) => {
+        item["followed"] = "my";
+      });
+
       dispatch(getDynamicPost(data));
       setStories(false);
     });

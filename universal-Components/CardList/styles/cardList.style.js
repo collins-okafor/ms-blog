@@ -47,7 +47,12 @@ export const CardListDiv = styled.div`
   }
 
   .cardListSearchBodyNotificationList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     .cardListSearchBodyNotificationListSystem {
+      text-align: center;
       width: 30px;
       height: 30px;
       border-radius: 50%;
