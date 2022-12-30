@@ -5,11 +5,9 @@ import DashBoardServices from "../../services/dashboardServices";
 import {
   getDashboardAllArticle,
   getDashboardLoader,
+  getUserStore,
 } from "../../store/actions/dashboardAction";
-import {
-  getDynamicPost,
-  getSingleArticleDetails,
-} from "../../store/actions/generalAction";
+import { getDynamicPost } from "../../store/actions/generalAction";
 import DashbaordPageWrapper from "../../universal-Components/DashobardPageWrapper";
 
 const Dashboard = () => {
@@ -17,11 +15,44 @@ const Dashboard = () => {
 
   const fetchAllArticle = async () => {
     dispatch(getDashboardLoader(true));
-    await DashBoardServices.GetAllDashArticle().then((data) => {
-      dispatch(getDynamicPost(data?.data));
-      dispatch(getDashboardAllArticle(data));
-      dispatch(getDashboardLoader(false));
+    const constants = await Promise.all([
+      DashBoardServices.GetAllDashArticle(),
+      DashBoardServices.getAllYourSavedPost(),
+      DashBoardServices.getAllFollowing(),
+      DashBoardServices.getUserDetails(),
+    ])
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        throw err;
+      });
+
+    constants[0]?.data?.map((item) => {
+      const findArticle =
+        constants[1]?.data.length > 0 &&
+        constants[1]?.data?.find((save) => save?.postId === item._id);
+
+      if (findArticle) {
+        item["save"] = true;
+      }
+
+      const findFollowers = constants[2]?.data?.find(
+        (data) => data.followedUserId === item.createdBy
+      );
+
+      if (findFollowers) {
+        item["followed"] = true;
+      }
+
+      if (constants[3]?._id === item.createdBy) {
+        item["followed"] = "my";
+      }
     });
+
+    dispatch(getDynamicPost(constants[0]?.data));
+    dispatch(getDashboardAllArticle(constants[0]));
+    // dispatch(getUserStore(constants[3]));
     dispatch(getDashboardLoader(false));
   };
 

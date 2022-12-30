@@ -1,16 +1,13 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import { PostStructureDiv } from "./styles/postStructure.style";
-import photoOne from "../../assets/Images/about-us.jpg";
-import photoTwo from "../../assets/Images/indesignSeven.jpg";
-import photoThree from "../../assets/Images/programmer-working-on-laptop-computer-technology.jpg";
-import photoFour from "../../assets/Images/indesignFive.jpg";
-import photoFive from "../../assets/Images/paris.jpg";
+
 import photoSix from "../../assets/Images/about-us.jpg";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useRouter } from "next/router";
+import NotFound from "../../universal-Components/Notfound";
 
 const PostStructure = () => {
   const router = useRouter();
@@ -38,39 +35,50 @@ const PostStructure = () => {
 
   return (
     <PostStructureDiv>
-      {getAllarticle?.allArticle?.map((item, key) => (
-        <div key={key} className={"flex"}>
-          <div className="userDetails">
-            <div className="photoContainer">
-              <Image src={photoSix} alt="" className="photoContainerImage" />
-            </div>
-          </div>
+      {(getAllarticle === null ||
+        getAllarticle === undefined ||
+        getAllarticle?.allArticle?.length === 0) && (
+        <NotFound text={"no post found"} />
+      )}
 
-          <div className="mainPostContainer">
-            <div
-              className="mainPostContainerHeaderWrapper"
-              onClick={() => HandleClick(item)}
-            >
-              <div className="mainPostContainerHeaderWrapperSystem">
-                <div className="profileImage">
-                  <Image src={photoSix} alt="" className="profileImageState" />
-                </div>
-                <div className="userName">
-                  <h4>{item?.username}</h4>
-                </div>
-              </div>
-              <div className="mainPostContainerHeaderWrapperContent">
-                <h1>{item.title}</h1>
-                <p className="textContent">{HTMLReactParser(item.article)}</p>
+      {getAllarticle?.allArticle?.length > 0 &&
+        getAllarticle?.allArticle?.map((item, key) => (
+          <div key={key} className={"flex"}>
+            <div className="userDetails">
+              <div className="photoContainer">
+                <Image src={photoSix} alt="" className="photoContainerImage" />
               </div>
             </div>
-            <div className="postContainer">
-              <p>{`${item.date}11 min read`}</p>
-              <button>{item.tag}</button>
+
+            <div className="mainPostContainer">
+              <div
+                className="mainPostContainerHeaderWrapper"
+                onClick={() => HandleClick(item)}
+              >
+                <div className="mainPostContainerHeaderWrapperSystem">
+                  <div className="profileImage">
+                    <Image
+                      src={photoSix}
+                      alt=""
+                      className="profileImageState"
+                    />
+                  </div>
+                  <div className="userName">
+                    <h4>{item?.username}</h4>
+                  </div>
+                </div>
+                <div className="mainPostContainerHeaderWrapperContent">
+                  <h1>{item.title}</h1>
+                  <p className="textContent">{HTMLReactParser(item.article)}</p>
+                </div>
+              </div>
+              <div className="postContainer">
+                <p>{`${item.date}11 min read`}</p>
+                <button>{item.tag}</button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </PostStructureDiv>
   );
 };

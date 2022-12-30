@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PostAdsStructure from "../../universal-Components/postAdsStructure";
 import Ads from "../../universal-Components/postAdsStructure/ads";
+import SavedPostIndex from "../../universal-Components/postAdsStructure/savedPostIndex";
 import PostStructure from "../../universal-Components/postStructure";
 import { PostStructureDiv } from "../../universal-Components/postStructure/styles/postStructure.styles";
 import ViewProfileCard from "../../universal-Components/viewProfileCard";
@@ -37,7 +38,7 @@ const TabDisplay = () => {
       <div className="tabTwoDisplay">
         <h1 className="header-text">Saved</h1>
         <div className="tabContainer">
-          <PostAdsStructure />
+          <SavedPostIndex />
         </div>
       </div>
     </StyledTabDisplay>

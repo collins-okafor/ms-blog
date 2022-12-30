@@ -154,10 +154,12 @@ export const StyledModal = styled.div`
         cursor: pointer;
       }
       .cancelBtn {
+        text-align: center;
         border: 1px solid green;
         color: green;
       }
       .saveBtn {
+        text-align: center;
         background-color: green;
         border: none;
         color: white;

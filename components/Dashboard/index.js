@@ -8,7 +8,6 @@ const DashboardPage = () => {
   const DashboardLoader = useSelector(
     (state) => state.DashboardReducers.DashboardLoader
   );
-  console.log(DashboardLoader, "dashboardloader");
 
   return (
     <div style={{ width: "100%", margin: "30px 0px" }}>
