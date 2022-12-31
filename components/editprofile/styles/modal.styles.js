@@ -13,14 +13,27 @@ export const StyledModal = styled.div`
   overflow: auto;
   z-index: 9;
   .formDiv {
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    /* background-color: white; */
+    background: ${({ theme }) => theme.primaryColor};
+    box-shadow: 0px 4px 8px 2px ${({ theme }) => theme.boxShaw};
     width: 35%;
     padding: 30px;
-    @media (max-width: 900px) {
+    color: ${({ theme }) => theme.textColor};
+    @media (max-width: 1213px) {
+      width: 40%;
+      height: 80vh;
+    }
+    @media (max-width: 1060px) {
       width: 70%;
+      height: 80vh;
+    }
+    @media (max-width: 900px) {
+      height: 90vh;
+    }
+    @media (width: 820px) {
       height: 60vh;
     }
+
     @media (max-width: 700px) {
       width: 100%;
       height: 100vh;
@@ -31,12 +44,15 @@ export const StyledModal = styled.div`
       padding: 10px;
       h2 {
         font-size: 18px;
-        font-weight: 800;
+        font-weight: 600;
+        /* font-family: "Public Sans", sans-serif; */
+        font-family: "Inter", sans-serif;
       }
       button {
         background-color: transparent;
         border: none;
         font-size: 20px;
+        color: ${({ theme }) => theme.textColor};
       }
     }
     .profilePhoto {
@@ -118,8 +134,10 @@ export const StyledModal = styled.div`
           display: flex;
           justify-content: space-between;
           p {
-            font-size: 14px;
+            font-size: 13px;
             font-family: "Public Sans", sans-serif;
+            font-weight: 400;
+            font-style: normal;
           }
         }
       }

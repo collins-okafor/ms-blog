@@ -34,7 +34,6 @@ export const FollowersDiv = styled.div`
         line-height: 20px;
         opacity: 0.6;
       }
-
       .followersBodycount {
         font-family: "Public Sans", sans-serif;
         font-size: 14px;

@@ -89,10 +89,7 @@ const EditProfile = () => {
           <div className="update">
             <button className="updateBtn">update</button>
             <button className="removeBtn">remove</button>
-            <p>
-              Recommended: Square JPG, PNG, or GIF, at least 1,000 pixels per
-              side.
-            </p>
+            <p>Recommended: Square JPG, PNG, or GIF.</p>
           </div>
         </div>
         <div className="formInput">
@@ -112,6 +109,7 @@ const EditProfile = () => {
               {/* <p>
                 Appears on your Profile page, as your byline, and in your
                 responses.
+              </p>
               </p> */}
               {/* <p>15/50</p> */}
             </div>
@@ -125,6 +123,7 @@ const EditProfile = () => {
               value={(RefreshUserDetails?.bio && RefreshUserDetails?.bio) || ""}
             />
             <div className="inputText">
+              <p>Appears on your Profile and next to your stories.</p>
               {/* <p>Appears on your Profile and next to your stories.</p> */}
               {/* <p>28/160</p> */}
             </div>
