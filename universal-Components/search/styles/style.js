@@ -35,7 +35,7 @@ export const SearchStyle = styled.div`
     width: 70%;
     margin: 0 auto;
     background-color: ${({ theme, searchItem }) =>
-      searchItem.length > 0 && theme.stableColor};
+      searchItem?.length > 0 && theme.stableColor};
     color: white;
     padding: 2px 10px;
     @media (max-width: 700px) {

@@ -164,6 +164,15 @@ export const WriteDiv = styled.div`
     }
   }
 
+  .wirteWrappperBodyEditor {
+    .wirteWrappperBodyEditorTitle {
+    }
+
+    .ck-content {
+      color: #292929;
+    }
+  }
+
   .wirteWrappperBodyButton {
     width: 100%;
     text-align: right;

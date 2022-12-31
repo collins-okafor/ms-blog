@@ -17,7 +17,7 @@ const NotificationPage = () => {
       </div>
       <div className="notificationContainer">
         <div className="notificationContainerCard">
-          {notificationState.length > 0 && <CardList />}
+          {notificationState?.length > 0 && <CardList />}
 
           {(notificationState === null ||
             notificationState === undefined ||

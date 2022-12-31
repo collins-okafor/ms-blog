@@ -1,5 +1,6 @@
+import { useRouter } from "next/router";
 import React, { forwardRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DashBoardServices from "../../services/dashboardServices";
 import { getDynamicPost } from "../../store/actions/generalAction";
@@ -9,8 +10,11 @@ import { PostDropdownDiv } from "./styles/postDropdown.styles";
 // eslint-disable-next-line react/display-name
 const PostDropdown = forwardRef(({ details, fullDetails }, ref) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [change, setChange] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const userStore = useSelector((state) => state.DashboardReducers.userStore);
 
   const createFollowers = async () => {
     setLoading(true);
@@ -30,7 +34,6 @@ const PostDropdown = forwardRef(({ details, fullDetails }, ref) => {
 
     await DashBoardServices.createFollowers(payload)
       .then((data) => {
-        console.log(data);
         toast("followed successfully");
         setLoading(false);
       })
@@ -63,7 +66,13 @@ const PostDropdown = forwardRef(({ details, fullDetails }, ref) => {
     setChange(!change);
   };
 
-  const ViewProfile = () => {};
+  const ViewProfile = () => {
+    if (userStore?.username === details?.username) {
+      router.push(`/dashboard/profile`);
+    } else {
+      router.push(`/dashboard/profile/${details.username}`);
+    }
+  };
 
   return (
     <PostDropdownDiv ref={ref}>
