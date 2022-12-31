@@ -298,7 +298,7 @@ const DashboardArticleDisplay = () => {
 
         <div className={"articleWrapper__articleDetails"}>
           <p className={"articleWrapper__articleDetailsItem"}>
-            {HTMLReactParser(getSingleArticle?.article)}
+            {HTMLReactParser(HTMLReactParser(getSingleArticle?.article))}
           </p>
         </div>
 

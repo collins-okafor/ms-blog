@@ -51,6 +51,24 @@ export const ProfileHeaderDiv = styled.div`
     }
 
     .profileHeadeWrapper_profileTextEdit {
+      .profileHeadeWrapper_profileTextEditState {
+        font-family: "Public Sans", sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        color: ${({ theme }) => theme.primaryColor};
+        transition: all 1.5s;
+        background-color: ${({ theme }) => theme.secondaryColor};
+        padding: 5px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
       p {
         font-family: "Public Sans", sans-serif;
         font-style: normal;

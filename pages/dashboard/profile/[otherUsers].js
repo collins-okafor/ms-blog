@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import OtherUsers from "../../../components/Profile/OtherUsers";
 import DashBoardServices from "../../../services/dashboardServices";
 import { getOtherUserDetails } from "../../../store/actions/dashboardAction";
@@ -14,6 +14,8 @@ const OtherUsersPage = () => {
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+
+  const userStore = useSelector((state) => state.DashboardReducers.userStore);
 
   const fetchAllArticle = async (user) => {
     setLoading(true);
@@ -30,9 +32,15 @@ const OtherUsersPage = () => {
           throw err;
         });
 
-      console.log(constants, "usert");
+      console.log(constants[0], "state", userStore);
 
-      await DashBoardServices.getOtherUserSavePostCount(constants[0]._id)
+      if (userStore) {
+        if (constants[0]?._id === userStore?._id) {
+          router.push(`/dashboard/profile`);
+        }
+      }
+
+      await DashBoardServices.getOtherUserSavePostCount(constants[0]?._id)
         .then((data) => {
           constants[0]["save_count"] = data?.data;
         })
@@ -40,7 +48,7 @@ const OtherUsersPage = () => {
           throw err;
         });
 
-      await DashBoardServices.getOtherUserFollowerCount(constants[0]._id)
+      await DashBoardServices.getOtherUserFollowerCount(constants[0]?._id)
         .then((data) => {
           constants[0]["follower_count"] = data?.data;
         })
@@ -49,7 +57,7 @@ const OtherUsersPage = () => {
         });
 
       const checkIfFollowed = constants[1]?.data?.find(
-        (item) => item.followedUserId === constants[0]._id
+        (item) => item?.followedUserId === constants[0]?._id
       );
 
       if (checkIfFollowed) {
@@ -65,7 +73,7 @@ const OtherUsersPage = () => {
 
   useEffect(() => {
     fetchAllArticle(otherUsers);
-  }, [otherUsers]);
+  }, [otherUsers, userStore]);
 
   return (
     <DashbaordPageWrapper>

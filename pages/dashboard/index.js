@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DashboardPage from "../../components/Dashboard";
 import DashBoardServices from "../../services/dashboardServices";
 import {
@@ -13,13 +13,14 @@ import DashbaordPageWrapper from "../../universal-Components/DashobardPageWrappe
 const Dashboard = () => {
   const dispatch = useDispatch();
 
+  const userStore = useSelector((state) => state.DashboardReducers.userStore);
+
   const fetchAllArticle = async () => {
     dispatch(getDashboardLoader(true));
     const constants = await Promise.all([
       DashBoardServices.GetAllDashArticle(),
       DashBoardServices.getAllYourSavedPost(),
       DashBoardServices.getAllFollowing(),
-      DashBoardServices.getUserDetails(),
     ])
       .then((data) => {
         return data;
@@ -45,14 +46,13 @@ const Dashboard = () => {
         item["followed"] = true;
       }
 
-      if (constants[3]?._id === item.createdBy) {
+      if (userStore?._id === item.createdBy) {
         item["followed"] = "my";
       }
     });
 
     dispatch(getDynamicPost(constants[0]?.data));
     dispatch(getDashboardAllArticle(constants[0]));
-    // dispatch(getUserStore(constants[3]));
     dispatch(getDashboardLoader(false));
   };
 

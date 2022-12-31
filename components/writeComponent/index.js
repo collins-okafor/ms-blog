@@ -141,7 +141,7 @@ const WriteComponent = () => {
       </div>
       <div className="wirteWrappperBodyEditor">
         <p className="wirteWrappperBodyEditorTitle">Article Body</p>
-        <MyEditor handleEditor={handleEditor} data={data} />
+        {MyEditor && <MyEditor handleEditor={handleEditor} data={data} />}
       </div>
 
       <div className="wirteWrappperBodyButton">

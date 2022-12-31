@@ -6,6 +6,7 @@ import PostStructure from "../../universal-Components/postStructure";
 import { PostStructureDiv } from "../../universal-Components/postStructure/styles/postStructure.styles";
 import ViewProfileCard from "../../universal-Components/viewProfileCard";
 import { StyledTabDisplay } from "./styles/style.tabDisplay";
+
 const TabDisplay = () => {
   const [display, setDisplay] = useState(true);
   const handleTabOne = () => {
