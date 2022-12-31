@@ -15,8 +15,12 @@ export const WriteDiv = styled.div`
       font-weight: 800;
       font-style: normal;
       color: ${({ theme }) => theme.textColor};
-      line-height: 16px;
+      line-height: 32px;
       transition: all 1.5s;
+
+      @media screen and (max-width: 414px) {
+        font-size: 32px;
+      }
     }
   }
 
@@ -166,10 +170,22 @@ export const WriteDiv = styled.div`
 
   .wirteWrappperBodyEditor {
     .wirteWrappperBodyEditorTitle {
+      font-family: "Poppins", sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+      color: ${({ theme }) => theme.textColor};
+      line-height: 16px;
+      transition: all 1.5s;
+      margin: 5px;
+    }
+
+    .ck.ck-content:not(.ck-comment__input *) {
+      background-color: ${({ theme }) => theme.primaryColor};
     }
 
     .ck-content {
-      color: #292929;
+      color: ${({ theme }) => theme.textColor};
     }
   }
 

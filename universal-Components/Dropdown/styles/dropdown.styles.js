@@ -63,6 +63,7 @@ export const DropdownWrapperDiv = styled.div`
     position: absolute;
     z-index: 10;
     border: 1px solid ${({ theme }) => theme.textColor};
+    background-color: ${({ theme }) => theme.primaryColor};
     /* background-color: #fff; */
 
     &::-webkit-scrollbar-track {

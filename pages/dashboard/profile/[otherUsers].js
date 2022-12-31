@@ -32,8 +32,6 @@ const OtherUsersPage = () => {
           throw err;
         });
 
-      console.log(constants[0], "state", userStore);
-
       if (userStore) {
         if (constants[0]?._id === userStore?._id) {
           router.push(`/dashboard/profile`);
