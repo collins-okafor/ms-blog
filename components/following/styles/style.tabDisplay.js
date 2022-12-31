@@ -45,7 +45,8 @@ export const StyledTabDisplay = styled.div`
     .rightContent {
       width: 25%;
       @media (max-width: 700px) {
-        width: 90%;
+        width: 95%;
+        margin: 0 auto;
       }
     }
   }
