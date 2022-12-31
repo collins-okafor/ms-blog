@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import photoTwo from "../../assets/Images/indesignSeven.jpg";
 import SearchComp from "../../universal-Components/search";
 import { useRouter } from "next/router";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 
 const HomeSearch = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const getAllarticle = useSelector(
     (state) => state?.landingPageReducer?.getAllarticle
   );
+
   const HandleClick = (item) => {
-    router.push({
-      pathname: "/[articleDetails]",
-      query: { articleDetails: item._id },
-    });
+    router.push(`/dashboard/${item._id}`);
+    dispatch(getLoginPageCounter({}));
     console.log("router pushing");
   };
   return (

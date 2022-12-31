@@ -28,7 +28,7 @@ const DashboardNavBar = () => {
     dispatch({ type: REDUCE_SIDEBAR, payload: !reduceSideBar });
   };
   const handleSearch = () => {
-    dispatch(getLoginPageCounter({ counter: 4 }));
+    dispatch(getLoginPageCounter({ counter: 6 }));
   };
 
   useOnClickOutside(ref, () =>

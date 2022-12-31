@@ -86,7 +86,7 @@ const sideBarLink = [
   { logo: FiHome, title: "Dashboard", link: "/dashboard" },
   { logo: BsBell, title: "Notifications", link: "/dashboard/notifications" },
   { logo: FaStackExchange, title: "Following", link: "/dashboard/followings" },
-  { logo: FaClipboardList, title: "Stroies", link: "/dashboard/stories" },
+  { logo: FaClipboardList, title: "Stories", link: "/dashboard/stories" },
   { logo: FiEdit, title: "Write", link: "/dashboard/write" },
 ];
 

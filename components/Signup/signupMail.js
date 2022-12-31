@@ -18,14 +18,18 @@ const MailSignUp = () => {
   const dispatch = useDispatch();
   const [counter, setCounter] = useState(0);
   const [loginState, setLoginState] = useState(false);
-  const [formValue, setFormValue] = useState({});
+  const [formValue, setFormValue] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
   const handleCounter = () => {
-    if (counter === 0 && formValue.username >= 5) {
-      setCounter((prev) => prev + 1);
-    } else if (counter === 1 && formValue.email >= 6) {
-      setCounter((prev) => prev + 1);
-    } else if (counter === 2 && formValue.password >= 6) {
-      setCounter((prev) => prev + 1);
+    if (counter === 0 && formValue.username === "") {
+      return setCounter(0);
+    } else if (counter === 1 && formValue.email === "") {
+      return setCounter(1);
+    } else if (counter === 2 && formValue.password === "") {
+      return setCounter(2);
     } else {
       setCounter((prev) => prev + 1);
     }
@@ -52,6 +56,8 @@ const MailSignUp = () => {
   };
 
   const HandleSubmit = (e) => {
+    // e.preventDefault();
+
     dispatch({ type: AUTHLOADER, payload: true });
     console.log(formValue, "our state");
     if (

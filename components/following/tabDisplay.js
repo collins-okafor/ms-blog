@@ -19,7 +19,7 @@ const TabDisplay = () => {
     <StyledTabDisplay display={display}>
       <div className="buttonContainer">
         <button onClick={handleTabOne} className="tabOneBtn">
-          Followers
+          Following
         </button>
         <button onClick={handleTabTwo} className="tabTwoBtn">
           Saved Posts

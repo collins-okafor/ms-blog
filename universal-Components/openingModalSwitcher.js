@@ -7,6 +7,8 @@ import MailSignIn from "../components/Signup/signinMail";
 import MailSignUp from "../components/Signup/signupMail";
 import Search from "../components/LandingPage/search";
 import EditProfile from "../components/editprofile";
+import HomeSearch from "../components/LandingPage/search";
+import DashboardSearch from "../components/Dashboard/DashboardSearch";
 const OpeningModalSwitcher = () => {
   const loginPageCounte = useSelector(
     (state) => state.authReducer.loginPageCounter
@@ -41,11 +43,17 @@ const OpeningModalSwitcher = () => {
     case 4:
       return (
         <Modal display={true}>
-          <Search />
+          <HomeSearch />
         </Modal>
       );
     case 5:
       return <EditProfile />;
+    case 6:
+      return (
+        <Modal display={true}>
+          <DashboardSearch />
+        </Modal>
+      );
     default:
       return "";
   }
