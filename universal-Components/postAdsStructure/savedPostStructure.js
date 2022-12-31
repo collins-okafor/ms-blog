@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import photoOne from "../../assets/Images/about-us.jpg";
 import photoTwo from "../../assets/Images/indesignSeven.jpg";
 import photoThree from "../../assets/Images/programmer-working-on-laptop-computer-technology.jpg";
@@ -18,12 +18,17 @@ import { getDynamicPost } from "../../store/actions/generalAction";
 import { getSavedPost } from "../../store/actions/dashboardAction";
 import NotFound from "../Notfound";
 import moment from "moment";
+import PostDropdown from "../postDropdown";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 const SavedPostStructure = () => {
+  const ref = useRef();
   const [change, setChange] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const savedPost = useSelector((state) => state.DashboardReducers.savedPost);
+  const [dropdown, setDropdown] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const Truncate = (word, count = 60) => {
     const Word_length = count;
@@ -59,6 +64,18 @@ const SavedPostStructure = () => {
     setChange(!change);
   };
 
+  const HandleDropdown = (item) => {
+    if (!showDropdown) {
+      setDropdown(item._id);
+      setShowDropdown(true);
+    } else {
+      setDropdown("");
+      setShowDropdown(false);
+    }
+  };
+
+  useOnClickOutside(ref, () => setDropdown(""));
+
   return (
     <PostDiv>
       {savedPost === undefined ||
@@ -93,7 +110,9 @@ const SavedPostStructure = () => {
                 </div>
                 <div className="mainPostContainerHeaderWrapperContent">
                   <h1>{item.title}</h1>
-                  <p className="textContent">{HTMLReactParser(item.article)}</p>
+                  <p className="textContent">
+                    {HTMLReactParser(HTMLReactParser(item.article))}
+                  </p>
                 </div>
               </div>
               <div className="postWrapper">
@@ -108,8 +127,22 @@ const SavedPostStructure = () => {
                   >
                     <MdOutlineBookmarkRemove className="postWrapperContentSaveIcon" />
                   </div>
-                  <div className="postWrapperContentFollowers">
-                    <FiMoreHorizontal className="postWrapperContentFollowersIcon" />
+
+                  <div className="postWrapperContentFollowersState">
+                    <div
+                      className="postWrapperContentFollowers"
+                      onClick={() => HandleDropdown(item)}
+                    >
+                      <FiMoreHorizontal className="postWrapperContentFollowersIcon" />
+                    </div>
+
+                    {dropdown === item._id && (
+                      <PostDropdown
+                        ref={ref}
+                        details={item}
+                        fullDetails={savedPost}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

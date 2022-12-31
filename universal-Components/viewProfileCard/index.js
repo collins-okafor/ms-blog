@@ -5,14 +5,17 @@ import { ViewProfileStyle } from "./styles/styles";
 import { BsThreeDots } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import NotFound from "../Notfound";
+import { useRouter } from "next/router";
+
 const ViewProfileCard = () => {
+  const router = useRouter();
   const allFollowerDetails = useSelector(
     (state) => state.DashboardReducers.allFollowerDetails
   );
 
-  console.log(allFollowerDetails, "stated");
-
-  const handleViewProfile = () => {};
+  const handleViewProfile = (item) => {
+    router.push(`/dashboard/profile/${item.username}`);
+  };
 
   return (
     <ViewProfileStyle>
@@ -37,7 +40,10 @@ const ViewProfileCard = () => {
             <div className="cardListSearchBodyUsername">
               <p>{user.username}</p>
             </div>
-            <div className="cardListLink" onClick={handleViewProfile}>
+            <div
+              className="cardListLink"
+              onClick={() => handleViewProfile(user)}
+            >
               <p>view profile</p>
             </div>
           </div>

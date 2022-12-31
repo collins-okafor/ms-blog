@@ -21,11 +21,17 @@ import "../lib/globalStyles/global.css";
 import ProtectedRoute from "../Authentication/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import IsLoggin from "../Authentication/isLoggin";
+import DashBoardServices from "../services/dashboardServices";
+import {
+  getDashboardAllArticle,
+  getUserStore,
+} from "../store/actions/dashboardAction";
 
 export const ThemeContext = createContext();
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const reduceSideBar = useSelector(
     (state) => state.DashboardConditionReducers.reduceSideBar
   );
@@ -33,7 +39,22 @@ function MyApp({ Component, pageProps }) {
   let auth =
     typeof window !== "undefined" && window.localStorage.getItem("token");
 
-  const dispatch = useDispatch();
+  const fetchAllArticle = async () => {
+    const constants = await Promise.all([
+      DashBoardServices.GetAllDashArticle(),
+      DashBoardServices.getUserDetails(),
+    ])
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        throw err;
+      });
+
+    dispatch(getDashboardAllArticle(constants[0]));
+    dispatch(getUserStore(constants[1]));
+  };
+
   const system_mode = useSelector(
     (state) => state.landingPageReducer.system_mode
   );
@@ -45,13 +66,10 @@ function MyApp({ Component, pageProps }) {
   };
 
   useEffect(() => {
-    if (window.screen.width <= 1024) {
-      dispatch({ type: REDUCE_SIDEBAR, payload: true });
-    }
-
     if (auth) {
+      fetchAllArticle();
     }
-  }, []);
+  }, [auth]);
 
   return (
     <Provider store={store}>

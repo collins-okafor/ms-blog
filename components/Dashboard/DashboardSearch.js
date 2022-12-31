@@ -1,56 +1,27 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import photoTwo from "../../assets/Images/indesignSeven.jpg";
 import SearchComp from "../../universal-Components/search";
 import { useRouter } from "next/router";
+import { getLoginPageCounter } from "../../store/actions/authAction";
 
 const DashboardSearch = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
-  const getAllarticle = useSelector(
-    (state) => state?.landingPageReducer?.getAllarticle
+  const dashboardAllArticle = useSelector(
+    (state) => state?.DashboardReducers?.dashboardAllArticle
   );
 
-  let auth =
-    typeof window !== "undefined" && window.localStorage.getItem("token");
-
   const HandleClick = (item) => {
-    // router.push({
-    //   pathname: "/[articleDetails]",
-    //   query: { articleDetails: item._id },
-    // });
-    if (auth) {
-      router.push(`/dashboard/${item._id}`);
-    } else {
-      router.push(`/${item._id}`);
-    }
-    console.log("router pushing");
+    router.push(`/dashboard/${item._id}`);
+    dispatch(getLoginPageCounter({}));
   };
   return (
     <SearchComp
-      searchArry={getAllarticle?.allArticle}
+      searchArry={dashboardAllArticle?.data}
       handleOpenSearch={HandleClick}
     />
   );
 };
 
-const posts = [
-  {
-    image: photoTwo.src,
-    title: "bitcoin climbs as elon musk says tesla likely to accept it again",
-    link: "/",
-    date: "Mar 16, 2021",
-  },
-  {
-    image: photoTwo.src,
-    title: "How to become a better Programmer",
-    link: "/",
-    date: "Mar 16, 2021",
-  },
-  {
-    image: photoTwo.src,
-    title: "Step by step guide in Making good interior design",
-    link: "/",
-    date: "Mar 16, 2021",
-  },
-];
 export default DashboardSearch;

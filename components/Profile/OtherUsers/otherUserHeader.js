@@ -23,18 +23,17 @@ const OtherUserHeader = () => {
     setLoading(true);
 
     const payload = {
-      email: otherUserDetails.email,
-      username: otherUserDetails.username,
-      followedUserId: otherUserDetails._id,
+      email: otherUserDetails?.email,
+      username: otherUserDetails?.username,
+      followedUserId: otherUserDetails?._id,
     };
 
-    dispatch(
-      getOtherUserDetails({ ...otherUserDetails, follower_count: true })
-    );
+    const newData = { ...otherUserDetails, followed: true };
+
+    dispatch(getOtherUserDetails(newData));
 
     await DashBoardServices.createFollowers(payload)
       .then((data) => {
-        console.log(data);
         toast("followed successfully");
         setLoading(false);
       })
@@ -48,11 +47,11 @@ const OtherUserHeader = () => {
   const UnFollowThisUser = async () => {
     setLoading(true);
 
-    dispatch(
-      getOtherUserDetails({ ...otherUserDetails, follower_count: false })
-    );
+    const newData = { ...otherUserDetails, followed: false };
 
-    await DashBoardServices.deleteFollowing(otherUserDetails._id)
+    dispatch(getOtherUserDetails(newData));
+
+    await DashBoardServices.deleteFollowing(otherUserDetails?._id)
       .then((data) => {
         toast("successfully unfollowed");
         setLoading(false);
@@ -74,13 +73,13 @@ const OtherUserHeader = () => {
           <h3>{otherUserDetails?.username}</h3>
           <p>{otherUserDetails?.bio}</p>
         </div>
-        {!otherUserDetails.follower_count ? (
+        {!otherUserDetails?.followed ? (
           <>
             {loading ? (
               <div className="profileHeadeWrapper_profileTextEdit">
-                <p>
+                <div className="profileHeadeWrapper_profileTextEditState">
                   <LoaderBob />
-                </p>
+                </div>
               </div>
             ) : (
               <div
@@ -95,9 +94,9 @@ const OtherUserHeader = () => {
           <>
             {loading ? (
               <div className="profileHeadeWrapper_profileTextEdit">
-                <p>
+                <div className="profileHeadeWrapper_profileTextEditState">
                   <LoaderBob />
-                </p>
+                </div>
               </div>
             ) : (
               <div
