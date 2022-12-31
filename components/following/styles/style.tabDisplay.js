@@ -31,6 +31,7 @@ export const StyledTabDisplay = styled.div`
     width: 95%;
     margin: auto;
     flex-wrap: wrap;
+    color: red;
     .leftContent {
       width: 65%;
       @media (max-width: 700px) {

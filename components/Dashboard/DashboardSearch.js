@@ -4,7 +4,7 @@ import photoTwo from "../../assets/Images/indesignSeven.jpg";
 import SearchComp from "../../universal-Components/search";
 import { useRouter } from "next/router";
 
-const HomeSearch = () => {
+const DashboardSearch = () => {
   const router = useRouter();
   const getAllarticle = useSelector(
     (state) => state?.landingPageReducer?.getAllarticle
@@ -53,4 +53,4 @@ const posts = [
     date: "Mar 16, 2021",
   },
 ];
-export default HomeSearch;
+export default DashboardSearch;

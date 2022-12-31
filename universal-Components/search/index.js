@@ -15,10 +15,10 @@ const SearchComp = ({ searchArry, handleOpenSearch }) => {
   const handleSearch = (e) => {
     console.log(e.target.value);
 
-    const ss = searchArry.filter((item) =>
+    const ss = searchArry?.filter((item) =>
       item.title.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    if (ss.length === 0) {
+    if (ss?.length === 0) {
       setsearchNotFound("search not found");
     } else {
       setsearchNotFound("");
@@ -36,7 +36,7 @@ const SearchComp = ({ searchArry, handleOpenSearch }) => {
       <button onClick={handleClose}>X</button>
       <input type="text" onChange={handleSearch} placeholder="Search..." />
       <div className="searchContainer">
-        {searchItem.map((item, i) => (
+        {searchItem?.map((item, i) => (
           <div key={i} className="searchDisplay" onClick={handleOpenSearch}>
             <div className="imageContainer">
               <img src={photoTwo.src} alt="" />
