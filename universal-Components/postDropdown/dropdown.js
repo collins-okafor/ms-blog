@@ -1,5 +1,6 @@
+import { useRouter } from "next/router";
 import React, { forwardRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DashBoardServices from "../../services/dashboardServices";
 import { getDashboardSinglePost } from "../../store/actions/dashboardAction";
@@ -8,9 +9,12 @@ import { PostDropdownDiv } from "./styles/postDropdown.styles";
 
 // eslint-disable-next-line react/display-name
 const PDropdown = forwardRef(({ details }, ref) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const [change, setChange] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const userStore = useSelector((state) => state.DashboardReducers.userStore);
 
   const createFollowers = async () => {
     setLoading(true);
@@ -55,7 +59,13 @@ const PDropdown = forwardRef(({ details }, ref) => {
     setChange(!change);
   };
 
-  const ViewProfile = () => {};
+  const ViewProfile = () => {
+    if (userStore?.username === details?.username) {
+      router.push(`/dashboard/profile`);
+    } else {
+      router.push(`/dashboard/profile/${details.username}`);
+    }
+  };
 
   return (
     <PostDropdownDiv ref={ref}>

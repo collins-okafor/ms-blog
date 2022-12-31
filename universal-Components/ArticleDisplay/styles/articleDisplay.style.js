@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ArticleDisplayDiv = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
   padding: 40px 0px;
@@ -298,6 +299,10 @@ export const ArticleDisplayDiv = styled.div`
               border-radius: 8px;
             }
           }
+
+          @media screen and (max-width: 800px) {
+            width: 80%;
+          }
         }
       }
 
@@ -373,13 +378,29 @@ export const ArticleDisplayDiv = styled.div`
                 transition: all 1.5s;
               }
             }
+
+            @media screen and (max-width: 400px) {
+              width: 80%;
+            }
           }
         }
       }
+    }
+
+    @media screen and (max-width: 500px) {
+      width: 100%;
     }
   }
 
   .articleWrapperAds {
     width: 25%;
+
+    @media screen and (max-width: 500px) {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column-reverse;
   }
 `;

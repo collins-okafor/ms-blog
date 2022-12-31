@@ -20,6 +20,9 @@ const DashboarNavDropDown = forwardRef(({}, ref) => {
         payload: false,
       });
       router.push(`${item.link}`);
+    } else {
+      localStorage.clear();
+      router.push("/");
     }
   };
 
