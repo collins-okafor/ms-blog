@@ -136,7 +136,7 @@ const Post = () => {
                   alt="system"
                   priority
                   objectFit={"cover"}
-                  layout={"responsive"}
+                  // layout={"responsive"}
                   width={100}
                   height={100}
                   className="photoContainerImage"
