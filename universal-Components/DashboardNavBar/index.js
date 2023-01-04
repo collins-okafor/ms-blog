@@ -73,10 +73,7 @@ const DashboardNavBar = () => {
               });
             }}
           >
-            {Object.keys(myUserDetails).length === 0 ||
-            !myUserDetails ||
-            myUserDetails === null ||
-            myUserDetails === undefined ? (
+            {Object.keys(myUserDetails).length === 0 || !myUserDetails ? (
               <div>
                 <Skeleton
                   animation="wave"

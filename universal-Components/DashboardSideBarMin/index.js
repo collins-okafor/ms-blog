@@ -3,7 +3,6 @@ import { DashboardMinDiv } from "./styles/dashboardSidebar.style";
 import { BsBell } from "react-icons/bs";
 import { FaClipboardList, FaStackExchange } from "react-icons/fa";
 import { FiEdit, FiHome } from "react-icons/fi";
-import Logo from "../../assets/Icons/Blogger-logo-01.webp";
 import Profile from "../../assets/Icons/avatar-profile-photo.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -50,10 +49,7 @@ const DashboardSideBarMin = () => {
             className="thirdSection__ImageDetailsWrapper"
             onClick={() => router.push("/dashboard/profile")}
           >
-            {Object.keys(myUserDetails).length === 0 ||
-            !myUserDetails ||
-            myUserDetails === null ||
-            myUserDetails === undefined ? (
+            {Object.keys(myUserDetails).length === 0 || !myUserDetails ? (
               <div>
                 <Skeleton
                   animation="wave"
