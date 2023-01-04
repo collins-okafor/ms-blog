@@ -7,6 +7,11 @@ import { WriteDiv } from "./styles/write.style";
 import LoaderBob from "../../universal-Components/Loaders/loaderBob";
 import { AUTHLOADER } from "../../store/type";
 import WriteService from "../../services/writeService";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import DashBoardServices from "../../services/dashboardServices";
+import SpinnerNormal from "../../universal-Components/Spinner/SpinnerNormal";
+import SpinnerMain from "../../universal-Components/Spinner/Spinner";
 // import MyEditor from "../../universal-Components/myEditor";
 
 const MyEditor = dynamic(() => import("../../universal-Components/myEditor"), {
@@ -15,11 +20,15 @@ const MyEditor = dynamic(() => import("../../universal-Components/myEditor"), {
 
 const WriteComponent = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [data, setData] = useState("");
   const [form, setForm] = useState({});
   const [imageFile, setImageFile] = useState();
+  const [loading, setLoading] = useState(false);
 
   const AuthLoader = useSelector((state) => state.authReducer.AuthLoader);
+
+  const docsLoader = useSelector((state) => state.DashboardReducers.docsLoader);
 
   const [dropItem, setDropItem] = useState("Select Details");
 
@@ -41,18 +50,26 @@ const WriteComponent = () => {
     });
   }
 
-  const handleTextChange = (e) => {
+  const handleTextChange = async (e) => {
     const { name } = e.target;
 
     if (name === "cover_pic") {
+      setLoading(true);
       const file = e.target.files[0];
-      setImageFile(e.target.files[0]);
 
       let promise = getbase64(file);
 
       promise.then((data) => {
-        setForm({ ...form, [name]: data });
-        return data;
+        DashBoardServices.uploadImage({ file: data })
+          .then((data) => {
+            setForm({ ...form, [name]: data?.data?.url });
+
+            setImageFile(e.target.files[0]);
+            setLoading(false);
+          })
+          .catch((err) => {
+            throw err;
+          });
       });
     }
 
@@ -74,16 +91,20 @@ const WriteComponent = () => {
       const payload = {
         tag: dropItem,
         title: form?.title,
-        cover_pic: "form.cover_pic",
+        cover_pic: form.cover_pic,
         article: data,
       };
 
-      console.log(payload, "user payload");
-
-      WriteService.postArticle(payload).then((data) => {
-        dispatch({ type: AUTHLOADER, payload: false });
-        console.log(data);
-      });
+      WriteService.postArticle(payload)
+        .then((data) => {
+          toast("posted successfully");
+          dispatch({ type: AUTHLOADER, payload: false });
+          console.log(data);
+          router.push("/dashboard/stories");
+        })
+        .catch((err) => {
+          throw err;
+        });
     } else {
       toast.error("all filed my be filled !", {
         position: toast.POSITION.TOP_RIGHT,
@@ -95,7 +116,7 @@ const WriteComponent = () => {
   return (
     <WriteDiv>
       <div className="wirteWrappperHeader">
-        <p>Write And Article</p>
+        <p>Write An Article</p>
       </div>
       <div className="wirteWrappperBody">
         <div className="wirteWrappperBodyFirstLine">
@@ -127,7 +148,15 @@ const WriteComponent = () => {
               </div>
 
               <div className="wirteWrappperBodySecondLineFileViewText">
-                <p>{imageFile?.name ? imageFile?.name : "photo"}</p>
+                <p>
+                  {loading ? (
+                    <SpinnerMain />
+                  ) : imageFile?.name ? (
+                    imageFile?.name
+                  ) : (
+                    "photo"
+                  )}
+                </p>
               </div>
             </div>
             <input
@@ -145,16 +174,28 @@ const WriteComponent = () => {
       </div>
 
       <div className="wirteWrappperBodyButton">
-        <button
-          disabled={
-            AuthLoader || !data || !form.title || !form.cover_pic || !dropItem
-              ? true
-              : false
-          }
-          onClick={HandleSubmit}
-        >
-          {AuthLoader ? <LoaderBob /> : <>Publish</>}
-        </button>
+        {AuthLoader ? (
+          <button>
+            <LoaderBob />
+          </button>
+        ) : (
+          <button
+            disabled={
+              AuthLoader ||
+              docsLoader ||
+              loading ||
+              !data ||
+              !form.title ||
+              !form.cover_pic ||
+              !dropItem
+                ? true
+                : false
+            }
+            onClick={HandleSubmit}
+          >
+            Publish
+          </button>
+        )}
       </div>
     </WriteDiv>
   );

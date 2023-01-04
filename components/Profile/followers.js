@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 import { FollowersDiv } from "./styles/follower.style";
+import Skeleton from "@mui/material/Skeleton";
 
 const Followers = () => {
   const router = useRouter();
@@ -22,7 +23,15 @@ const Followers = () => {
       <div className="followersBody">
         <div className="followersBodyOne">
           <p className="followersBodynum">numbers of followers</p>
-          <p className="followersBodycount">{myUserDetails?.follower_count}</p>
+          {!myUserDetails ? (
+            <div>
+              <Skeleton animation="wave" height={50} width={180} />
+            </div>
+          ) : (
+            <p className="followersBodycount">
+              {myUserDetails?.follower_count}
+            </p>
+          )}
         </div>
         <div className="followersBodyTwo">
           <p className="followersBodyTwoList">link to view followers</p>

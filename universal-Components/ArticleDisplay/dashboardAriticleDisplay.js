@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Ads from "../postAdsStructure/ads";
 import { ArticleDisplayDiv } from "./styles/articleDisplay.style";
-import image1 from "../../assets/Images/Avatar.png";
+import image1 from "../../assets/Icons/avatar-profile-photo.png";
 import Image from "next/image";
 import { MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
@@ -210,8 +210,16 @@ const DashboardArticleDisplay = () => {
           <div className={"articleWrapper__headerProfile"}>
             <div className={"articleWrapper__headerProfilePics"}>
               <Image
-                src={image1}
+                src={
+                  getSingleArticle.profile_pic &&
+                  (getSingleArticle.profile_pic.startsWith("http") ||
+                    getSingleArticle.profile_pic.startsWith("/"))
+                    ? `${getSingleArticle.profile_pic}`
+                    : image1
+                }
                 alt="state"
+                width={100}
+                height={100}
                 className={"articleWrapper__headerProfilePicsItem"}
               />
             </div>
@@ -284,10 +292,18 @@ const DashboardArticleDisplay = () => {
 
           <div className={"articleWrapper__titleImageWrapper"}>
             <Image
-              src={photoSix}
+              src={
+                getSingleArticle?.cover_pic &&
+                (getSingleArticle.cover_pic.startsWith("http") ||
+                  getSingleArticle.cover_pic.startsWith("/"))
+                  ? `${getSingleArticle?.cover_pic}`
+                  : photoSix
+              }
               alt={""}
+              width={100}
+              height={100}
               priority
-              placeholder={"blur"}
+              // placeholder={"blur"}
               // blurDataURL
               objectFit={"cover"}
               layout={"responsive"}

@@ -125,7 +125,22 @@ const Post = () => {
           <div key={key} className={"flex"}>
             <div className="userDetails">
               <div className="photoContainer">
-                <Image src={photoOne} alt="" className="photoContainerImage" />
+                <Image
+                  src={
+                    item.cover_pic &&
+                    (item.cover_pic.startsWith("http") ||
+                      item.cover_pic.startsWith("/"))
+                      ? `${item.cover_pic}`
+                      : photoOne
+                  }
+                  alt="system"
+                  priority
+                  objectFit={"cover"}
+                  layout={"responsive"}
+                  width={100}
+                  height={100}
+                  className="photoContainerImage"
+                />
               </div>
             </div>
 
@@ -137,7 +152,15 @@ const Post = () => {
                 <div className="mainPostContainerHeaderWrapperSystem">
                   <div className="profileImage">
                     <Image
-                      src={photoOne}
+                      src={
+                        item.profile_pic &&
+                        (item.profile_pic.startsWith("http") ||
+                          item.profile_pic.startsWith("/"))
+                          ? `${item.profile_pic}`
+                          : photoOne
+                      }
+                      width={100}
+                      height={100}
                       alt=""
                       className="profileImageState"
                     />

@@ -211,6 +211,11 @@ export const WriteDiv = styled.div`
       &:hover {
         opacity: 0.8;
       }
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: grey;
+      }
     }
   }
 `;

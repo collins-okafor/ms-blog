@@ -1,20 +1,14 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import photoOne from "../../assets/Images/about-us.jpg";
-import photoTwo from "../../assets/Images/indesignSeven.jpg";
-import photoThree from "../../assets/Images/programmer-working-on-laptop-computer-technology.jpg";
-import photoFour from "../../assets/Images/indesignFive.jpg";
-import photoFive from "../../assets/Images/paris.jpg";
-import photoSix from "../../assets/Images/about-us.jpg";
 import Image from "next/image";
 import { PostDiv } from "./styles/post.styles";
-import { MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
+import { MdOutlineBookmarkRemove } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import HTMLReactParser from "html-react-parser";
 import { useRouter } from "next/router";
 import DashBoardServices from "../../services/dashboardServices";
 import { toast } from "react-toastify";
-import { getDynamicPost } from "../../store/actions/generalAction";
 import { getSavedPost } from "../../store/actions/dashboardAction";
 import NotFound from "../Notfound";
 import moment from "moment";
@@ -87,7 +81,19 @@ const SavedPostStructure = () => {
           <div key={key} className={"flex"}>
             <div className="userDetails">
               <div className="photoContainer">
-                <Image src={photoOne} alt="" className="photoContainerImage" />
+                <Image
+                  src={
+                    item.cover_pic &&
+                    (item.cover_pic.startsWith("http") ||
+                      item.cover_pic.startsWith("/"))
+                      ? `${item.cover_pic}`
+                      : photoOne
+                  }
+                  alt=""
+                  width={100}
+                  height={100}
+                  className="photoContainerImage"
+                />
               </div>
             </div>
 
@@ -99,8 +105,16 @@ const SavedPostStructure = () => {
                 <div className="mainPostContainerHeaderWrapperSystem">
                   <div className="profileImage">
                     <Image
-                      src={photoOne}
+                      src={
+                        item.profile_pic &&
+                        (item.profile_pic.startsWith("http") ||
+                          item.profile_pic.startsWith("/"))
+                          ? `${item.profile_pic}`
+                          : photoOne
+                      }
                       alt=""
+                      width={100}
+                      height={100}
                       className="profileImageState"
                     />
                   </div>

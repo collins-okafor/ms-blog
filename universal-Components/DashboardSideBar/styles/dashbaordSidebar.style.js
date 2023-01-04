@@ -53,6 +53,7 @@ export const DashbardSideBarDiv = styled.div`
   z-index: 8;
   display: ${({ reduceSideBar }) => (reduceSideBar ? "none" : "block")};
   animation: ${({ reduceSideBar }) => (reduceSideBar ? right : left)} 0.4s;
+  transition: all 2s ease;
 
   .firstSection {
     display: flex;
@@ -124,6 +125,7 @@ export const DashbardSideBarDiv = styled.div`
   }
 
   .thirdSection {
+    width: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -133,14 +135,17 @@ export const DashbardSideBarDiv = styled.div`
     cursor: pointer;
 
     .thirdSection__ImageDetails {
+      /* width: 30%; */
       margin-right: 10px;
+
       .thirdSection__ImageDetailsWrapper {
-        width: 40px;
-        height: 40%;
+        /* width: 100%;
+        height: 100%; */
+        border-radius: 50%;
 
         .thirdSection__ImageDetailsImage {
-          width: 100%;
-          height: 100%;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           object-fit: cover;
         }
@@ -154,7 +159,7 @@ export const DashbardSideBarDiv = styled.div`
         font-weight: 400;
         font-style: normal;
         color: ${({ theme }) => theme.mainColor};
-        transition: all 1.5s;
+        transition: all 1.5s ease;
       }
 
       .thirdSection__infoDetialsUsername {
@@ -170,7 +175,7 @@ export const DashbardSideBarDiv = styled.div`
 
   @media screen and (max-width: 1024px) {
     width: 30%;
-    /* display: ${({ reduceSideBar }) => (reduceSideBar ? "block" : "none")}; */
+    display: ${({ reduceSideBar }) => (reduceSideBar ? "block" : "none")};
   }
 
   @media screen and (max-width: 741px) {

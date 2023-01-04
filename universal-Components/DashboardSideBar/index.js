@@ -11,13 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineClose } from "react-icons/md";
 import { REDUCE_SIDEBAR } from "../../store/type";
 import useWindowDimensions from "../../hooks/useWindowDimension";
+import Skeleton from "@mui/material/Skeleton";
 
 const DashboardSidebar = () => {
-  // const { width } = useWindowDimensions();
+  const width = useWindowDimensions();
+
   const router = useRouter();
   const dispatch = useDispatch();
   const reduceSideBar = useSelector(
     (state) => state.DashboardConditionReducers.reduceSideBar
+  );
+
+  const myUserDetails = useSelector(
+    (state) => state.DashboardReducers.userStore
   );
 
   const RouteToPage = (link) => {
@@ -45,10 +51,12 @@ const DashboardSidebar = () => {
               router.asPath === item.link && "selected"
             }`}
             onClick={() => {
-              // if (width <= 1024) {
-              // dispatch({ type: REDUCE_SIDEBAR, payload: true });
-              // }
               RouteToPage(item.link);
+              if (typeof window !== "undefined") {
+                if (width.width <= 1024) {
+                  dispatch({ type: REDUCE_SIDEBAR, payload: false });
+                }
+              }
             }}
           >
             <div className="secondSection_dashboardIconBody">
@@ -64,19 +72,52 @@ const DashboardSidebar = () => {
       >
         <div className="thirdSection__ImageDetails">
           <div className="thirdSection__ImageDetailsWrapper">
-            <Image
-              src={Profile}
-              alt={"profile"}
-              className="thirdSection__ImageDetailsImage"
-            />
+            {Object.keys(myUserDetails).length === 0 ||
+            !myUserDetails ||
+            myUserDetails === null ||
+            myUserDetails === undefined ? (
+              <div>
+                <Skeleton
+                  animation="wave"
+                  variant="circular"
+                  width={40}
+                  height={40}
+                />
+              </div>
+            ) : (
+              <Image
+                src={
+                  myUserDetails?.profile_pic &&
+                  (myUserDetails.profile_pic.startsWith("http") ||
+                    myUserDetails.profile_pic.startsWith("/"))
+                    ? `${myUserDetails?.profile_pic}`
+                    : Profile
+                }
+                width={50}
+                height={50}
+                alt={"profile"}
+                className="thirdSection__ImageDetailsImage"
+              />
+            )}
           </div>
         </div>
-        <div className="thirdSection__infoDetials">
-          <p className="thirdSection__infoDetialsUsername">Godfirst</p>
-          <p className="thirdSection__infoDetialsEmail">
-            joshuaejike4221@gmail.com
-          </p>
-        </div>
+        {Object.keys(myUserDetails).length === 0 ||
+        !myUserDetails ||
+        myUserDetails === null ||
+        myUserDetails === undefined ? (
+          <div>
+            <Skeleton animation="wave" height={50} width={180} />
+          </div>
+        ) : (
+          <div className="thirdSection__infoDetials">
+            <p className="thirdSection__infoDetialsUsername">
+              {myUserDetails?.username}
+            </p>
+            <p className="thirdSection__infoDetialsEmail">
+              {myUserDetails?.email}
+            </p>
+          </div>
+        )}
       </div>
     </DashbardSideBarDiv>
   );

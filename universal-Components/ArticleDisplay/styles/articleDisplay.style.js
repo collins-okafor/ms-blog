@@ -141,7 +141,17 @@ export const ArticleDisplayDiv = styled.div`
         font-style: normal;
         color: ${({ theme }) => theme.textColor};
         line-height: 30px;
+        max-width: 100%;
+        overflow: auto;
         transition: all 1.5s;
+
+        .image {
+          width: 100%;
+
+          img {
+            max-width: 100%;
+          }
+        }
       }
     }
 

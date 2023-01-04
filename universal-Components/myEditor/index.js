@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
+import DashBoardServices from "../../services/dashboardServices";
+import { getDocsLoader } from "../../store/actions/dashboardAction";
 
 // import Context from "@ckeditor/ckeditor5-core/src/context";
 // import Bold from "@ckeditor/ckeditor5-basic-styles/src/bold";
@@ -11,6 +13,7 @@ import Axios from "axios";
 // import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 
 const MyEditor = ({ handleEditor, data }) => {
+  const dispatch = useDispatch();
   // const [data, setData] = useState("");
   // const baseURL = useSelector((state) => state.authReducer.baseURL);
 
@@ -29,6 +32,7 @@ const MyEditor = ({ handleEditor, data }) => {
   }
 
   const uploadAdapter = (loader) => {
+    dispatch(getDocsLoader(true));
     return {
       upload: () => {
         return new Promise((resolve, reject) => {
@@ -38,17 +42,20 @@ const MyEditor = ({ handleEditor, data }) => {
             // fetch()
             console.log(file, "joshua");
             let promise = getbase64(file);
-            promise
-              .then((data) => {
-                return data;
-              })
-              .then((data) => {
-                Axios.post("/api/uploadArticleImage", { file: data }).then(
-                  (data) => {
-                    console.log(data);
-                  }
-                );
-              });
+
+            promise.then((data) => {
+              return DashBoardServices.uploadImage({ file: data })
+                .then((data) => {
+                  return data?.data?.url;
+                })
+                .then((res) => {
+                  dispatch(getDocsLoader(false));
+                  resolve({ default: res });
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            });
           });
         });
       },

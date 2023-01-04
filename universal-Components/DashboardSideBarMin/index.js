@@ -8,11 +8,16 @@ import Profile from "../../assets/Icons/avatar-profile-photo.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import Skeleton from "@mui/material/Skeleton";
 
 const DashboardSideBarMin = () => {
   const router = useRouter();
   const reduceSideBar = useSelector(
     (state) => state.DashboardConditionReducers.reduceSideBar
+  );
+
+  const myUserDetails = useSelector(
+    (state) => state.DashboardReducers.userStore
   );
 
   const RouteToPage = (link) => {
@@ -45,11 +50,33 @@ const DashboardSideBarMin = () => {
             className="thirdSection__ImageDetailsWrapper"
             onClick={() => router.push("/dashboard/profile")}
           >
-            <Image
-              src={Profile}
-              alt={"profile"}
-              className="thirdSection__ImageDetailsImage"
-            />
+            {Object.keys(myUserDetails).length === 0 ||
+            !myUserDetails ||
+            myUserDetails === null ||
+            myUserDetails === undefined ? (
+              <div>
+                <Skeleton
+                  animation="wave"
+                  variant="circular"
+                  width={40}
+                  height={40}
+                />
+              </div>
+            ) : (
+              <Image
+                src={
+                  myUserDetails?.profile_pic &&
+                  (myUserDetails.profile_pic.startsWith("http") ||
+                    myUserDetails.profile_pic.startsWith("/"))
+                    ? `${myUserDetails?.profile_pic}`
+                    : Profile
+                }
+                width={200}
+                height={200}
+                alt={"profile"}
+                className="thirdSection__ImageDetailsImage"
+              />
+            )}
           </div>
         </div>
       </div>

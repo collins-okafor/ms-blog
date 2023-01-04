@@ -12,6 +12,7 @@ import { getLoginPageCounter } from "../../store/actions/authAction";
 import { DASHBOARD_NAV_DROPDOWN, REDUCE_SIDEBAR } from "../../store/type";
 import DashboarNavDropDown from "./dashboarNavDropDown";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import Skeleton from "@mui/material/Skeleton";
 
 const DashboardNavBar = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,10 @@ const DashboardNavBar = () => {
 
   const dashbaordNavDropdown = useSelector(
     (state) => state.DashboardConditionReducers.dashbaordNavDropdown
+  );
+
+  const myUserDetails = useSelector(
+    (state) => state.DashboardReducers.userStore
   );
 
   const HandleReduceSideBar = () => {
@@ -68,11 +73,33 @@ const DashboardNavBar = () => {
               });
             }}
           >
-            <Image
-              src={Profile}
-              alt={"profile"}
-              className="secondSection__ProfileWrapperImage"
-            />
+            {Object.keys(myUserDetails).length === 0 ||
+            !myUserDetails ||
+            myUserDetails === null ||
+            myUserDetails === undefined ? (
+              <div>
+                <Skeleton
+                  animation="wave"
+                  variant="circular"
+                  width={40}
+                  height={40}
+                />
+              </div>
+            ) : (
+              <Image
+                src={
+                  myUserDetails?.profile_pic &&
+                  (myUserDetails.profile_pic.startsWith("http") ||
+                    myUserDetails.profile_pic.startsWith("/"))
+                    ? `${myUserDetails?.profile_pic}`
+                    : Profile
+                }
+                width={100}
+                height={100}
+                alt={"profile"}
+                className="secondSection__ProfileWrapperImage"
+              />
+            )}
           </div>
           <DashboarNavDropDown ref={ref} />
         </div>

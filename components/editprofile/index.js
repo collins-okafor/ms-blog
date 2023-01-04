@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyledModal } from "./styles/modal.styles";
-import userDefaultImage from "../../assets/Images/Avatar.png";
+import userDefaultImage from "../../assets/Icons/avatar-profile-photo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoginPageCounter } from "../../store/actions/authAction";
 import {
@@ -9,11 +9,13 @@ import {
 } from "../../store/actions/dashboardAction";
 import DashBoardServices from "../../services/dashboardServices";
 import LoaderBob from "../../universal-Components/Loaders/loaderBob";
+import Image from "next/image";
 
 const EditProfile = () => {
-  const [displayImage, setDisplayImage] = useState(userDefaultImage.src);
+  const [displayImage, setDisplayImage] = useState();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [changeImage, setChangeImage] = useState(false);
 
   const myUserDetails = useSelector(
     (state) => state.DashboardReducers.myUserDetails
@@ -23,10 +25,55 @@ const EditProfile = () => {
     (state) => state.DashboardReducers.RefreshUserDetails
   );
 
-  const handleChange = (e) => {
+  function getbase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const handleChange = async (e) => {
     let image = e.target.files[0];
 
-    setDisplayImage(URL.createObjectURL(image));
+    // setDisplayImage(URL.createObjectURL(image));
+    // console.log({ image: image }, "new state");
+    if (image) {
+      let promise = getbase64(image);
+
+      promise.then((data) => {
+        DashBoardServices.uploadImage({ file: data })
+          .then((data) => {
+            setDisplayImage(data?.data?.url);
+
+            // myUserDetails
+
+            dispatch(
+              getMyUserDetails({
+                ...myUserDetails,
+                profile_pic: data?.data?.url,
+              })
+            );
+
+            dispatch(
+              getRefreshUserDetails({
+                ...RefreshUserDetails,
+                profile_pic: data?.data?.url,
+              })
+            );
+          })
+          .catch((err) => {
+            throw err;
+          });
+        // return data;
+      });
+    }
   };
 
   const handleCancel = () => {
@@ -75,7 +122,18 @@ const EditProfile = () => {
           <div className="image">
             <p>photo</p>
             <label for="imageUpload">
-              <img src={displayImage} alt="image" />
+              <Image
+                src={
+                  RefreshUserDetails.profile_pic &&
+                  (RefreshUserDetails.profile_pic.startsWith("http") ||
+                    RefreshUserDetails.profile_pic.startsWith("/"))
+                    ? `${RefreshUserDetails.profile_pic}`
+                    : userDefaultImage
+                }
+                width={100}
+                height={100}
+                alt="this"
+              />
             </label>
             <input
               type="file"
