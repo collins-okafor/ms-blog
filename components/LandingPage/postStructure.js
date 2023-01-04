@@ -46,7 +46,19 @@ const PostStructure = () => {
           <div key={key} className={"flex"}>
             <div className="userDetails">
               <div className="photoContainer">
-                <Image src={photoSix} alt="" className="photoContainerImage" />
+                <Image
+                  src={
+                    item.cover_pic &&
+                    (item.cover_pic.startsWith("http") ||
+                      item.cover_pic.startsWith("/"))
+                      ? `${item.cover_pic}`
+                      : photoSix
+                  }
+                  alt=""
+                  width={100}
+                  height={100}
+                  className="photoContainerImage"
+                />
               </div>
             </div>
 
@@ -58,8 +70,16 @@ const PostStructure = () => {
                 <div className="mainPostContainerHeaderWrapperSystem">
                   <div className="profileImage">
                     <Image
-                      src={photoSix}
+                      src={
+                        item.profile_pic &&
+                        (item.profile_pic.startsWith("http") ||
+                          item.profile_pic.startsWith("/"))
+                          ? `${item.profile_pic}`
+                          : photoSix
+                      }
                       alt=""
+                      width={100}
+                      height={100}
                       className="profileImageState"
                     />
                   </div>
