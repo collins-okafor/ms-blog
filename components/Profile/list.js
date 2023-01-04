@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 import { ListDiv } from "./styles/list.style";
+import Skeleton from "@mui/material/Skeleton";
 
 const List = () => {
   const router = useRouter();
@@ -22,7 +23,13 @@ const List = () => {
       <div className="listBody">
         <div className="listBodyOne">
           <p className="listBodyOneNum">Number of Saved article</p>
-          <p className="listBodyOneCount">{myUserDetails?.save_count}</p>
+          {!myUserDetails ? (
+            <div>
+              <Skeleton animation="wave" height={50} width={180} />
+            </div>
+          ) : (
+            <p className="listBodyOneCount">{myUserDetails?.save_count}</p>
+          )}
         </div>
         <div className="listBodyTwo">
           <p className="listBodyTwoList">link to view Saved view</p>

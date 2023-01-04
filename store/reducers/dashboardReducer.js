@@ -13,6 +13,7 @@ import {
   REFRESH_USER_DETAILS,
   OTHER_USER_DETAILS,
   USER_STORE,
+  DOCS_LOADER,
 } from "../type";
 
 const initialState = {
@@ -30,12 +31,20 @@ const initialState = {
   RefreshUserDetails: {},
   otherUserDetails: {},
   userStore: {},
+  docsLoader: false,
 };
 
 const DashboardReducers = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case DOCS_LOADER: {
+      return {
+        ...state,
+        docsLoader: payload,
+      };
+    }
+
     case USER_DETAILS: {
       return {
         ...state,

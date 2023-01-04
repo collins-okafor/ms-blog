@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { StyledModal } from "./styles/modal.styles";
-import userDefaultImage from "../../assets/Images/Avatar.png";
+import userDefaultImage from "../../assets/Icons/avatar-profile-photo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoginPageCounter } from "../../store/actions/authAction";
 import {
   getMyUserDetails,
   getRefreshUserDetails,
+  getUserStore,
 } from "../../store/actions/dashboardAction";
 import DashBoardServices from "../../services/dashboardServices";
 import LoaderBob from "../../universal-Components/Loaders/loaderBob";
+import Image from "next/image";
+import SpinnerMain from "../../universal-Components/Spinner/Spinner";
 
 const EditProfile = () => {
-  const [displayImage, setDisplayImage] = useState(userDefaultImage.src);
+  const [displayImage, setDisplayImage] = useState();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [changeImage, setChangeImage] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   const myUserDetails = useSelector(
     (state) => state.DashboardReducers.myUserDetails
@@ -23,10 +28,60 @@ const EditProfile = () => {
     (state) => state.DashboardReducers.RefreshUserDetails
   );
 
-  const handleChange = (e) => {
+  const userStore = useSelector((state) => state.DashboardReducers.userStore);
+
+  function getbase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const handleChange = async (e) => {
+    setLoadingImage(true);
     let image = e.target.files[0];
 
-    setDisplayImage(URL.createObjectURL(image));
+    // setDisplayImage(URL.createObjectURL(image));
+    // console.log({ image: image }, "new state");
+    if (image) {
+      let promise = getbase64(image);
+
+      promise.then((data) => {
+        DashBoardServices.uploadImage({ file: data })
+          .then((data) => {
+            setDisplayImage(data?.data?.url);
+
+            // myUserDetails
+
+            dispatch(
+              getMyUserDetails({
+                ...myUserDetails,
+                profile_pic: data?.data?.url,
+              })
+            );
+
+            dispatch(
+              getRefreshUserDetails({
+                ...RefreshUserDetails,
+                profile_pic: data?.data?.url,
+              })
+            );
+
+            setLoadingImage(false);
+          })
+          .catch((err) => {
+            throw err;
+          });
+        // return data;
+      });
+    }
   };
 
   const handleCancel = () => {
@@ -59,6 +114,7 @@ const EditProfile = () => {
       .then((data) => {
         dispatch(getMyUserDetails({ ...myUserDetails, ...data }));
         dispatch(getRefreshUserDetails({ ...RefreshUserDetails, ...data }));
+        dispatch(getUserStore({ ...userStore, ...data }));
         setLoading(false);
       })
       .catch((err) => {});
@@ -75,7 +131,24 @@ const EditProfile = () => {
           <div className="image">
             <p>photo</p>
             <label for="imageUpload">
-              <img src={displayImage} alt="image" />
+              <Image
+                src={
+                  RefreshUserDetails.profile_pic &&
+                  (RefreshUserDetails.profile_pic.startsWith("http") ||
+                    RefreshUserDetails.profile_pic.startsWith("/"))
+                    ? `${RefreshUserDetails.profile_pic}`
+                    : userDefaultImage
+                }
+                width={100}
+                height={100}
+                alt="this"
+              />
+
+              {loadingImage && (
+                <div className="loadingImage">
+                  <SpinnerMain />
+                </div>
+              )}
             </label>
             <input
               type="file"
@@ -134,9 +207,19 @@ const EditProfile = () => {
           <button className="cancelBtn" onClick={CancelDetails}>
             cancel
           </button>
-          <button className="saveBtn" onClick={HandleEditDetails}>
-            {loading ? <LoaderBob /> : <>save</>}
-          </button>
+          {loading ? (
+            <button disabled={loadingImage ? true : false} className="saveBtn">
+              <LoaderBob />
+            </button>
+          ) : (
+            <button
+              disabled={loadingImage ? true : false}
+              className="saveBtn"
+              onClick={HandleEditDetails}
+            >
+              save
+            </button>
+          )}
         </div>
       </div>
     </StyledModal>

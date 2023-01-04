@@ -8,6 +8,7 @@ import { useMemo } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useRouter } from "next/router";
 import NotFound from "../../universal-Components/Notfound";
+import moment from "moment";
 
 const PostStructure = () => {
   const router = useRouter();
@@ -46,7 +47,19 @@ const PostStructure = () => {
           <div key={key} className={"flex"}>
             <div className="userDetails">
               <div className="photoContainer">
-                <Image src={photoSix} alt="" className="photoContainerImage" />
+                <Image
+                  src={
+                    item.cover_pic &&
+                    (item.cover_pic.startsWith("http") ||
+                      item.cover_pic.startsWith("/"))
+                      ? `${item.cover_pic}`
+                      : photoSix
+                  }
+                  alt=""
+                  width={100}
+                  height={100}
+                  className="photoContainerImage"
+                />
               </div>
             </div>
 
@@ -58,8 +71,16 @@ const PostStructure = () => {
                 <div className="mainPostContainerHeaderWrapperSystem">
                   <div className="profileImage">
                     <Image
-                      src={photoSix}
+                      src={
+                        item.profile_pic &&
+                        (item.profile_pic.startsWith("http") ||
+                          item.profile_pic.startsWith("/"))
+                          ? `${item.profile_pic}`
+                          : photoSix
+                      }
                       alt=""
+                      width={100}
+                      height={100}
                       className="profileImageState"
                     />
                   </div>
@@ -75,7 +96,7 @@ const PostStructure = () => {
                 </div>
               </div>
               <div className="postContainer">
-                <p>{`${item.date}11 min read`}</p>
+                <p>{`${moment(item.date).format("MMM DD, YYYY hh:mm")}`}</p>
                 <button>{item.tag}</button>
               </div>
             </div>
@@ -84,54 +105,5 @@ const PostStructure = () => {
     </PostStructureDiv>
   );
 };
-
-// const posts = [
-//   {
-//     profilePics: photoOne,
-//     photo: photoOne,
-//     title:
-//       "How to build a blog Sungkyunkwan University (SKKU) is a world-class institution ",
-//     author: "Emeka",
-//     date: "Jan 20",
-//     content:
-//       "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-//   },
-//   {
-//     profilePics: photoOne,
-//     photo: photoTwo,
-//     title: "My First Electricity Connection",
-//     author: "Joshua Ejike",
-//     date: "August 19",
-//     content:
-//       "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-//   },
-//   {
-//     profilePics: photoOne,
-//     photo: photoThree,
-//     title: "How to become a better Programmer",
-//     author: "Emeka",
-//     date: "1 day ago",
-//     content:
-//       "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-//   },
-//   {
-//     profilePics: photoOne,
-//     photo: photoFour,
-//     title: "Step by step guide in Making good interior design",
-//     author: "Emeka",
-//     date: "May 24",
-//     content:
-//       "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-//   },
-//   {
-//     profilePics: photoOne,
-//     photo: photoFive,
-//     title: "A visit to paris",
-//     author: "Emeka",
-//     date: "June 23",
-//     content:
-//       "Sungkyunkwan University (SKKU) is a world-class institution of higher education that has existed for more than six centuries. Since its founding as a royal Confucian academy in 1398 at the dawn of the Joseon Dynasty (1392-1910), SKKU has demonstrated strong academic leadership. Cont…",
-//   },
-// ];
 
 export default memo(PostStructure);

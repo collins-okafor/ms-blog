@@ -272,6 +272,18 @@ const DashBoardServices = {
         throw err;
       });
   },
+
+  uploadImage: (payload) => {
+    return APIs.post(`/api/upload/image`, payload)
+      .then((data) => {
+        if (data?.data?.message === "success") {
+          return data?.data;
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
 };
 
 export default DashBoardServices;

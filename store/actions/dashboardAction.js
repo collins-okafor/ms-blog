@@ -3,6 +3,7 @@ import {
   DASHBOARD_ALL_ARTICLE,
   DASHBOARD_LOADER,
   DASHBOARD_SINGLE_POST,
+  DOCS_LOADER,
   MY_USER_DETAILS,
   NOTIFICATION_STATE,
   OTHER_USER_DETAILS,
@@ -69,4 +70,8 @@ export const getOtherUserDetails = (param) => (dispatch) => {
 
 export const getUserStore = (param) => (dispatch) => {
   dispatch({ type: USER_STORE, payload: param });
+};
+
+export const getDocsLoader = (param) => (dispatch) => {
+  dispatch({ type: DOCS_LOADER, payload: param });
 };

@@ -75,7 +75,9 @@ export const StyledModal = styled.div`
             text-align: center;
           }
         }
+
         label {
+          position: relative;
           /* width: 10%; */
           height: 80px;
           @media (max-width: 700px) {
@@ -85,6 +87,16 @@ export const StyledModal = styled.div`
             width: 100%;
             height: inherit;
             border-radius: 50%;
+          }
+
+          .loadingImage {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
           }
         }
       }
@@ -163,6 +175,11 @@ export const StyledModal = styled.div`
         background-color: green;
         border: none;
         color: white;
+
+        &:disabled {
+          cursor: not-allowed;
+          background-color: grey;
+        }
       }
     }
   }

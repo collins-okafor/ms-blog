@@ -7,6 +7,7 @@ import DashBoardServices from "../../../services/dashboardServices";
 import { getOtherUserDetails } from "../../../store/actions/dashboardAction";
 import LoaderBob from "../../../universal-Components/Loaders/loaderBob";
 import { ProfileHeaderDiv } from "../styles/profileHeader.style";
+import Skeleton from "@mui/material/Skeleton";
 
 const OtherUserHeader = () => {
   const dispatch = useDispatch();

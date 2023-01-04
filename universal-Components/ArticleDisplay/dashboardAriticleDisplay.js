@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Ads from "../postAdsStructure/ads";
 import { ArticleDisplayDiv } from "./styles/articleDisplay.style";
-import image1 from "../../assets/Images/Avatar.png";
+import image1 from "../../assets/Icons/avatar-profile-photo.png";
 import Image from "next/image";
 import { MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
@@ -30,6 +30,7 @@ import PDropdown from "../postDropdown/dropdown";
 
 const DashboardArticleDisplay = () => {
   const ref = useRef();
+  const refSub = useRef();
   const router = useRouter();
   const dispatch = useDispatch();
   const [change, setChange] = useState(false);
@@ -38,6 +39,9 @@ const DashboardArticleDisplay = () => {
   const [submitComment, setSubmitComment] = useState(false);
   const [showAndClose, setShowAndClose] = useState(false);
   const [closeDropdown, setCloseDropdown] = useState(false);
+
+  const [showAndCloseSub, setShowAndCloseSub] = useState(false);
+  const [closeDropdownSub, setCloseDropdownSub] = useState(false);
 
   const HandleChangeComment = (e) => {
     const { name, value } = e.target;
@@ -201,7 +205,19 @@ const DashboardArticleDisplay = () => {
     }
   };
 
+  const HandleDropdownSubBody = () => {
+    if (!closeDropdownSub) {
+      setShowAndCloseSub(true);
+      setCloseDropdownSub(true);
+    } else {
+      setShowAndCloseSub(false);
+      setCloseDropdownSub(false);
+    }
+  };
+
   useOnClickOutside(ref, () => setShowAndClose(false));
+
+  useOnClickOutside(refSub, () => setShowAndCloseSub(false));
 
   return (
     <ArticleDisplayDiv>
@@ -210,8 +226,16 @@ const DashboardArticleDisplay = () => {
           <div className={"articleWrapper__headerProfile"}>
             <div className={"articleWrapper__headerProfilePics"}>
               <Image
-                src={image1}
+                src={
+                  getSingleArticle.profile_pic &&
+                  (getSingleArticle.profile_pic.startsWith("http") ||
+                    getSingleArticle.profile_pic.startsWith("/"))
+                    ? `${getSingleArticle.profile_pic}`
+                    : image1
+                }
                 alt="state"
+                width={100}
+                height={100}
                 className={"articleWrapper__headerProfilePicsItem"}
               />
             </div>
@@ -284,10 +308,18 @@ const DashboardArticleDisplay = () => {
 
           <div className={"articleWrapper__titleImageWrapper"}>
             <Image
-              src={photoSix}
+              src={
+                getSingleArticle?.cover_pic &&
+                (getSingleArticle.cover_pic.startsWith("http") ||
+                  getSingleArticle.cover_pic.startsWith("/"))
+                  ? `${getSingleArticle?.cover_pic}`
+                  : photoSix
+              }
               alt={""}
+              width={100}
+              height={100}
               priority
-              placeholder={"blur"}
+              // placeholder={"blur"}
               // blurDataURL
               objectFit={"cover"}
               layout={"responsive"}
@@ -366,10 +398,19 @@ const DashboardArticleDisplay = () => {
                 />
               </div>
             )}
-            <div className={"articleWrapper__SocialMedaiStatusFollowIconBody"}>
-              <FiMoreHorizontal
-                className={"articleWrapper__SocialMedaiStatusFollowIcon"}
-              />
+            <div className="articleWrapper__SocialMedaiStatusFollowIconBodyStae">
+              <div
+                className={"articleWrapper__SocialMedaiStatusFollowIconBody"}
+                onClick={HandleDropdownSubBody}
+              >
+                <FiMoreHorizontal
+                  className={"articleWrapper__SocialMedaiStatusFollowIcon"}
+                />
+              </div>
+
+              {showAndCloseSub && (
+                <PDropdown ref={ref} details={getSingleArticle} />
+              )}
             </div>
           </div>
         </div>

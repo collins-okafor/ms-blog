@@ -5,7 +5,7 @@ export const ArticleDisplayDiv = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  padding: 40px 0px;
+  padding: 40px 0px 80px 0px;
 
   .articleWrapper {
     width: 70%;
@@ -123,7 +123,7 @@ export const ArticleDisplayDiv = styled.div`
           font-weight: 700;
           font-style: normal;
           color: ${({ theme }) => theme.textColor};
-          line-height: 25px;
+          line-height: 40px;
           text-transform: capitalize;
           transition: all 1.5s;
         }
@@ -141,7 +141,21 @@ export const ArticleDisplayDiv = styled.div`
         font-style: normal;
         color: ${({ theme }) => theme.textColor};
         line-height: 30px;
+        max-width: 100%;
+        overflow: auto;
         transition: all 1.5s;
+
+        .image {
+          width: 100%;
+
+          img {
+            max-width: 100%;
+          }
+        }
+
+        img {
+          max-width: 100%;
+        }
       }
     }
 
@@ -207,16 +221,20 @@ export const ArticleDisplayDiv = styled.div`
           }
         }
 
-        .articleWrapper__SocialMedaiStatusFollowIconBody {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
+        .articleWrapper__SocialMedaiStatusFollowIconBodyStae {
+          position: relative;
 
-          .articleWrapper__SocialMedaiStatusFollowIcon {
-            font-size: 15px;
-            color: ${({ theme }) => theme.textColor};
-            transition: all 1.5s;
+          .articleWrapper__SocialMedaiStatusFollowIconBody {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .articleWrapper__SocialMedaiStatusFollowIcon {
+              font-size: 15px;
+              color: ${({ theme }) => theme.textColor};
+              transition: all 1.5s;
+            }
           }
         }
       }
