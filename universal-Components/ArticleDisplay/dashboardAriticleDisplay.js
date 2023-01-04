@@ -30,6 +30,7 @@ import PDropdown from "../postDropdown/dropdown";
 
 const DashboardArticleDisplay = () => {
   const ref = useRef();
+  const refSub = useRef();
   const router = useRouter();
   const dispatch = useDispatch();
   const [change, setChange] = useState(false);
@@ -38,6 +39,9 @@ const DashboardArticleDisplay = () => {
   const [submitComment, setSubmitComment] = useState(false);
   const [showAndClose, setShowAndClose] = useState(false);
   const [closeDropdown, setCloseDropdown] = useState(false);
+
+  const [showAndCloseSub, setShowAndCloseSub] = useState(false);
+  const [closeDropdownSub, setCloseDropdownSub] = useState(false);
 
   const HandleChangeComment = (e) => {
     const { name, value } = e.target;
@@ -201,7 +205,19 @@ const DashboardArticleDisplay = () => {
     }
   };
 
+  const HandleDropdownSubBody = () => {
+    if (!closeDropdownSub) {
+      setShowAndCloseSub(true);
+      setCloseDropdownSub(true);
+    } else {
+      setShowAndCloseSub(false);
+      setCloseDropdownSub(false);
+    }
+  };
+
   useOnClickOutside(ref, () => setShowAndClose(false));
+
+  useOnClickOutside(refSub, () => setShowAndCloseSub(false));
 
   return (
     <ArticleDisplayDiv>
@@ -382,10 +398,19 @@ const DashboardArticleDisplay = () => {
                 />
               </div>
             )}
-            <div className={"articleWrapper__SocialMedaiStatusFollowIconBody"}>
-              <FiMoreHorizontal
-                className={"articleWrapper__SocialMedaiStatusFollowIcon"}
-              />
+            <div className="articleWrapper__SocialMedaiStatusFollowIconBodyStae">
+              <div
+                className={"articleWrapper__SocialMedaiStatusFollowIconBody"}
+                onClick={HandleDropdownSubBody}
+              >
+                <FiMoreHorizontal
+                  className={"articleWrapper__SocialMedaiStatusFollowIcon"}
+                />
+              </div>
+
+              {showAndCloseSub && (
+                <PDropdown ref={ref} details={getSingleArticle} />
+              )}
             </div>
           </div>
         </div>

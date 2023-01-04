@@ -6,16 +6,19 @@ import { getLoginPageCounter } from "../../store/actions/authAction";
 import {
   getMyUserDetails,
   getRefreshUserDetails,
+  getUserStore,
 } from "../../store/actions/dashboardAction";
 import DashBoardServices from "../../services/dashboardServices";
 import LoaderBob from "../../universal-Components/Loaders/loaderBob";
 import Image from "next/image";
+import SpinnerMain from "../../universal-Components/Spinner/Spinner";
 
 const EditProfile = () => {
   const [displayImage, setDisplayImage] = useState();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [changeImage, setChangeImage] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   const myUserDetails = useSelector(
     (state) => state.DashboardReducers.myUserDetails
@@ -24,6 +27,8 @@ const EditProfile = () => {
   const RefreshUserDetails = useSelector(
     (state) => state.DashboardReducers.RefreshUserDetails
   );
+
+  const userStore = useSelector((state) => state.DashboardReducers.userStore);
 
   function getbase64(file) {
     return new Promise((resolve, reject) => {
@@ -40,6 +45,7 @@ const EditProfile = () => {
   }
 
   const handleChange = async (e) => {
+    setLoadingImage(true);
     let image = e.target.files[0];
 
     // setDisplayImage(URL.createObjectURL(image));
@@ -67,6 +73,8 @@ const EditProfile = () => {
                 profile_pic: data?.data?.url,
               })
             );
+
+            setLoadingImage(false);
           })
           .catch((err) => {
             throw err;
@@ -106,6 +114,7 @@ const EditProfile = () => {
       .then((data) => {
         dispatch(getMyUserDetails({ ...myUserDetails, ...data }));
         dispatch(getRefreshUserDetails({ ...RefreshUserDetails, ...data }));
+        dispatch(getUserStore({ ...userStore, ...data }));
         setLoading(false);
       })
       .catch((err) => {});
@@ -134,6 +143,12 @@ const EditProfile = () => {
                 height={100}
                 alt="this"
               />
+
+              {loadingImage && (
+                <div className="loadingImage">
+                  <SpinnerMain />
+                </div>
+              )}
             </label>
             <input
               type="file"
@@ -192,9 +207,19 @@ const EditProfile = () => {
           <button className="cancelBtn" onClick={CancelDetails}>
             cancel
           </button>
-          <button className="saveBtn" onClick={HandleEditDetails}>
-            {loading ? <LoaderBob /> : <>save</>}
-          </button>
+          {loading ? (
+            <button disabled={loadingImage ? true : false} className="saveBtn">
+              <LoaderBob />
+            </button>
+          ) : (
+            <button
+              disabled={loadingImage ? true : false}
+              className="saveBtn"
+              onClick={HandleEditDetails}
+            >
+              save
+            </button>
+          )}
         </div>
       </div>
     </StyledModal>

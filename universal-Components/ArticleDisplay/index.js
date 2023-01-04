@@ -61,8 +61,16 @@ const ArticleDisplay = () => {
           <div className={"articleWrapper__headerProfile"}>
             <div className={"articleWrapper__headerProfilePics"}>
               <Image
-                src={image1}
+                src={
+                  getSingleArticle.profile_pic &&
+                  (getSingleArticle.profile_pic.startsWith("http") ||
+                    getSingleArticle.profile_pic.startsWith("/"))
+                    ? `${getSingleArticle.profile_pic}`
+                    : image1
+                }
                 alt="state"
+                width={100}
+                height={100}
                 className={"articleWrapper__headerProfilePicsItem"}
               />
             </div>
@@ -72,18 +80,24 @@ const ArticleDisplay = () => {
               </p>
               <p className={"articleWrapper__headerProfileDetailsParagraph"}>
                 {moment(getSingleArticle?.createdAt).format(
-                  "YYYY-MM-DD hh:mm:ss"
+                  "MMM DD, YYYY hh:mm"
                 )}
               </p>
             </div>
           </div>
           <div className={"articleWrapper__headerProfileSectionState"}>
-            <div className={"articleWrapper__headerProfileSectionStateSave"}>
+            <div
+              className={"articleWrapper__headerProfileSectionStateSave"}
+              onClick={HandleShowComment}
+            >
               <MdOutlineBookmarkAdd
                 className={"articleWrapper__headerProfileSectionStateSaveItem"}
               />
             </div>
-            <div className={"articleWrapper__headerProfileSectionStateFollow"}>
+            <div
+              className={"articleWrapper__headerProfileSectionStateFollow"}
+              onClick={HandleShowComment}
+            >
               <FiMoreHorizontal
                 className={
                   "articleWrapper__headerProfileSectionStateFollowItem"
@@ -101,10 +115,18 @@ const ArticleDisplay = () => {
 
           <div className={"articleWrapper__titleImageWrapper"}>
             <Image
-              src={photoSix}
+              src={
+                getSingleArticle?.cover_pic &&
+                (getSingleArticle.cover_pic.startsWith("http") ||
+                  getSingleArticle.cover_pic.startsWith("/"))
+                  ? `${getSingleArticle?.cover_pic}`
+                  : photoSix
+              }
               alt={""}
+              width={100}
+              height={100}
               priority
-              placeholder={"blur"}
+              // placeholder={"blur"}
               // blurDataURL
               objectFit={"cover"}
               layout={"responsive"}
@@ -162,12 +184,18 @@ const ArticleDisplay = () => {
             </div>
           </div>
           <div className={"articleWrapper__SocialMedaiStatus"}>
-            <div className={"articleWrapper__SocialMedaiStatusSaveIconBody"}>
+            <div
+              className={"articleWrapper__SocialMedaiStatusSaveIconBody"}
+              onClick={HandleShowComment}
+            >
               <MdOutlineBookmarkAdd
                 className={"articleWrapper__SocialMedaiStatusSaveIcon"}
               />
             </div>
-            <div className={"articleWrapper__SocialMedaiStatusFollowIconBody"}>
+            <div
+              className={"articleWrapper__SocialMedaiStatusFollowIconBody"}
+              onClick={HandleShowComment}
+            >
               <FiMoreHorizontal
                 className={"articleWrapper__SocialMedaiStatusFollowIcon"}
               />
