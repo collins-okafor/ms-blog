@@ -13,7 +13,7 @@ const HomeSearch = () => {
   );
 
   const HandleClick = (item) => {
-    router.push(`/${item._id}`);
+    item._id ? router.replace(`/${item._id}`) : router.push("/");
     // router.push({
     //   pathname: "/[articleDetails]",
     //   query: { articleDetails: item._id },

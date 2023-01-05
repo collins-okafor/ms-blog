@@ -46,8 +46,8 @@ const SearchComp = ({ searchArry, handleOpenSearch }) => {
               <img src={photoTwo.src} alt="" />
             </div>
             <div className="searchWord">
-              <h3>{item.title}</h3>
-              <p>{item.date}</p>
+              <h3>{item?.title}</h3>
+              <p>{item?.date}</p>
             </div>
           </div>
         ))}
