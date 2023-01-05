@@ -13,7 +13,11 @@ const HomeSearch = () => {
   );
 
   const HandleClick = (item) => {
-    router.push(`/dashboard/${item._id}`);
+    router.push(`/${item._id}`);
+    // router.push({
+    //   pathname: "/[articleDetails]",
+    //   query: { articleDetails: item._id },
+    // });
     dispatch(getLoginPageCounter({}));
     console.log("router pushing");
   };
