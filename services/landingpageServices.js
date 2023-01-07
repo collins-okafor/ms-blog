@@ -1,9 +1,10 @@
 import APIs from "./api";
 
 const landingpageService = {
-  getAllArticle: () => {
-    return APIs.get("/api/main/all_article")
+  getAllArticle: (arg) => {
+    return APIs.get("/api/main/all_article", { limit: 1 })
       .then((data) => {
+        console.log(data);
         if (data?.data?.message === "success") {
           return {
             allArticle: data?.data?.data,

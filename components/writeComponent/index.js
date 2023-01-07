@@ -25,6 +25,7 @@ const WriteComponent = () => {
   const [form, setForm] = useState({});
   const [imageFile, setImageFile] = useState();
   const [loading, setLoading] = useState(false);
+  const [imageState, setImageState] = useState([]);
 
   const AuthLoader = useSelector((state) => state.authReducer.AuthLoader);
 
@@ -62,7 +63,11 @@ const WriteComponent = () => {
       promise.then((data) => {
         DashBoardServices.uploadImage({ file: data })
           .then((data) => {
-            setForm({ ...form, [name]: data?.data?.url });
+            setForm({
+              ...form,
+              [name]: data?.data?.secure_url,
+              cover_pic_id: data?.data?.public_id,
+            });
 
             setImageFile(e.target.files[0]);
             setLoading(false);
@@ -92,6 +97,8 @@ const WriteComponent = () => {
         tag: dropItem,
         title: form?.title,
         cover_pic: form.cover_pic,
+        cover_pic_id: form.cover_pic_id,
+        article_Image_cloud: imageState,
         article: data,
       };
 
@@ -170,7 +177,14 @@ const WriteComponent = () => {
       </div>
       <div className="wirteWrappperBodyEditor">
         <p className="wirteWrappperBodyEditorTitle">Article Body</p>
-        {MyEditor && <MyEditor handleEditor={handleEditor} data={data} />}
+        {MyEditor && (
+          <MyEditor
+            handleEditor={handleEditor}
+            data={data}
+            setImageState={setImageState}
+            imageState={imageState}
+          />
+        )}
       </div>
 
       <div className="wirteWrappperBodyButton">

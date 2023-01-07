@@ -10,11 +10,11 @@ const APIs = axios.create({
   headers: {
     Accept: "application/json",
 
-    "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Origin": "*",
 
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
 
-    "Access-Control-Allow-Credentials": "true",
+    // "Access-Control-Allow-Credentials": "true",
 
     "content-Type": "application/json",
 

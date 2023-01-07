@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import { PostStructureDiv } from "./styles/postStructure.style";
-
 import photoSix from "../../assets/Images/about-us.jpg";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
@@ -12,6 +11,7 @@ import moment from "moment";
 
 const PostStructure = () => {
   const router = useRouter();
+
   const getAllarticle = useSelector(
     (state) => state?.landingPageReducer?.getAllarticle
   );
