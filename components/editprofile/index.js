@@ -12,9 +12,12 @@ import DashBoardServices from "../../services/dashboardServices";
 import LoaderBob from "../../universal-Components/Loaders/loaderBob";
 import Image from "next/image";
 import SpinnerMain from "../../universal-Components/Spinner/Spinner";
+import { DASHBOARD_PROFILE_IMAGE_CHANGES } from "../../store/type";
+import GeneralServices from "../../services/generalService";
+import { toast } from "react-toastify";
 
 const EditProfile = () => {
-  const [displayImage, setDisplayImage] = useState();
+  // const [displayImage, setDisplayImage] = useState();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [changeImage, setChangeImage] = useState(false);
@@ -22,6 +25,10 @@ const EditProfile = () => {
 
   const myUserDetails = useSelector(
     (state) => state.DashboardReducers.myUserDetails
+  );
+
+  const displayImage = useSelector(
+    (state) => state.DashboardReducers.dashboardProfileImageChanges
   );
 
   const RefreshUserDetails = useSelector(
@@ -45,32 +52,30 @@ const EditProfile = () => {
   }
 
   const handleChange = async (e) => {
-    setLoadingImage(true);
     let image = e.target.files[0];
 
     // setDisplayImage(URL.createObjectURL(image));
     // console.log({ image: image }, "new state");
     if (image) {
+      setLoadingImage(true);
       let promise = getbase64(image);
 
       promise.then((data) => {
         DashBoardServices.uploadImage({ file: data })
           .then((data) => {
-            setDisplayImage(data?.data?.url);
-
-            // myUserDetails
-
-            dispatch(
-              getMyUserDetails({
-                ...myUserDetails,
+            dispatch({
+              type: DASHBOARD_PROFILE_IMAGE_CHANGES,
+              payload: {
                 profile_pic: data?.data?.url,
-              })
-            );
+                cloudinary_id: data?.data?.public_id,
+              },
+            });
 
             dispatch(
               getRefreshUserDetails({
                 ...RefreshUserDetails,
                 profile_pic: data?.data?.url,
+                cloudinary_id: data?.data?.public_id,
               })
             );
 
@@ -85,11 +90,39 @@ const EditProfile = () => {
   };
 
   const handleCancel = () => {
+    // if (Object.keys(displayImage).length > 0) {
+    //   console.log(displayImage?.cloudinary_id);
+    //   const payload = { cloudinary_id: displayImage?.cloudinary_id };
+
+    //   DashBoardServices.deleteCloudImage(payload).then((data) => {
+    //     dispatch({
+    //       type: DASHBOARD_PROFILE_IMAGE_CHANGES,
+    //       payload: {},
+    //     });
+
+    //     toast("deleted the image because it was not edited");
+    //   });
+    // }
+
     dispatch(getRefreshUserDetails(myUserDetails));
+
     dispatch(getLoginPageCounter({}));
   };
 
-  const CancelDetails = () => {
+  const CancelDetails = async () => {
+    // if (Object.keys(displayImage).length > 0) {
+    //   console.log(displayImage?.cloudinary_id);
+    //   const payload = { cloudinary_id: displayImage?.cloudinary_id };
+
+    //   await DashBoardServices.deleteCloudImage(payload).then((data) => {
+    //     dispatch({
+    //       type: DASHBOARD_PROFILE_IMAGE_CHANGES,
+    //       payload: {},
+    //     });
+
+    //     toast("deleted the image because it was not edited");
+    //   });
+    // }
     dispatch(getRefreshUserDetails(myUserDetails));
     dispatch(getLoginPageCounter({}));
   };
@@ -110,11 +143,40 @@ const EditProfile = () => {
     e.preventDefault();
     setLoading(true);
 
+    dispatch(
+      getMyUserDetails({
+        ...myUserDetails,
+        profile_pic: displayImage?.profile_pic,
+        cloudinary_id: displayImage?.cloudinary_id,
+      })
+    );
+
+    dispatch(
+      getRefreshUserDetails({
+        ...RefreshUserDetails,
+        profile_pic: displayImage?.profile_pic,
+        cloudinary_id: displayImage?.cloudinary_id,
+      })
+    );
+
+    dispatch(
+      getUserStore({
+        ...myUserDetails,
+        profile_pic: displayImage?.profile_pic,
+        cloudinary_id: displayImage?.cloudinary_id,
+      })
+    );
+
     await DashBoardServices.editUserDetails(RefreshUserDetails)
       .then((data) => {
+        console.log(data, "section");
         dispatch(getMyUserDetails({ ...myUserDetails, ...data }));
         dispatch(getRefreshUserDetails({ ...RefreshUserDetails, ...data }));
         dispatch(getUserStore({ ...userStore, ...data }));
+        dispatch({
+          type: DASHBOARD_PROFILE_IMAGE_CHANGES,
+          payload: {},
+        });
         setLoading(false);
       })
       .catch((err) => {});

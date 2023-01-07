@@ -14,6 +14,7 @@ import {
   OTHER_USER_DETAILS,
   USER_STORE,
   DOCS_LOADER,
+  DASHBOARD_PROFILE_IMAGE_CHANGES,
 } from "../type";
 
 const initialState = {
@@ -31,6 +32,7 @@ const initialState = {
   RefreshUserDetails: {},
   otherUserDetails: {},
   userStore: {},
+  dashboardProfileImageChanges: {},
   docsLoader: false,
 };
 
@@ -38,6 +40,13 @@ const DashboardReducers = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case DASHBOARD_PROFILE_IMAGE_CHANGES: {
+      return {
+        ...state,
+        dashboardProfileImageChanges: payload,
+      };
+    }
+
     case DOCS_LOADER: {
       return {
         ...state,

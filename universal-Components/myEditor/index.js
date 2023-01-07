@@ -12,7 +12,7 @@ import { getDocsLoader } from "../../store/actions/dashboardAction";
 // import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials";
 // import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 
-const MyEditor = ({ handleEditor, data }) => {
+const MyEditor = ({ handleEditor, data, setImageState, imageState }) => {
   const dispatch = useDispatch();
   // const [data, setData] = useState("");
   // const baseURL = useSelector((state) => state.authReducer.baseURL);
@@ -46,7 +46,14 @@ const MyEditor = ({ handleEditor, data }) => {
             promise.then((data) => {
               return DashBoardServices.uploadImage({ file: data })
                 .then((data) => {
-                  return data?.data?.url;
+                  setImageState((imageState) => [
+                    ...imageState,
+                    {
+                      url: data?.data?.secure_url,
+                      cloudinary_id: data?.data?.public_id,
+                    },
+                  ]);
+                  return data?.data?.secure_url;
                 })
                 .then((res) => {
                   dispatch(getDocsLoader(false));
